@@ -41,7 +41,7 @@
 
   --radius-lg:24px; --radius-md:16px; --radius-sm:10px; --radius-pill:999px;
   --transition:.2s ease;
-  --page-width:1200px;
+  --page-width:1140px;
 }
 
 body.dark{
@@ -76,6 +76,7 @@ body.dark{
 html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; scroll-behavior:smooth; }
 *{ margin:0; padding:0; box-sizing:border-box; }
 
+html{ overflow-x:hidden; }
 body{
   font-family:var(--body);
   font-size:calc(15px * var(--fs-body));
@@ -83,7 +84,7 @@ body{
   color:var(--text);
   background:var(--bg);
   padding:26px 20px 64px;
-  overflow-x:hidden;
+  display:flex; flex-direction:column; align-items:center;
   -webkit-font-smoothing:antialiased;
   transition:background var(--transition), color var(--transition);
 }
@@ -96,7 +97,7 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--accent); outline-
 /* ================= browser sheet ================= */
 
 .sheet{
-  max-width:var(--page-width); margin:0 auto; position:relative;
+  width:100%; max-width:var(--page-width); margin:0 auto; position:relative;
   background:var(--sheet);
   border:1.5px solid var(--line);
   border-radius:28px;
@@ -137,15 +138,17 @@ a:focus-visible, button:focus-visible{ outline:2px solid var(--accent); outline-
 /* ================= pill nav (identical on every page) ================= */
 
 .nav{ position:static; background:transparent; border:0; }
+/* moyo centres the pill row; the logo sits over it on the left so the tabs stay centred */
 .nav-inner{
-  width:100%; padding:16px 26px 2px;
-  display:flex; align-items:center; flex-wrap:wrap; gap:4px;
+  position:relative; width:100%; padding:16px 26px 2px;
+  display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:4px;
 }
 .nav a.nav-logo,
 a.nav-logo{
+  position:absolute; left:26px; top:50%; transform:translateY(-50%);
   font-family:var(--disp); font-weight:800;
   font-size:calc(25px * var(--fs-title)); color:var(--logo);
-  margin-right:auto; padding:6px 10px 6px 2px;
+  padding:6px 10px 6px 2px;
   display:inline-flex; align-items:baseline; gap:8px;
 }
 a.nav-logo .lg-en{
@@ -384,6 +387,7 @@ body.ready .wrap{ opacity:1; }
   .chrome{ padding:14px 16px; gap:12px; }
   .addr{ font-size:12px; padding:8px 14px; }
   .nav-inner{ padding:12px 14px 2px; }
+  a.nav-logo{ position:static; transform:none; margin:0 auto 4px; }
   .container{ padding:6px 16px 0; }
   .ornate{ padding:26px 20px 24px; }
   .ohd{ font-size:20px; letter-spacing:.18em; }
