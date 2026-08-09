@@ -7,7 +7,14 @@ var FX_COUNT = 16;
 var FX_TILT  = true;
 
 var FX_LOADER      = true;
-var FX_LOADER_IMG  = '';
+/* Circular loading avatar: a zoomed face crop. Resolved against fx.js's own location so
+   subfolder pages get the same file. */
+var FX_LOADER_IMG  = 'assets/loader.jpg';
+var FX_BASE = (function () {
+  var sc = document.currentScript;
+  if (!sc) { var all = document.getElementsByTagName('script'); sc = all[all.length - 1]; }
+  return (sc && sc.src ? sc.src.replace(/[^/]*$/, '') : '');
+})();
 var FX_LOADER_TEXT = '';
 var FX_TRANS_MS    = 800;
 
@@ -39,7 +46,7 @@ var FX_TRANS_MS    = 800;
     #fxload{ position:fixed; inset:0; z-index:9999; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; background:var(--bg); transition:opacity .34s ease; }
     #fxload.fx-hide{ opacity:0; pointer-events:none; }
     #fxload.fx-hide .fxload-av, #fxload.fx-hide .fxload-dots i{ animation-play-state:paused; }
-    #fxload .fxload-av{ width:96px; height:96px; border-radius:50%; background:var(--main-light); background-size:cover; background-position:center; display:flex; align-items:center; justify-content:center; font-size:46px; font-weight:800; color:var(--main-dark); box-shadow:0 10px 28px rgba(0,0,0,.14); animation:fxBob 1.1s ease-in-out infinite; }
+    #fxload .fxload-av{ width:136px; height:136px; border-radius:50%; border:5px solid var(--sheet, #fffdf7); background:var(--main-light); background-size:cover; background-position:center; display:flex; align-items:center; justify-content:center; font-size:46px; font-weight:800; color:var(--main-dark); box-shadow:0 10px 28px rgba(0,0,0,.14); animation:fxBob 1.1s ease-in-out infinite; }
     #fxload .fxload-av.mascot{ width:150px; height:150px; border-radius:0; background-color:transparent; background-size:contain; background-repeat:no-repeat; box-shadow:none; filter:drop-shadow(0 12px 22px rgba(0,0,0,.16)); }
     @keyframes fxBob{ 0%,100%{ transform:translateY(0) scale(1); } 50%{ transform:translateY(-12px) scale(1.04); } }
     #fxload .fxload-name{ font-weight:800; font-size:18px; color:var(--main-dark); letter-spacing:.02em; }
@@ -70,7 +77,8 @@ var FX_TRANS_MS    = 800;
       if (ico && ico.href && /\.(jpe?g|png|gif|webp)(\?|$)/i.test(ico.href)) img = ico.href;
     }
     var logoTxt = ((document.querySelector('.nav-logo') || {}).textContent || document.title || '').trim();
-    if (FX_LOADER_IMG)            av.style.backgroundImage = 'url("' + FX_LOADER_IMG + '")';
+    var LIMG = window.FX_LOADER_IMG || FX_LOADER_IMG;
+    if (LIMG)                     av.style.backgroundImage = 'url("' + (/^(data:|https?:|\/)/.test(LIMG) ? LIMG : FX_BASE + LIMG) + '")';
     else if (ch && ch !== 'none') { av.style.backgroundImage = ch; av.classList.add('mascot'); }
     else if (img)                av.style.backgroundImage = 'url("' + img + '")';
     else                         av.textContent = (FX_LOADER_TEXT || logoTxt || '✿').charAt(0) || '✿';

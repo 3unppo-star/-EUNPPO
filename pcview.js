@@ -9,7 +9,7 @@
    Load order: right after the stylesheets, before the page scripts. */
 
 (function () {
-  var DESIGN = 1180;
+  var DESIGN = 1240;
   if (location.search.indexOf('pc=1') === -1) return;
 
   document.documentElement.setAttribute('data-pc', '1');
@@ -40,7 +40,7 @@
     if (!document.head) return;
     var css =
       /* 1085 = 92% of DESIGN. Selector names follow this site's containers. */
-      'body.pcview .page-shell, body.pcview .site-footer, body.pcview .nav-shell, body.pcview .shell { width: 1085px; margin-left: auto; margin-right: auto; }' +
+      'body.pcview .sheet { width: 1200px; margin-left: auto; margin-right: auto; }' +
       'body.pcview #fx, body.pcview #fxload { position: absolute; }' +
       'body.pcview .stage { width: 1180px !important; height: 664px !important; min-height: 0 !important; aspect-ratio: auto !important; margin: 0 auto !important; }' +
       'body.pcview .main-cover { width: 1180px !important; margin: 0 auto !important; }' +

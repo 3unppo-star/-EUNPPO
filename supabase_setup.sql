@@ -14,7 +14,7 @@
 --   comments        : 팬이 남겨야 하므로 익명 등록 허용
 --   inquiries       : 익명 전송만 허용, 열람은 관리자만 (개인정보)
 --
--- 이 사이트가 쓰는 표: profile / notice / schedule / songs / original_songs / viewers / upbo_types / upbo_counts / inquiries / overlay_state
+-- 이 사이트가 쓰는 표: profile / notice / schedule / songs / original_songs / viewers / upbo_types / upbo_counts / dress_items / inquiries / overlay_state
 -- 이미지는 링크 방식이라 Storage(버킷) 없이 동작합니다.
 -- =============================================================
 
@@ -145,6 +145,21 @@ CREATE POLICY "original_songs_insert" ON original_songs FOR INSERT TO authentica
 CREATE POLICY "original_songs_update" ON original_songs FOR UPDATE TO authenticated USING (true) WITH CHECK (true);
 CREATE POLICY "original_songs_delete" ON original_songs FOR DELETE TO authenticated USING (true);
 
+
+-- ── 옷장 (헤어 / 의상 / 렌즈) — 이미지는 image_url(링크) ──
+CREATE TABLE IF NOT EXISTS dress_items (
+  id          BIGSERIAL PRIMARY KEY,
+  title       TEXT NOT NULL,
+  category    TEXT DEFAULT 'outfit',
+  image_url   TEXT,
+  badges      TEXT DEFAULT '',
+  created_at  TIMESTAMPTZ DEFAULT now()
+);
+ALTER TABLE dress_items ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "dress read"   ON dress_items FOR SELECT USING (true);
+CREATE POLICY "dress insert" ON dress_items FOR INSERT TO authenticated WITH CHECK (true);
+CREATE POLICY "dress update" ON dress_items FOR UPDATE TO authenticated USING (true);
+CREATE POLICY "dress delete" ON dress_items FOR DELETE TO authenticated USING (true);
 
 -- ── 업보: 시청자 ──
 CREATE TABLE IF NOT EXISTS viewers (

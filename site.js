@@ -113,6 +113,12 @@ if (typeof window.showToast !== 'function') {
   };
 }
 
+/* An admin-set loading face overrides the bundled crop before fx.js builds the cover. */
+window.profileData.then(function (d) {
+  var v = txt((d || {})['loader-img']);
+  if (v) window.FX_LOADER_IMG = v;
+}).catch(function () {});
+
 /* ---------- dark mode ---------- */
 
 (function () {

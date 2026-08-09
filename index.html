@@ -2,12 +2,12 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=1180, user-scalable=yes">
+<meta name="viewport" content="width=1240, user-scalable=yes">
 <title>최은뽀 · 프로필</title>
 <meta name="description" content="EUNPPO OFFICIAL — 최은뽀 프로필 페이지. 프로필 · 방송 일정 · 노래책.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="최은뽀 · EUNPPO OFFICIAL">
-<meta property="og:description" content="EUNPPO OFFICIAL — 볕 잘 드는 자리의 레몬나무 한 그루.">
+<meta property="og:description" content="EUNPPO OFFICIAL — 최은뽀 프로필 · 방송 일정 · 노래책.">
 <meta property="og:image" content="https://profile.img.sooplive.co.kr/LOGO/eu/eunpp0/eunpp0.jpg">
 <link rel="icon" type="image/jpeg" href="https://profile.img.sooplive.co.kr/LOGO/eu/eunpp0/eunpp0.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,11 +15,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <link rel="stylesheet" href="./style.css">
+<link rel="stylesheet" href="./eunppo-profile-approved.css">
 <script src="./pcview.js"></script>
 <style>
   body{ --char:url('./assets/char.png'); }
 
-  /* ── hero (moyo structure: photo fills the hero, avatar left / text centre / empty right slot) ── */
   .hero{ position:relative; height:470px; overflow:hidden;
     background:linear-gradient(180deg, var(--sub) 0%, var(--main) 58%, var(--sheet) 100%); }
   .hero::before{ content:''; position:absolute; inset:0; z-index:2; pointer-events:none;
@@ -230,12 +230,12 @@
 
   <div class="chrome">
     <span class="dots"><i></i><i></i><i></i></span>
-    <div class="addr"><span class="lock">🔒</span> https://eunppo.pages.dev</div>
+    <div class="addr"><span class="lock">NEXT LIVE</span><span id="next-live">개인 · 18:00</span></div>
     <button class="theme-switch" id="themeSwitch" type="button" aria-label="다크모드 전환"><span id="themeKnob">🍋</span></button>
   </div>
 
   <section class="hero" id="heroScene">
-    <img id="heroBg" src="./assets/hero.jpg" alt="" referrerpolicy="no-referrer">
+    <img id="heroBg" src="./assets/profile-hero.jpg" alt="" referrerpolicy="no-referrer">
     <div class="hero-in">
       <div class="hero-ava">
         <div class="avatar" id="avatarWrap">
@@ -247,8 +247,8 @@
         <h1 class="h-title" id="hero-name">최은뽀<span class="h-leaf">🍋</span></h1>
         <div class="h-sub"><i></i><span class="dm">✦</span>EUNPPO<span class="dm">✦</span><i></i></div>
         <div class="h-badges" id="heroBadges">
-          <span class="hb">LEMON GREENHOUSE</span>
-          <span class="hb">어인섬 CREW</span>
+          <span class="hb">레몬 · 나뭇잎</span>
+          <span class="hb">어인섬</span>
           <span class="hb live"><b></b>ISTP</span>
         </div>
         <p class="h-quote">“ <span id="hero-quote">흠냐, 힝</span> ”<span> 🌿</span></p>
@@ -264,16 +264,17 @@
       <div class="stat"><span class="s-k">소속</span><span class="s-v" id="stat-crew">어인섬</span></div>
       <div class="stat"><span class="s-k">MBTI</span><span class="s-v" id="stat-mbti">ISTP</span></div>
       <div class="stat"><span class="s-k">팬네임</span><span class="s-v" id="stat-fan">양배추 🥬</span></div>
-      <div class="stat"><span class="s-k">상태</span><span class="s-v" id="stat-status">온실 문 열림 🍋</span></div>
+      <div class="stat"><span class="s-k">방송</span><span class="s-v" id="stat-status">개인 방송 · 18:00</span></div>
     </div>
   </div>
 
-  <nav class="nav"><div class="nav-inner">
+<nav class="nav"><div class="nav-inner">
       <a class="nav-logo" href="./">최은뽀<span class="lg-en">EUNPPO</span></a>
       <a href="./" class="ntab active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7.5"/><path d="M12 4.5V2.8M14.6 5.2c1.6-1.4 3.6-1.6 3.6-1.6s-.4 2-2 3.2"/></svg>프로필</a>
       <a href="./schedule/" class="ntab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M8 3.5v3M16 3.5v3M3.5 10h17"/></svg>방송 일정</a>
       <a href="./song/" class="ntab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="17.5" r="3"/><circle cx="17.5" cy="15.5" r="3"/><path d="M10.5 17.5V6.5l10-2v11"/></svg>노래책</a>
       <a href="./work/" class="ntab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4.5" width="14" height="16" rx="2.5"/><path d="M9.5 3.5h5v3h-5z"/><path d="M9 13l2.2 2.2L15.5 11"/></svg>업보</a>
+      <a href="./dress/" class="ntab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4.2a1.9 1.9 0 0 0-1.6 2.9L12 9l1.6-1.9A1.9 1.9 0 0 0 12 4.2z"/><path d="M12 9l7.2 4.6a2 2 0 0 1 .9 1.7v2.9a1.6 1.6 0 0 1-1.6 1.6H5.5A1.6 1.6 0 0 1 3.9 18.2v-2.9a2 2 0 0 1 .9-1.7L12 9z"/></svg>옷장</a>
       <a href="./game/" class="ntab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="4.5"/><circle cx="9" cy="9" r="1.4" fill="currentColor" stroke="none"/><circle cx="15" cy="9" r="1.4" fill="currentColor" stroke="none"/><circle cx="9" cy="15" r="1.4" fill="currentColor" stroke="none"/><circle cx="15" cy="15" r="1.4" fill="currentColor" stroke="none"/></svg>미니게임</a>
       <button class="ntab" type="button" onclick="openInquiry()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 0-3.1 6.3L20.5 19l-.8-3.4A8 8 0 0 0 20 12z"/></svg>문의</button>
     </div></nav>
@@ -283,6 +284,7 @@
       <svg class="corner tl" viewBox="0 0 70 70" fill="none"><path d="M6 52C6 22 22 6 52 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M20 13q9-8 17-5-5 10-17 5z" fill="currentColor" opacity=".8"/><path d="M9 32q-7-9-3-17 10 5 3 17z" fill="currentColor" opacity=".55"/><path d="M36 8q7-6 13-4-4 8-13 4z" fill="currentColor" opacity=".4"/></svg>
       <svg class="corner tr" viewBox="0 0 70 70" fill="none"><path d="M6 52C6 22 22 6 52 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M20 13q9-8 17-5-5 10-17 5z" fill="currentColor" opacity=".8"/><path d="M9 32q-7-9-3-17 10 5 3 17z" fill="currentColor" opacity=".55"/><path d="M36 8q7-6 13-4-4 8-13 4z" fill="currentColor" opacity=".4"/></svg>
       <div class="ohd" style="margin:0 0 20px"><i></i><span class="dm">✦</span>PROFILE<span class="dm">✦</span><i></i></div>
+      <div class="headline" id="info-headline">차분한 또라이 · 사람 좋아하는 리트리버 · ISTP</div>
       <div class="plist">
         <div class="prow"><span class="pkey">이름</span><span class="pval" id="info-name">최은뽀 (EUNPPO)</span></div>
         <div class="prow"><span class="pkey">성격</span><div class="tags" id="info-tags"><span class="tag">차분한 또라이</span><span class="tag">리트리버</span></div></div>
@@ -300,10 +302,10 @@
       <div class="ohd" style="margin:0 0 20px"><i></i><span class="dm">✦</span>SUNROOM<span class="dm">✦</span><i></i></div>
       <div class="cc-body">
         <div class="cc-img" id="ccImgBox">
-            <iframe id="cc-media" src="https://vod.sooplive.co.kr/player/202554605/embed?showChat=false&autoPlay=false&mutePlay=false" title="최은뽀 노래" frameborder="0" allowfullscreen scrolling="no"></iframe>
+            <iframe id="cc-media" src="https://vod.sooplive.co.kr/player/202554605/embed?showChat=false&amp;autoPlay=false&amp;mutePlay=false" title="최은뽀 노래" frameborder="0" allowfullscreen scrolling="no"></iframe>
           </div>
         <div class="cc-rows">
-          <div class="d-row"><b>ABOUT</b><span id="msg">놀러 와줘서 고마워요. 오늘도 잘 자라는 중입니다.</span></div>
+          <div class="d-row"><b>ABOUT</b><span id="msg">게임 / 노래 · 사람 좋아하는 리트리버</span></div>
           <div class="d-row"><b>LIKE</b><div class="tags" id="like-list"></div></div>
           <div class="d-row"><b>DISLIKE</b><div class="tags" id="dislike-list"></div></div>
         </div>
@@ -393,22 +395,25 @@
 <script src="./site.js"></script>
 <script>
 const defaults = {
-  'soop-id':'eunpp0', avatar:'', 'hero-bg':'',
+  'soop-id':'eunpp0', avatar:'./assets/char.png', 'hero-bg':'./assets/profile-hero.jpg',
   'hero-quote':'흠냐, 힝',
-  'hero-badges':'LEMON GREENHOUSE,어인섬 CREW,ISTP',
+  'hero-badges':'레몬 · 나뭇잎,어인섬,ISTP',
+  'hero-name':'최은뽀', 'hero-kicker':'LEMON · LEAF', 'hero-en':'EUNPPO',
+  'next-live':'개인 · 18:00', 'loader-img':'', 'avatar':'',
+  'info-headline':'차분한 또라이 · 사람 좋아하는 리트리버 · ISTP',
   'stat-debut':'2017.07.07', 'stat-birth':'12.20', 'stat-crew':'어인섬',
-  'stat-mbti':'ISTP', 'stat-fan':'양배추 🥬', 'stat-status':'온실 문 열림 🍋',
+  'stat-mbti':'ISTP', 'stat-fan':'양배추 🥬', 'stat-status':'개인 방송 · 18:00',
   'info-name':'최은뽀 (EUNPPO)',
   'info-tags':'차분한 또라이, 리트리버',
   'info-gender':'여', 'info-content':'게임 / 노래',
   'info-item':'레몬 모양 머리핀', 'info-motif':'레몬 / 나뭇잎', 'info-fandom':'양배추',
-  msg:'놀러 와줘서 고마워요. 오늘도 잘 자라는 중입니다.',
+  msg:'게임 / 노래 · 사람 좋아하는 리트리버',
   'like-list':'팬들, 노래, 게임',
   'dislike-list':'운동, 공포게임, 힙합 곡',
   'sing-title':'여우비',
   'sing-sub':'인디 · 잔잔한 여자 발라드를 즐겨 부릅니다 · 노래방송 정기',
   'sing-link':'https://vod.sooplive.com/player/202554605?change_second=15688',
-  'sing-art':'', 'cc-media':'202554605',
+  'sing-art':'./assets/photo-3.jpg', 'cc-media':'202554605',
   'sched-line1':'크루 컨텐츠 · 오후 12시',
   'sched-line2':'개인 방송 · 오후 6시',
   'sched-line3':'휴방 · 주 1회',
@@ -453,7 +458,7 @@ async function load(){
     }
     setImg('heroBg', d['hero-bg']);
 
-    setText(['hero-quote','stat-debut','stat-birth','stat-crew','stat-mbti','stat-fan','stat-status',
+    setText(['hero-name','hero-kicker','hero-en','next-live','info-headline','hero-quote','stat-debut','stat-birth','stat-crew','stat-mbti','stat-fan','stat-status',
              'info-name','info-gender','info-content','info-item','info-motif','info-fandom',
              'sing-title','sing-sub'], d);
     var about = document.getElementById('msg');

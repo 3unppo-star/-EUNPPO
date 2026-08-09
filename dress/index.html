@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1180, user-scalable=yes">
+<title>최은뽀 · 옷장</title>
+<meta name="description" content="EUNPPO OFFICIAL — 최은뽀 옷장 — 새 옷과 기존 옷.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="최은뽀 · 옷장">
+<meta property="og:description" content="EUNPPO OFFICIAL — 최은뽀 옷장 — 새 옷과 기존 옷.">
+<meta property="og:image" content="https://profile.img.sooplive.co.kr/LOGO/eu/eunpp0/eunpp0.jpg">
+<link rel="icon" type="image/jpeg" href="https://profile.img.sooplive.co.kr/LOGO/eu/eunpp0/eunpp0.jpg">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="../style.css">
+<script src="../pcview.js"></script>
+<style>
+  body{ --char:url('../assets/char.png'); }
+  .dr-toggle{ display:flex; justify-content:center; gap:10px; margin:14px 0 12px; }
+  .dr-toggle button{ border:1.5px solid var(--line); background:var(--sheet); color:var(--text-mid);
+    border-radius:var(--radius-pill); padding:10px 22px; font-size:calc(14px * var(--fs-body));
+    font-weight:800; cursor:pointer; font-family:inherit; transition:all .18s ease; }
+  .dr-toggle button:hover{ background:var(--card2); color:var(--sub-deep); }
+  .dr-toggle button.on{ background:var(--sub-deep); border-color:transparent; color:var(--sheet); }
+
+  .cat-tabs{ display:flex; justify-content:center; gap:7px; flex-wrap:wrap; margin-bottom:16px; }
+  .ct{ border:1.5px solid var(--line); background:var(--sheet); color:var(--text-soft);
+    border-radius:var(--radius-pill); padding:7px 16px; font-size:calc(13px * var(--fs-body));
+    font-weight:700; cursor:pointer; font-family:inherit; }
+  .ct:hover{ background:var(--card2); }
+  .ct.active{ background:var(--main); border-color:var(--main-dark); color:var(--main-deep); }
+
+  /* poster mode: full image with the label stack on top */
+  .poster-grid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
+  .poster{ position:relative; aspect-ratio:3/4; border-radius:18px; overflow:hidden;
+    border:1.5px solid var(--line); background:var(--card2); cursor:pointer;
+    transition:transform .2s ease, box-shadow .2s ease; }
+  .poster:hover{ transform:translateY(-4px); box-shadow:var(--shadow-hover); }
+  .poster img{ width:100%; height:100%; object-fit:cover; }
+  .poster .veil{ position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(20,26,18,.34) 0%, transparent 34%, transparent 52%, rgba(20,26,18,.72) 100%); }
+  .poster .pt{ position:absolute; left:16px; right:16px; bottom:16px; color:#fffdf5; }
+  .poster .pt .pn{ font-family:var(--disp); font-weight:800; font-size:calc(19px * var(--fs-title)); line-height:1.3; }
+  .poster .pt .pd{ font-size:calc(11.5px * var(--fs-label)); opacity:.85; margin-top:3px; }
+  .poster .mark{ position:absolute; left:14px; top:14px; display:flex; gap:6px; }
+  .poster .mark span{ background:rgba(255,253,245,.9); color:var(--main-deep);
+    border-radius:var(--radius-pill); padding:4px 11px;
+    font-size:calc(10.5px * var(--fs-label)); font-weight:800; }
+  .poster .mark .new{ background:var(--accent); color:#3a2c05; }
+  .poster .logo{ position:absolute; right:14px; top:14px; font-family:var(--serif);
+    font-size:calc(11px * var(--fs-label)); letter-spacing:.24em; color:#fffdf5; opacity:.9; }
+
+  /* album mode: quieter grid for the back catalogue */
+  .album-grid{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; }
+  .album{ cursor:pointer; }
+  .album .ph{ aspect-ratio:3/4; border-radius:14px; overflow:hidden;
+    border:1.5px solid var(--line); background:var(--card2); transition:transform .18s ease; }
+  .album:hover .ph{ transform:translateY(-3px); }
+  .album .ph img{ width:100%; height:100%; object-fit:cover; }
+  .album .an{ font-size:calc(13.5px * var(--fs-body)); font-weight:700; margin-top:8px; }
+  .album .ad{ font-size:calc(11px * var(--fs-label)); color:var(--text-soft); }
+
+  .pagination{ display:flex; justify-content:center; gap:6px; margin-top:18px; flex-wrap:wrap; }
+  .pg{ min-width:34px; height:34px; border-radius:50%; border:1.5px solid var(--line);
+    background:var(--sheet); color:var(--text-mid); font-size:calc(13px * var(--fs-body));
+    font-weight:700; cursor:pointer; font-family:inherit; }
+  .pg.active{ background:var(--sub-deep); color:var(--sheet); border-color:var(--sub-deep); }
+
+  .lb-in{ width:min(620px,100%); }
+  .lb-in img{ width:100%; border-radius:14px; border:1.5px solid var(--line); }
+  .lb-cap{ display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-top:14px; }
+  .lb-cap .n{ font-family:var(--disp); font-weight:800; font-size:calc(20px * var(--fs-title)); }
+  .lb-cap .d{ font-size:calc(12px * var(--fs-label)); color:var(--text-soft); }
+
+  @media (max-width:900px){ .poster-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .album-grid{ grid-template-columns:repeat(3,minmax(0,1fr)); } }
+  @media (max-width:560px){ .poster-grid{ grid-template-columns:minmax(0,1fr); }
+    .album-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+</style>
+</head>
+<body>
+<script>
+  try { if (window.self !== window.top) document.body.classList.add('embed'); }
+  catch (e) { document.body.classList.add('embed'); }
+  if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
+</script>
+
+<div class="sheet">
+  <div class="chrome">
+    <span class="dots"><i></i><i></i><i></i></span>
+    <div class="addr"><span class="lock">🔒</span> https://eunppo.pages.dev/dress</div>
+    <button class="theme-switch" id="themeSwitch" type="button" aria-label="다크모드 전환"><span id="themeKnob">🍋</span></button>
+  </div>
+
+  <nav class="nav"><div class="nav-inner">
+      <a class="nav-logo" href="../">최은뽀<span class="lg-en">EUNPPO</span></a>
+      <a href="../" class="ntab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7.5"/><path d="M12 4.5V2.8M14.6 5.2c1.6-1.4 3.6-1.6 3.6-1.6s-.4 2-2 3.2"/></svg>프로필</a>
+      <a href="../schedule/" class="ntab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M8 3.5v3M16 3.5v3M3.5 10h17"/></svg>방송 일정</a>
+      <a href="../song/" class="ntab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="17.5" r="3"/><circle cx="17.5" cy="15.5" r="3"/><path d="M10.5 17.5V6.5l10-2v11"/></svg>노래책</a>
+      <a href="../work/" class="ntab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4.5" width="14" height="16" rx="2.5"/><path d="M9.5 3.5h5v3h-5z"/><path d="M9 13l2.2 2.2L15.5 11"/></svg>업보</a>
+      <a href="./" class="ntab active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4.2a1.9 1.9 0 0 0-1.6 2.9L12 9l1.6-1.9A1.9 1.9 0 0 0 12 4.2z"/><path d="M12 9l7.2 4.6a2 2 0 0 1 .9 1.7v2.9a1.6 1.6 0 0 1-1.6 1.6H5.5A1.6 1.6 0 0 1 3.9 18.2v-2.9a2 2 0 0 1 .9-1.7L12 9z"/></svg>옷장</a>
+      <a href="../game/" class="ntab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="4.5"/><circle cx="9" cy="9" r="1.4" fill="currentColor" stroke="none"/><circle cx="15" cy="9" r="1.4" fill="currentColor" stroke="none"/><circle cx="9" cy="15" r="1.4" fill="currentColor" stroke="none"/><circle cx="15" cy="15" r="1.4" fill="currentColor" stroke="none"/></svg>미니게임</a>
+      <button class="ntab" type="button" onclick="openInquiry()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 0-3.1 6.3L20.5 19l-.8-3.4A8 8 0 0 0 20 12z"/></svg>문의</button>
+    </div></nav>
+
+  <div class="container stagger" style="order:2">
+    <div class="ohd"><i></i><span class="dm">✦</span><span id="hd-kicker">WARDROBE</span><span class="dm">✦</span><i></i></div>
+    <div class="ohd-sub" id="hd-sub">옷장</div>
+    <div class="dr-toggle">
+      <button type="button" id="tg-new" class="on" onclick="setMode('new')">✨ 새 옷</button>
+      <button type="button" id="tg-old" onclick="setMode('old')">🗂 기존 옷</button>
+    </div>
+    <div class="cat-tabs" id="cat-tabs"></div>
+    <div class="card" style="order:2">
+      <div id="dress-body"><div class="spinner"></div></div>
+      <div class="pagination" id="pagination"></div>
+    </div>
+  </div>
+
+  <footer>© 2026 EUNPPO Official.<br><span class="biz">비즈니스 문의 · 문의 버튼을 이용해 주세요</span></footer>
+</div>
+
+<div class="ov" id="ov" onclick="if(event.target===this)closeLb()">
+  <div class="modal lb-in" id="lb-body"></div>
+</div>
+
+
+<div class="iq-ov" id="iq-ov" onclick="if(event.target===this)closeInquiry()">
+  <div class="iq-modal">
+    <div class="iq-title">✉️ 최은뽀에게</div>
+    <div class="iq-desc">남긴 내용은 관리자만 확인합니다</div>
+    <input class="iq-input" id="iq-nick" placeholder="닉네임 (비우면 익명)">
+    <textarea class="iq-input" id="iq-msg" rows="4" placeholder="하고 싶은 말"></textarea>
+    <div class="iq-btns">
+      <button class="iq-cancel" type="button" onclick="closeInquiry()">취소</button>
+      <button class="iq-send" type="button" onclick="sendInquiry()">보내기 🍋</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="../supabase.js"></script>
+<script src="../site.js"></script>
+<script>
+/* Categories live in three places: CATS here, the admin select and admin DRESS_CATS. */
+var CATS = [['all','전체'],['hair','헤어'],['outfit','의상'],['lens','렌즈']];
+var LABELS = { hair:'헤어', outfit:'의상', lens:'렌즈' };
+var PAGE = 12;
+var items = [], mode = 'new', cat = 'all', curPage = 1;
+
+async function init(){
+  try { items = await fetchAll('dress_items', { order:'id', asc:false }); } catch (e) { items = []; }
+  renderCats(); render();
+  try { applyHeading('dress', await window.profileData || {}); } catch (e) {}
+  document.body.classList.add('ready');
+  enableIframeAutoHeight();
+}
+
+function isNew(d){ return String(d.badges || '').toUpperCase().indexOf('NEW') >= 0; }
+
+function renderCats(){
+  document.getElementById('cat-tabs').innerHTML = CATS.map(function(c){
+    return '<button class="ct' + (c[0] === cat ? ' active' : '') + '" data-cat="' + c[0] + '">' + esc(c[1]) + '</button>';
+  }).join('');
+}
+document.getElementById('cat-tabs').addEventListener('click', function(e){
+  var b = e.target.closest('.ct'); if (!b) return;
+  cat = b.dataset.cat; curPage = 1; renderCats(); render(); enableIframeAutoHeight();
+});
+function setMode(m){
+  mode = m; curPage = 1;
+  document.getElementById('tg-new').classList.toggle('on', m === 'new');
+  document.getElementById('tg-old').classList.toggle('on', m === 'old');
+  render(); enableIframeAutoHeight();
+}
+
+function filtered(){
+  return items.filter(function(d){
+    var okMode = mode === 'new' ? isNew(d) : !isNew(d);
+    var okCat = cat === 'all' || d.category === cat;
+    return okMode && okCat;
+  });
+}
+
+function render(){
+  var list = filtered();
+  var totalPages = Math.max(1, Math.ceil(list.length / PAGE));
+  if (curPage > totalPages) curPage = 1;
+  var pageItems = list.slice((curPage - 1) * PAGE, curPage * PAGE);
+  var body = document.getElementById('dress-body');
+
+  if (!list.length) {
+    body.innerHTML = '<div class="empty"><span class="empty-icon">👗</span>' +
+      (items.length ? '이 분류에는 아직 없어요' : '아직 등록된 옷이 없어요') +
+      '<br><span class="empty-sub">옷은 관리자에서 등록해요</span></div>';
+    document.getElementById('pagination').innerHTML = '';
+    return;
+  }
+
+  if (mode === 'new') {
+    body.innerHTML = '<div class="poster-grid">' + pageItems.map(function(d, i){
+      var idx = (curPage - 1) * PAGE + i;
+      return '<div class="poster" onclick="openLb(' + idx + ')">' +
+        (d.image_url ? '<img src="' + esc(d.image_url) + '" alt="" referrerpolicy="no-referrer" loading="lazy">' : '') +
+        '<div class="veil"></div>' +
+        '<div class="mark"><span class="new">NEW</span>' +
+        (d.category ? '<span>' + esc(LABELS[d.category] || d.category) + '</span>' : '') + '</div>' +
+        '<div class="logo">EUNPPO</div>' +
+        '<div class="pt"><div class="pn">' + esc(d.title) + '</div>' +
+        '<div class="pd">' + esc(fmtDate(d.created_at) || '') + '</div></div></div>';
+    }).join('') + '</div>';
+  } else {
+    body.innerHTML = '<div class="album-grid">' + pageItems.map(function(d, i){
+      var idx = (curPage - 1) * PAGE + i;
+      return '<div class="album" onclick="openLb(' + idx + ')">' +
+        '<div class="ph">' + (d.image_url ? '<img src="' + esc(d.image_url) + '" alt="" referrerpolicy="no-referrer" loading="lazy">' : '') + '</div>' +
+        '<div class="an">' + esc(d.title) + '</div>' +
+        '<div class="ad">' + esc(LABELS[d.category] || d.category || '') + '</div></div>';
+    }).join('') + '</div>';
+  }
+
+  var pg = document.getElementById('pagination');
+  pg.innerHTML = '';
+  if (totalPages > 1) for (var i = 1; i <= totalPages; i++) {
+    var b = document.createElement('button');
+    b.className = 'pg' + (i === curPage ? ' active' : '');
+    b.textContent = i; b.dataset.pg = i; pg.appendChild(b);
+  }
+}
+document.getElementById('pagination').addEventListener('click', function(e){
+  var b = e.target.closest('.pg'); if (!b) return;
+  curPage = parseInt(b.dataset.pg, 10); render(); window.scrollTo(0, 0); enableIframeAutoHeight();
+});
+
+function openLb(idx){
+  var d = filtered()[idx]; if (!d) return;
+  document.getElementById('lb-body').innerHTML =
+    (d.image_url ? '<img src="' + esc(d.image_url) + '" alt="" referrerpolicy="no-referrer">' : '') +
+    '<div class="lb-cap"><span class="n">' + esc(d.title) + '</span>' +
+    '<span class="d">' + esc(LABELS[d.category] || d.category || '') +
+    (fmtDate(d.created_at) ? ' · ' + fmtDate(d.created_at) : '') + '</span></div>' +
+    '<button class="btn btn-primary" style="width:100%;margin-top:14px" onclick="closeLb()">닫기</button>';
+  var ov = document.getElementById('ov');
+  ov.style.top = Math.max(10, (LAST_Y || window.scrollY + 140) - 80) + 'px';
+  ov.classList.add('show');
+}
+function closeLb(){
+  var ov = document.getElementById('ov');
+  if (ov) ov.classList.remove('show');
+}
+
+init();
+setTimeout(function(){ document.body.classList.add('ready'); }, 1200);
+</script>
+<script src="../fx.js"></script>
+<script>
+(function(){
+  if (typeof window.fxHearts === 'function') return;
+  var fx = document.createElement('div'); fx.id = 'fx';
+  fx.style.cssText = 'position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden';
+  document.body.appendChild(fx);
+  for (var i = 0; i < 12; i++) {
+    var s = document.createElement('span');
+    s.className = 'fxfb'; s.textContent = '🍋';
+    s.style.left = (Math.random() * 100).toFixed(1) + 'vw';
+    s.style.fontSize = (9 + Math.random() * 7).toFixed(0) + 'px';
+    fx.appendChild(s);
+  }
+})();
+</script>
+</body>
+</html>

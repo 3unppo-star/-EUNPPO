@@ -160,66 +160,75 @@
   </div>
 
   <div class="tabs">
-    <button class="tab-btn active" data-tab="main">🏠 메인</button>
-    <button class="tab-btn" data-tab="profile">🎀 프로필</button>
+    <button class="tab-btn active" data-tab="img">🖼 이미지</button>
+    <button class="tab-btn" data-tab="top">🏠 메인 상단</button>
+    <button class="tab-btn" data-tab="prof">🎀 프로필 카드</button>
+    <button class="tab-btn" data-tab="song2">♪ 대표곡·일정</button>
     <button class="tab-btn" data-tab="schedule">📅 일정</button>
     <button class="tab-btn" data-tab="song">🎵 노래</button>
     <button class="tab-btn" data-tab="work">⚡ 업보</button>
+    <button class="tab-btn" data-tab="dress">👗 옷장</button>
     <button class="tab-btn" data-tab="inquiry">✉️ 문의</button>
     <button class="tab-btn" data-tab="words">✏️ 문구</button>
     <button class="tab-btn" data-tab="theme">🎨 테마</button>
   </div>
 
-  <div class="tab-panel active" id="tab-main">
+  <div class="tab-panel active" id="tab-img">
     <div class="card">
-      <div class="card-title">🖼 사진</div>
-      <div class="card-note">나오는 곳 — 프로필 페이지 히어로 · 프사 · 갤러리</div>
-      <div class="grid2"><div class="form-field"><label class="input-label" for="f-hero-bg">히어로 배경 사진</label><input class="input" id="f-hero-bg" type="url" placeholder="https://..."><div class="hint">가로 2.5:1 (예 1560×612). 비우면 사이트에 들어있는 기본 사진</div></div><div class="form-field"><label class="input-label" for="f-soop-id">SOOP 아이디</label><input class="input" id="f-soop-id" type="text" placeholder="eunpp0"><div class="hint">아이디만 넣으면 SOOP 프사를 자동으로 가져옵니다</div></div><div class="form-field"><label class="input-label" for="f-avatar">프사 직접 주소</label><input class="input" id="f-avatar" type="url" placeholder="https://.../image.png"><div class="hint">1:1 (예 400×400). 채우면 SOOP 프사보다 우선. gif 가능</div></div><div class="form-field"><label class="input-label" for="f-gallery-1">갤러리 사진 1</label><input class="input" id="f-gallery-1" type="url" placeholder="https://..."><div class="hint">1:1 (예 900×900)</div></div><div class="form-field"><label class="input-label" for="f-gallery-2">갤러리 사진 2</label><input class="input" id="f-gallery-2" type="url" placeholder="https://..."><div class="hint">1:1 (예 900×900)</div></div><div class="form-field"><label class="input-label" for="f-gallery-3">갤러리 사진 3</label><input class="input" id="f-gallery-3" type="url" placeholder="https://..."><div class="hint">1:1 (예 900×900)</div></div><div class="form-field"><label class="input-label" for="f-gallery-4">갤러리 사진 4</label><input class="input" id="f-gallery-4" type="url" placeholder="https://..."><div class="hint">1:1. 비우면 🌿 자리표시자가 보입니다</div></div></div>
-      <div class="row-act"><button class="btn btn-primary" data-save="1">저장</button></div>
-    </div>
-    <div class="card">
-      <div class="card-title">✒️ 히어로 문구</div>
-      <div class="card-note">나오는 곳 — 프로필 페이지 맨 위 이름 아래</div>
-      <div class="grid2"><div class="form-field"><label class="input-label" for="f-hero-quote">히어로 한마디</label><input class="input" id="f-hero-quote" type="text" placeholder="흠냐, 힝"><div class="hint">큰따옴표 안에 들어가는 한 줄</div></div><div class="form-field"><label class="input-label" for="f-hero-badges">히어로 배지</label><input class="input" id="f-hero-badges" type="text" placeholder="LEMON GREENHOUSE, 어인섬 CREW, ISTP"><div class="hint">쉼표로 구분. 마지막 항목에 초록 점이 붙습니다</div></div></div>
-      <div class="row-act"><button class="btn btn-primary" data-save="1">저장</button></div>
-    </div>
-    <div class="card">
-      <div class="card-title">📊 스탯 6칸</div>
-      <div class="card-note">나오는 곳 — 히어로 바로 아래 가로 6칸</div>
-      <div class="grid2"><div class="form-field"><label class="input-label" for="f-stat-debut">스탯 · 데뷔</label><input class="input" id="f-stat-debut" type="text" placeholder="2017.07.07"><div class="hint">형식 자유</div></div><div class="form-field"><label class="input-label" for="f-stat-birth">스탯 · 생일</label><input class="input" id="f-stat-birth" type="text" placeholder="12.20"><div class="hint">MM.DD 형식. 이 값으로 생일 D-Day를 계산합니다</div></div><div class="form-field"><label class="input-label" for="f-stat-crew">스탯 · 소속</label><input class="input" id="f-stat-crew" type="text" placeholder="어인섬"><div class="hint">크루·소속명</div></div><div class="form-field"><label class="input-label" for="f-stat-mbti">스탯 · MBTI</label><input class="input" id="f-stat-mbti" type="text" placeholder="ISTP"><div class="hint">네 글자</div></div><div class="form-field"><label class="input-label" for="f-stat-fan">스탯 · 팬네임</label><input class="input" id="f-stat-fan" type="text" placeholder="양배추 🥬"><div class="hint">이모지 사용 가능</div></div><div class="form-field"><label class="input-label" for="f-stat-status">스탯 · 상태</label><input class="input" id="f-stat-status" type="text" placeholder="온실 문 열림 🍋"><div class="hint">지금 상태 한 줄. 자주 바꾸는 칸</div></div></div>
-      <div class="row-act"><button class="btn btn-primary" data-save="1">저장</button></div>
-    </div>
-    <div class="card">
-      <div class="card-title">🔗 관련 링크</div>
-      <div class="card-note">나오는 곳 — LINKS 카드 4개 버튼</div>
-      <div class="grid2"><div class="form-field"><label class="input-label" for="f-link-soop">SOOP 방송국</label><input class="input" id="f-link-soop" type="url" placeholder="https://www.sooplive.com/station/eunpp0"><div class="hint">방송국 주소</div></div><div class="form-field"><label class="input-label" for="f-link-youtube">유튜브</label><input class="input" id="f-link-youtube" type="url" placeholder="https://www.youtube.com/@..."><div class="hint">채널 주소</div></div><div class="form-field"><label class="input-label" for="f-link-x">X (트위터)</label><input class="input" id="f-link-x" type="url" placeholder="https://x.com/..."><div class="hint">프로필 주소</div></div><div class="form-field"><label class="input-label" for="f-link-cafe">카페 · 커뮤니티</label><input class="input" id="f-link-cafe" type="url" placeholder="https://cafe.naver.com/..."><div class="hint">어인섬 카페 주소</div></div></div>
+      <div class="card-title">사진 · 영상</div>
+      <div class="card-note">프로필 페이지에 들어가는 모든 이미지를 여기서 바꿉니다</div>
+      <div class="grid2"><div class="form-field"><label class="input-label" for="f-hero-bg">히어로 배경 사진</label><input class="input" id="f-hero-bg" type="url" placeholder="https://.../hero.png"><div class="hint">프로필 맨 위를 가득 채우는 사진 · 가로 2.5:1 (권장 1560×620). 비우면 사이트에 들어있는 기본 사진</div></div><div class="form-field"><label class="input-label" for="f-soop-id">SOOP 아이디</label><input class="input" id="f-soop-id" type="text" placeholder="eunpp0"><div class="hint">동그란 프로필 사진을 SOOP에서 자동으로 가져옵니다 · 아이디만 입력 (주소 아님)</div></div><div class="form-field"><label class="input-label" for="f-avatar">프로필 사진 직접 주소</label><input class="input" id="f-avatar" type="url" placeholder="https://.../face.png"><div class="hint">SOOP 사진 대신 쓸 이미지 · 1:1 (권장 400×400). 비우면 SOOP 사진 사용. gif 가능</div></div><div class="form-field"><label class="input-label" for="f-loader-img">로딩 화면 얼굴</label><input class="input" id="f-loader-img" type="url" placeholder="https://.../loader.jpg"><div class="hint">페이지 넘어갈 때 뜨는 동그란 얼굴 · 1:1 정사각, 얼굴이 꽉 차게 (권장 320×320). 비우면 기본 파일</div></div><div class="form-field"><label class="input-label" for="f-gallery-1">갤러리 사진 1</label><input class="input" id="f-gallery-1" type="url" placeholder="https://..."><div class="hint">맨 아래 GALLERY 첫째 칸 · 세로 3:4 (권장 900×1200)</div></div><div class="form-field"><label class="input-label" for="f-gallery-2">갤러리 사진 2</label><input class="input" id="f-gallery-2" type="url" placeholder="https://..."><div class="hint">GALLERY 둘째 칸 · 세로 3:4 (권장 900×1200)</div></div><div class="form-field"><label class="input-label" for="f-gallery-3">갤러리 사진 3</label><input class="input" id="f-gallery-3" type="url" placeholder="https://..."><div class="hint">GALLERY 셋째 칸 · 세로 3:4 (권장 900×1200)</div></div><div class="form-field"><label class="input-label" for="f-gallery-4">갤러리 사진 4</label><input class="input" id="f-gallery-4" type="url" placeholder="https://..."><div class="hint">GALLERY 넷째 칸 · 세로 3:4. 비우면 🌿 자리표시자</div></div><div class="form-field"><label class="input-label" for="f-sing-art">대표곡 이미지</label><input class="input" id="f-sing-art" type="url" placeholder="https://..."><div class="hint">초록 대표곡 블록 왼쪽 사진 · 세로 3:4. 비우면 ♪ 아이콘</div></div><div class="form-field"><label class="input-label" for="f-cc-media">SUNROOM 영상 VOD ID</label><input class="input" id="f-cc-media" type="text" placeholder="202554605"><div class="hint">SUNROOM 카드 안에서 재생되는 SOOP 영상 · 주소 vod.sooplive.com/player/<b>202554605</b> 의 숫자만</div></div></div>
       <div class="row-act"><button class="btn btn-primary" data-save="1">저장</button></div>
     </div>
   </div>
 
-  <div class="tab-panel" id="tab-profile">
+  <div class="tab-panel" id="tab-top">
     <div class="card">
-      <div class="card-title">📋 PROFILE 카드</div>
-      <div class="card-note">나오는 곳 — 잎 장식 카드 왼쪽</div>
-      <div class="grid2"><div class="form-field"><label class="input-label" for="f-info-name">이름</label><input class="input" id="f-info-name" type="text" placeholder="최은뽀 (EUNPPO)"><div class="hint">PROFILE 카드 첫 줄</div></div><div class="form-field"><label class="input-label" for="f-info-tags">성격 태그</label><input class="input" id="f-info-tags" type="text" placeholder="차분한 또라이, 리트리버"><div class="hint">쉼표로 구분. 비우면 줄이 사라집니다</div></div><div class="form-field"><label class="input-label" for="f-info-gender">성별</label><input class="input" id="f-info-gender" type="text" placeholder="여"></div><div class="form-field"><label class="input-label" for="f-info-content">컨텐츠</label><input class="input" id="f-info-content" type="text" placeholder="게임 / 노래"><div class="hint">슬래시로 구분</div></div><div class="form-field"><label class="input-label" for="f-info-item">소지품</label><input class="input" id="f-info-item" type="text" placeholder="레몬 모양 머리핀"></div><div class="form-field"><label class="input-label" for="f-info-motif">모티브</label><input class="input" id="f-info-motif" type="text" placeholder="레몬 / 나뭇잎"><div class="hint">슬래시로 구분</div></div><div class="form-field"><label class="input-label" for="f-info-fandom">팬네임</label><input class="input" id="f-info-fandom" type="text" placeholder="양배추"></div></div>
+      <div class="card-title">이름과 문구</div>
+      <div class="card-note">나오는 곳 — 프로필 페이지 히어로 왼쪽</div>
+      <div class="grid2"><div class="form-field"><label class="input-label" for="f-hero-name">이름 (큰 글자)</label><input class="input" id="f-hero-name" type="text" placeholder="최은뽀"><div class="hint">히어로 왼쪽 제일 큰 글자 · 한글 이름</div></div><div class="form-field"><label class="input-label" for="f-hero-kicker">이름 위 영문 라벨</label><input class="input" id="f-hero-kicker" type="text" placeholder="LEMON · LEAF"><div class="hint">이름 위 작은 대문자 줄 · 영문 대문자, 가운뎃점으로 구분</div></div><div class="form-field"><label class="input-label" for="f-hero-en">이름 아래 영문</label><input class="input" id="f-hero-en" type="text" placeholder="EUNPPO"><div class="hint">이름 바로 아래 영문 표기 · 영문 대문자</div></div><div class="form-field"><label class="input-label" for="f-hero-badges">배지 3개</label><input class="input" id="f-hero-badges" type="text" placeholder="레몬 · 나뭇잎, 어인섬, ISTP"><div class="hint">이름 아래 알약 배지 · 쉼표로 구분. 마지막 항목에 초록 점이 붙습니다</div></div><div class="form-field"><label class="input-label" for="f-hero-quote">한마디</label><input class="input" id="f-hero-quote" type="text" placeholder="흠냐, 힝"><div class="hint">배지 아래 큰따옴표 문구 · 한 줄</div></div><div class="form-field"><label class="input-label" for="f-next-live">NEXT LIVE 표시</label><input class="input" id="f-next-live" type="text" placeholder="개인 · 18:00"><div class="hint">오른쪽 위 NEXT LIVE 아래 줄 · 예: 개인 · 18:00</div></div></div>
       <div class="row-act"><button class="btn btn-primary" data-save="1">저장</button></div>
     </div>
     <div class="card">
-      <div class="card-title">🌿 SUNROOM 카드</div>
-      <div class="card-note">나오는 곳 — 잎 장식 카드 오른쪽</div>
-      <div class="grid2"><div class="form-field"><label class="input-label" for="f-cc-media">SUNROOM 영상 VOD ID</label><input class="input" id="f-cc-media" type="text" placeholder="202554605"><div class="hint">VOD 주소 vod.sooplive.com/player/<b>202554605</b> 의 숫자만</div></div><div class="form-field full"><label class="input-label" for="f-msg">ABOUT · 하고픈 말</label><textarea class="input" id="f-msg" rows="3" placeholder="놀러 와줘서 고마워요."></textarea><div class="hint">SUNROOM 카드 ABOUT 줄. 한두 문장</div></div><div class="form-field"><label class="input-label" for="f-like-list">LIKE</label><input class="input" id="f-like-list" type="text" placeholder="팬들, 노래, 게임"><div class="hint">쉼표로 구분. 연두 칩으로 나옵니다</div></div><div class="form-field"><label class="input-label" for="f-dislike-list">DISLIKE</label><input class="input" id="f-dislike-list" type="text" placeholder="운동, 공포게임, 힙합 곡"><div class="hint">쉼표로 구분. 크림 칩으로 나옵니다</div></div></div>
+      <div class="card-title">스탯 6칸</div>
+      <div class="card-note">나오는 곳 — 히어로 바로 아래 가로 줄</div>
+      <div class="grid2"><div class="form-field"><label class="input-label" for="f-stat-debut">스탯 · 데뷔</label><input class="input" id="f-stat-debut" type="text" placeholder="2017.07.07"><div class="hint">히어로 아래 가로 6칸 중 1번 · 형식 자유</div></div><div class="form-field"><label class="input-label" for="f-stat-birth">스탯 · 생일</label><input class="input" id="f-stat-birth" type="text" placeholder="12.20"><div class="hint">6칸 중 2번 · MM.DD. 이 값으로 생일 D-Day를 계산합니다</div></div><div class="form-field"><label class="input-label" for="f-stat-crew">스탯 · 소속</label><input class="input" id="f-stat-crew" type="text" placeholder="어인섬"><div class="hint">6칸 중 3번 · 크루명</div></div><div class="form-field"><label class="input-label" for="f-stat-mbti">스탯 · MBTI</label><input class="input" id="f-stat-mbti" type="text" placeholder="ISTP"><div class="hint">6칸 중 4번 · 네 글자</div></div><div class="form-field"><label class="input-label" for="f-stat-fan">스탯 · 팬네임</label><input class="input" id="f-stat-fan" type="text" placeholder="양배추 🥬"><div class="hint">6칸 중 5번 · 이모지 사용 가능</div></div><div class="form-field"><label class="input-label" for="f-stat-status">스탯 · 방송</label><input class="input" id="f-stat-status" type="text" placeholder="개인 방송 · 18:00"><div class="hint">6칸 중 6번 · 자주 바꾸는 칸</div></div></div>
+      <div class="row-act"><button class="btn btn-primary" data-save="1">저장</button></div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-prof">
+    <div class="card">
+      <div class="card-title">PROFILE 카드</div>
+      <div class="card-note">나오는 곳 — 프로필 페이지 오른쪽 큰 카드</div>
+      <div class="grid2"><div class="form-field"><label class="input-label" for="f-info-headline">PROFILE 큰 문장</label><input class="input" id="f-info-headline" type="text" placeholder="차분한 또라이 · 사람 좋아하는 리트리버 · ISTP"><div class="hint">PROFILE 카드 맨 위 큰 글자 · 한 문장. 길면 두 줄로 넘어갑니다</div></div><div class="form-field"><label class="input-label" for="f-info-name">이름</label><input class="input" id="f-info-name" type="text" placeholder="최은뽀 (EUNPPO)"><div class="hint">PROFILE 표 1행</div></div><div class="form-field"><label class="input-label" for="f-info-tags">성격 태그</label><input class="input" id="f-info-tags" type="text" placeholder="차분한 또라이, 리트리버"><div class="hint">PROFILE 표 2행 · 쉼표로 구분. 비우면 줄이 사라집니다</div></div><div class="form-field"><label class="input-label" for="f-info-gender">성별</label><input class="input" id="f-info-gender" type="text" placeholder="여"><div class="hint">PROFILE 표 3행</div></div><div class="form-field"><label class="input-label" for="f-info-content">컨텐츠</label><input class="input" id="f-info-content" type="text" placeholder="게임 / 노래"><div class="hint">PROFILE 표 4행 · 슬래시로 구분</div></div><div class="form-field"><label class="input-label" for="f-info-item">소지품</label><input class="input" id="f-info-item" type="text" placeholder="레몬 모양 머리핀"><div class="hint">PROFILE 표 5행</div></div><div class="form-field"><label class="input-label" for="f-info-motif">모티브</label><input class="input" id="f-info-motif" type="text" placeholder="레몬 / 나뭇잎"><div class="hint">PROFILE 표 6행 · 슬래시로 구분</div></div><div class="form-field"><label class="input-label" for="f-info-fandom">팬네임</label><input class="input" id="f-info-fandom" type="text" placeholder="양배추"><div class="hint">PROFILE 표 7행</div></div></div>
       <div class="row-act"><button class="btn btn-primary" data-save="1">저장</button></div>
     </div>
     <div class="card">
-      <div class="card-title">♪ 대표곡 블록</div>
-      <div class="card-note">나오는 곳 — SIGNATURE SONG 초록 블록</div>
-      <div class="grid2"><div class="form-field"><label class="input-label" for="f-sing-title">대표곡 제목</label><input class="input" id="f-sing-title" type="text" placeholder="여우비"><div class="hint">SIGNATURE SONG 블록</div></div><div class="form-field"><label class="input-label" for="f-sing-sub">대표곡 설명</label><input class="input" id="f-sing-sub" type="text" placeholder="인디 · 잔잔한 여자 발라드"><div class="hint">한 줄</div></div><div class="form-field"><label class="input-label" for="f-sing-link">대표곡 링크</label><input class="input" id="f-sing-link" type="url" placeholder="https://vod.sooplive.com/player/..."><div class="hint">버튼이 열 주소</div></div><div class="form-field"><label class="input-label" for="f-sing-art">대표곡 이미지</label><input class="input" id="f-sing-art" type="url" placeholder="https://..."><div class="hint">1:1. 비우면 ♪ 아이콘</div></div></div>
+      <div class="card-title">SUNROOM 카드</div>
+      <div class="card-note">나오는 곳 — 프로필 페이지 왼쪽 카드</div>
+      <div class="grid2"><div class="form-field full"><label class="input-label" for="f-msg">ABOUT</label><textarea class="input" id="f-msg" rows="3" placeholder="게임 / 노래 · 사람 좋아하는 리트리버"></textarea><div class="hint">SUNROOM 카드 ABOUT 줄 · 한두 문장</div></div><div class="form-field"><label class="input-label" for="f-like-list">LIKE</label><input class="input" id="f-like-list" type="text" placeholder="팬들, 노래, 게임"><div class="hint">SUNROOM 카드 LIKE 줄 · 쉼표로 구분</div></div><div class="form-field"><label class="input-label" for="f-dislike-list">DISLIKE</label><input class="input" id="f-dislike-list" type="text" placeholder="운동, 공포게임, 힙합 곡"><div class="hint">SUNROOM 카드 DISLIKE 줄 · 쉼표로 구분</div></div></div>
+      <div class="row-act"><button class="btn btn-primary" data-save="1">저장</button></div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-song2">
+    <div class="card">
+      <div class="card-title">대표곡 블록</div>
+      <div class="card-note">나오는 곳 — 초록 배경 SIGNATURE SONG</div>
+      <div class="grid2"><div class="form-field"><label class="input-label" for="f-sing-title">대표곡 제목</label><input class="input" id="f-sing-title" type="text" placeholder="여우비"><div class="hint">초록 블록 큰 글자</div></div><div class="form-field"><label class="input-label" for="f-sing-sub">대표곡 설명</label><input class="input" id="f-sing-sub" type="text" placeholder="인디 · 잔잔한 여자 발라드를 즐겨 부릅니다"><div class="hint">제목 아래 설명 · 한두 문장</div></div><div class="form-field"><label class="input-label" for="f-sing-link">대표곡 링크</label><input class="input" id="f-sing-link" type="url" placeholder="https://vod.sooplive.com/player/..."><div class="hint">SOOP VOD에서 듣기 버튼이 여는 주소 · 전체 주소</div></div></div>
       <div class="row-act"><button class="btn btn-primary" data-save="1">저장</button></div>
     </div>
     <div class="card">
-      <div class="card-title">📅 방송 일정 카드</div>
-      <div class="card-note">나오는 곳 — 대표곡 블록 오른쪽</div>
-      <div class="grid2"><div class="form-field full"><label class="input-label">방송 요일</label><div class="daybox"><label><input type="checkbox" class="day-chk" value="0"> 월</label><label><input type="checkbox" class="day-chk" value="1"> 화</label><label><input type="checkbox" class="day-chk" value="2"> 수</label><label><input type="checkbox" class="day-chk" value="3"> 목</label><label><input type="checkbox" class="day-chk" value="4"> 금</label><label><input type="checkbox" class="day-chk" value="5"> 토</label><label><input type="checkbox" class="day-chk" value="6"> 일</label></div><div class="hint">체크한 요일이 진하게 표시됩니다</div><input type="hidden" id="f-days"></div><div class="form-field"><label class="input-label" for="f-sched-line1">일정 1줄</label><input class="input" id="f-sched-line1" type="text" placeholder="크루 컨텐츠 · 오후 12시"><div class="hint">가운뎃점(·) 앞이 굵게 나옵니다</div></div><div class="form-field"><label class="input-label" for="f-sched-line2">일정 2줄</label><input class="input" id="f-sched-line2" type="text" placeholder="개인 방송 · 오후 6시"><div class="hint">가운뎃점(·) 앞이 굵게 나옵니다</div></div><div class="form-field"><label class="input-label" for="f-sched-line3">일정 3줄</label><input class="input" id="f-sched-line3" type="text" placeholder="휴방 · 주 1회"><div class="hint">가운뎃점(·) 앞이 굵게 나옵니다</div></div></div>
+      <div class="card-title">방송 일정 카드</div>
+      <div class="card-note">나오는 곳 — 연두 배경 BROADCAST SCHEDULE</div>
+      <div class="grid2"><div class="form-field full"><label class="input-label">방송 요일</label><div class="daybox"><label><input type="checkbox" class="day-chk" value="0"> 월</label><label><input type="checkbox" class="day-chk" value="1"> 화</label><label><input type="checkbox" class="day-chk" value="2"> 수</label><label><input type="checkbox" class="day-chk" value="3"> 목</label><label><input type="checkbox" class="day-chk" value="4"> 금</label><label><input type="checkbox" class="day-chk" value="5"> 토</label><label><input type="checkbox" class="day-chk" value="6"> 일</label></div><div class="hint">방송 일정 카드의 요일 칸 · 체크한 요일이 진하게 표시됩니다</div><input type="hidden" id="f-days"></div><div class="form-field"><label class="input-label" for="f-sched-line1">일정 1줄</label><input class="input" id="f-sched-line1" type="text" placeholder="크루 컨텐츠 · 오후 12시"><div class="hint">요일 아래 첫째 줄 · 가운뎃점(·) 앞이 굵게 나옵니다</div></div><div class="form-field"><label class="input-label" for="f-sched-line2">일정 2줄</label><input class="input" id="f-sched-line2" type="text" placeholder="개인 방송 · 오후 6시"><div class="hint">둘째 줄 · 가운뎃점(·) 앞이 굵게</div></div><div class="form-field"><label class="input-label" for="f-sched-line3">일정 3줄</label><input class="input" id="f-sched-line3" type="text" placeholder="휴방 · 주 1회"><div class="hint">셋째 줄 · 가운뎃점(·) 앞이 굵게</div></div></div>
+      <div class="row-act"><button class="btn btn-primary" data-save="1">저장</button></div>
+    </div>
+    <div class="card">
+      <div class="card-title">링크 버튼</div>
+      <div class="card-note">나오는 곳 — 페이지 맨 아래 동그란 버튼 4개</div>
+      <div class="grid2"><div class="form-field"><label class="input-label" for="f-link-soop">SOOP 방송국</label><input class="input" id="f-link-soop" type="url" placeholder="https://www.sooplive.com/station/eunpp0"><div class="hint">맨 아래 링크 버튼 · 방송국 주소</div></div><div class="form-field"><label class="input-label" for="f-link-youtube">유튜브</label><input class="input" id="f-link-youtube" type="url" placeholder="https://www.youtube.com/@..."><div class="hint">맨 아래 링크 버튼 · 채널 주소</div></div><div class="form-field"><label class="input-label" for="f-link-x">X (트위터)</label><input class="input" id="f-link-x" type="url" placeholder="https://x.com/..."><div class="hint">맨 아래 링크 버튼 · 프로필 주소</div></div><div class="form-field"><label class="input-label" for="f-link-cafe">카페</label><input class="input" id="f-link-cafe" type="url" placeholder="https://cafe.naver.com/..."><div class="hint">맨 아래 링크 버튼 · 어인섬 카페 주소</div></div></div>
       <div class="row-act"><button class="btn btn-primary" data-save="1">저장</button></div>
     </div>
   </div>
@@ -363,6 +372,35 @@
     </div>
   </div>
 
+  <div class="tab-panel" id="tab-dress">
+    <div class="card">
+      <div class="card-title">👗 옷 추가</div>
+      <div class="card-note">나오는 곳 — 옷장 페이지. "새 옷으로 올리기"를 체크하면 ✨새 옷 포스터로, 아니면 🗂기존 옷 그리드로 들어갑니다</div>
+      <div class="grid2">
+        <div class="form-field"><label class="input-label" for="dr-title">이름</label>
+          <input class="input" id="dr-title" placeholder="레몬 원피스">
+          <div class="hint">포스터 아래 크게 나오는 이름 · 필수</div></div>
+        <div class="form-field"><label class="input-label" for="dr-cat">분류</label>
+          <select class="input" id="dr-cat"><option value="hair">헤어</option><option value="outfit" selected>의상</option><option value="lens">렌즈</option></select>
+          <div class="hint">옷장 페이지 분류 탭 · 분류를 바꿀 땐 <code>dress/index.html</code>의 <code>CATS</code>와 아래 <code>DRESS_CATS</code>도 같이 수정</div></div>
+        <div class="form-field full"><label class="input-label" for="dr-img">이미지 주소</label>
+          <input class="input" id="dr-img" type="url" placeholder="https://stimg.sooplive.com/...">
+          <div class="hint">옷 사진 · 세로 3:4 (권장 900×1200). SOOP 비공개 게시판에 올린 뒤 사진 우클릭 → 이미지 주소 복사</div></div>
+        <div class="form-field full">
+          <label style="font-size:13px;font-weight:800"><input type="checkbox" id="dr-new" checked> ✨ 새 옷으로 올리기</label>
+          <div class="hint">체크하면 NEW 배지가 붙고 ✨새 옷 탭 포스터로 나옵니다</div></div>
+      </div>
+      <div class="row-act"><button class="btn btn-primary" id="addDr">추가</button></div>
+    </div>
+    <div class="card">
+      <div class="card-title">등록된 옷</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>이름</th><th>분류</th><th>구분</th><th>등록일</th><th>삭제</th></tr></thead>
+        <tbody id="dr-list"><tr><td colspan="5"><div class="spinner"></div></td></tr></tbody>
+      </table></div>
+    </div>
+  </div>
+
   <div class="tab-panel" id="tab-inquiry">
     <div class="card">
       <div class="card-title">📬 받은 쪽지</div>
@@ -374,13 +412,12 @@
   <div class="tab-panel" id="tab-words">
     <div class="card">
       <div class="card-title">✏️ 항목 검색</div>
-      <div class="form-field"><input class="input" id="wordFind" placeholder="예: 노래책">
-        <div class="hint">아래 입력칸만 걸러냅니다</div></div>
+      <div class="form-field"><input class="input" id="wordFind" placeholder="예: 옷장"><div class="hint">아래 입력칸만 걸러냅니다</div></div>
     </div>
     <div class="card">
       <div class="card-title">페이지 머리글</div>
-      <div class="card-note">각 페이지 맨 위 ✦ 영문 ✦ 과 한글 제목. 비우면 기본 문구가 나옵니다</div>
-      <div class="grid2"><div class="form-field"><label class="input-label" for="f-schedule-kicker">방송 일정 · 영문 라벨</label><input class="input" id="f-schedule-kicker" type="text" placeholder="SCHEDULE"><div class="hint">대문자 영문</div></div><div class="form-field"><label class="input-label" for="f-schedule-sub">방송 일정 · 한글 제목</label><input class="input" id="f-schedule-sub" type="text" placeholder="방송 일정"></div><div class="form-field"><label class="input-label" for="f-song-kicker">노래책 · 영문 라벨</label><input class="input" id="f-song-kicker" type="text" placeholder="SONG BOOK"><div class="hint">대문자 영문</div></div><div class="form-field"><label class="input-label" for="f-song-sub">노래책 · 한글 제목</label><input class="input" id="f-song-sub" type="text" placeholder="노래책"></div><div class="form-field"><label class="input-label" for="f-work-kicker">업보 · 영문 라벨</label><input class="input" id="f-work-kicker" type="text" placeholder="UPBO"><div class="hint">대문자 영문</div></div><div class="form-field"><label class="input-label" for="f-work-sub">업보 · 한글 제목</label><input class="input" id="f-work-sub" type="text" placeholder="업보 현황"></div><div class="form-field"><label class="input-label" for="f-game-kicker">미니게임 · 영문 라벨</label><input class="input" id="f-game-kicker" type="text" placeholder="MINI GAME"><div class="hint">대문자 영문</div></div><div class="form-field"><label class="input-label" for="f-game-sub">미니게임 · 한글 제목</label><input class="input" id="f-game-sub" type="text" placeholder="미니게임"></div></div>
+      <div class="card-note">각 페이지 맨 위의 영문·한글 제목. 비우면 기본 문구가 나옵니다</div>
+      <div class="grid2"><div class="form-field"><label class="input-label" for="f-schedule-kicker">방송 일정 · 영문</label><input class="input" id="f-schedule-kicker" type="text" placeholder="SCHEDULE"><div class="hint">방송 일정 페이지 맨 위 영문 · 대문자</div></div><div class="form-field"><label class="input-label" for="f-schedule-sub">방송 일정 · 한글</label><input class="input" id="f-schedule-sub" type="text" placeholder="방송 일정"><div class="hint">영문 아래 한글 제목</div></div><div class="form-field"><label class="input-label" for="f-song-kicker">노래책 · 영문</label><input class="input" id="f-song-kicker" type="text" placeholder="SONG BOOK"><div class="hint">노래책 페이지 맨 위 영문 · 대문자</div></div><div class="form-field"><label class="input-label" for="f-song-sub">노래책 · 한글</label><input class="input" id="f-song-sub" type="text" placeholder="노래책"><div class="hint">영문 아래 한글 제목</div></div><div class="form-field"><label class="input-label" for="f-work-kicker">업보 · 영문</label><input class="input" id="f-work-kicker" type="text" placeholder="UPBO"><div class="hint">업보 페이지 맨 위 영문 · 대문자</div></div><div class="form-field"><label class="input-label" for="f-work-sub">업보 · 한글</label><input class="input" id="f-work-sub" type="text" placeholder="업보 현황"><div class="hint">영문 아래 한글 제목</div></div><div class="form-field"><label class="input-label" for="f-dress-kicker">옷장 · 영문</label><input class="input" id="f-dress-kicker" type="text" placeholder="WARDROBE"><div class="hint">옷장 페이지 맨 위 영문 · 대문자</div></div><div class="form-field"><label class="input-label" for="f-dress-sub">옷장 · 한글</label><input class="input" id="f-dress-sub" type="text" placeholder="옷장"><div class="hint">영문 아래 한글 제목</div></div><div class="form-field"><label class="input-label" for="f-game-kicker">미니게임 · 영문</label><input class="input" id="f-game-kicker" type="text" placeholder="MINI GAME"><div class="hint">미니게임 페이지 맨 위 영문 · 대문자</div></div><div class="form-field"><label class="input-label" for="f-game-sub">미니게임 · 한글</label><input class="input" id="f-game-sub" type="text" placeholder="미니게임"><div class="hint">영문 아래 한글 제목</div></div></div>
       <div class="row-act"><button class="btn btn-primary" data-save="1">저장</button></div>
     </div>
   </div>
@@ -394,7 +431,7 @@
         <div class="presets" id="presets"></div>
         <div class="hint">누르면 7칸이 한 번에 채워집니다. 저장을 눌러야 사이트에 반영</div>
       </div>
-      <div class="palette"><div class="pal-row"><input type="color" id="c-theme-main"><label for="f-theme-main">메인 색 (크림)</label><input class="input" id="f-theme-main" placeholder="#FFE6BF"><div class="pal-desc">카드·칩·태그 면 색</div></div><div class="pal-row"><input type="color" id="c-theme-sub"><label for="f-theme-sub">서브 색 (연두)</label><input class="input" id="f-theme-sub" placeholder="#E8FFD9"><div class="pal-desc">강조 면 색. 활성 탭·요일칩·버튼이 여기서 파생</div></div><div class="pal-row"><input type="color" id="c-theme-bg"><label for="f-theme-bg">페이지 배경</label><input class="input" id="f-theme-bg" placeholder="#FFFFFF"><div class="pal-desc">시트 바깥 배경</div></div><div class="pal-row"><input type="color" id="c-theme-sheet"><label for="f-theme-sheet">시트 배경</label><input class="input" id="f-theme-sheet" placeholder="#FFFFFF"><div class="pal-desc">흰 시트 바닥색</div></div><div class="pal-row"><input type="color" id="c-theme-main-dark"><label for="f-theme-main-dark">앰버 (글자)</label><input class="input" id="f-theme-main-dark" placeholder="#A1722B"><div class="pal-desc">로고·세리프 헤딩 글자</div></div><div class="pal-row"><input type="color" id="c-theme-main-deep"><label for="f-theme-main-deep">진한 앰버</label><input class="input" id="f-theme-main-deep" placeholder="#6E4708"><div class="pal-desc">이름·큰 글자</div></div><div class="pal-row"><input type="color" id="c-theme-sub-deep"><label for="f-theme-sub-deep">진한 연두</label><input class="input" id="f-theme-sub-deep" placeholder="#2F5E24"><div class="pal-desc">채워진 버튼·활성 탭 배경</div></div></div>
+      <div class="palette"><div class="pal-row"><input type="color" id="c-theme-main"><label for="f-theme-main">메인 색 (크림)</label><input class="input" id="f-theme-main" placeholder="#FFE6BF"><div class="pal-desc">카드·태그·연한 면 색</div></div><div class="pal-row"><input type="color" id="c-theme-sub"><label for="f-theme-sub">서브 색 (연두)</label><input class="input" id="f-theme-sub" placeholder="#E8FFD9"><div class="pal-desc">연두 면·강조 파생의 기준</div></div><div class="pal-row"><input type="color" id="c-theme-accent"><label for="f-theme-accent">포인트 색 (앰버)</label><input class="input" id="f-theme-accent" placeholder="#EFB53D"><div class="pal-desc">탭 밑줄·코너 브래킷·NEW 배지</div></div><div class="pal-row"><input type="color" id="c-theme-logo"><label for="f-theme-logo">로고·이름 글자</label><input class="input" id="f-theme-logo" placeholder="#35513A"><div class="pal-desc">상단 로고와 히어로 이름</div></div><div class="pal-row"><input type="color" id="c-theme-main-deep"><label for="f-theme-main-deep">제목 글자</label><input class="input" id="f-theme-main-deep" placeholder="#36533A"><div class="pal-desc">카드 제목·큰 글자</div></div><div class="pal-row"><input type="color" id="c-theme-sub-deep"><label for="f-theme-sub-deep">채운 버튼 배경</label><input class="input" id="f-theme-sub-deep" placeholder="#4D704D"><div class="pal-desc">버튼·활성 요일칩 배경</div></div><div class="pal-row"><input type="color" id="c-theme-bg"><label for="f-theme-bg">페이지 배경</label><input class="input" id="f-theme-bg" placeholder="#F7F4EB"><div class="pal-desc">시트 바깥 배경</div></div><div class="pal-row"><input type="color" id="c-theme-sheet"><label for="f-theme-sheet">시트 배경</label><input class="input" id="f-theme-sheet" placeholder="#FFFDF7"><div class="pal-desc">시트 안쪽 바닥색</div></div></div>
       <div class="ctr" id="ctr"></div>
       <div class="hint">대비 4.5:1 미만이면 그 조합은 화면에서 읽기 어렵습니다</div>
       <div class="row-act">
@@ -428,23 +465,23 @@
 <script>
 /* profileKeys is the source of truth: every key needs an #f-{key} input and a page hook.
    Adding a key here means adding the input and the hook on the page too. */
-const profileKeys = ["hero-bg", "avatar", "soop-id", "hero-quote", "hero-badges", "stat-debut", "stat-birth", "stat-crew", "stat-mbti", "stat-fan", "stat-status", "gallery-1", "gallery-2", "gallery-3", "gallery-4", "link-soop", "link-youtube", "link-x", "link-cafe", "info-name", "info-tags", "info-gender", "info-content", "info-item", "info-motif", "info-fandom", "msg", "like-list", "dislike-list", "cc-media", "sing-title", "sing-sub", "sing-link", "sing-art", "sched-line1", "sched-line2", "sched-line3", "days", "schedule-kicker", "schedule-sub", "song-kicker", "song-sub", "work-kicker", "work-sub", "game-kicker", "game-sub", "theme-main", "theme-sub", "theme-bg", "theme-sheet", "theme-main-dark", "theme-main-deep", "theme-sub-deep", "type-display", "type-title", "type-body", "type-label"];
-const IMG_FIELDS = ["hero-bg", "avatar", "gallery-1", "gallery-2", "gallery-3", "gallery-4", "link-soop", "link-youtube", "link-x", "link-cafe", "sing-link", "sing-art"];
-const PAL_DEFAULT = {"theme-main": "#FFE6BF", "theme-sub": "#E8FFD9", "theme-bg": "#FFFFFF", "theme-sheet": "#FFFFFF", "theme-main-dark": "#A1722B", "theme-main-deep": "#6E4708", "theme-sub-deep": "#2F5E24"};
-const TS = [["type-display", "디스플레이 배율", "페이지 맨 위 초대형 제목"], ["type-title", "제목 배율", "카드 제목"], ["type-body", "본문 배율", "설명·값·목록"], ["type-label", "라벨 배율", "영문 라벨·캡션"]];
+const profileKeys = ["hero-bg", "soop-id", "avatar", "loader-img", "gallery-1", "gallery-2", "gallery-3", "gallery-4", "sing-art", "cc-media", "hero-name", "hero-kicker", "hero-en", "hero-badges", "hero-quote", "next-live", "stat-debut", "stat-birth", "stat-crew", "stat-mbti", "stat-fan", "stat-status", "info-headline", "info-name", "info-tags", "info-gender", "info-content", "info-item", "info-motif", "info-fandom", "msg", "like-list", "dislike-list", "sing-title", "sing-sub", "sing-link", "days", "sched-line1", "sched-line2", "sched-line3", "link-soop", "link-youtube", "link-x", "link-cafe", "schedule-kicker", "schedule-sub", "song-kicker", "song-sub", "work-kicker", "work-sub", "dress-kicker", "dress-sub", "game-kicker", "game-sub", "theme-main", "theme-sub", "theme-accent", "theme-logo", "theme-main-deep", "theme-sub-deep", "theme-bg", "theme-sheet", "type-display", "type-title", "type-body", "type-label"];
+const IMG_FIELDS = ["hero-bg", "avatar", "loader-img", "gallery-1", "gallery-2", "gallery-3", "gallery-4", "sing-art", "sing-link", "link-soop", "link-youtube", "link-x", "link-cafe"];
+const PAL_DEFAULT = {"theme-main": "#FFE6BF", "theme-sub": "#E8FFD9", "theme-accent": "#EFB53D", "theme-logo": "#35513A", "theme-main-deep": "#36533A", "theme-sub-deep": "#4D704D", "theme-bg": "#F7F4EB", "theme-sheet": "#FFFDF7"};
+const TS = [["type-display", "디스플레이 배율", "히어로 이름 등 초대형 글자"], ["type-title", "제목 배율", "카드 제목"], ["type-body", "본문 배율", "설명·값·목록"], ["type-label", "라벨 배율", "영문 라벨·캡션"]];
 
 const PRESETS = [
-  ['레몬 온실', ['#FFE6BF','#E8FFD9','#FFFFFF','#FFFFFF','#A1722B','#6E4708','#2F5E24']],
-  ['라임 소다', ['#FFF6C9','#DFF3D0','#FFFFFF','#FFFFFF','#7E8A26','#4C5A12','#33632B']],
-  ['살구 크림', ['#FFE0D2','#FFEFD9','#FFFFFF','#FFFFFF','#B26640','#7A3C1C','#8A4B2A']],
-  ['민트 유리', ['#DFF3EF','#E6FBF3','#FFFFFF','#FFFFFF','#2E8378','#1C5A52','#22665C']],
-  ['연보라 화분', ['#EFE6FA','#EAF6E2','#FFFFFF','#FFFFFF','#7B5EAE','#503780','#3F6B34']]
+  ['레몬 온실', ['#FFE6BF','#E8FFD9','#EFB53D','#35513A','#36533A','#4D704D','#F7F4EB','#FFFDF7']],
+  ['라임 소다', ['#FFF6C9','#DFF3D0','#B7CE4A','#33632B','#2F5B2A','#3E7A38','#F5F8EC','#FFFFFC']],
+  ['살구 크림', ['#FFE0D2','#FFEFD9','#E9A05F','#7A3C1C','#8A4B2A','#A65B32','#FBF2EB','#FFFCF8']],
+  ['민트 유리', ['#DFF3EF','#E6FBF3','#5FBFA8','#1C5A52','#22665C','#2E8378','#EEF8F5','#FBFFFE']],
+  ['연보라 화분', ['#EFE6FA','#EAF6E2','#B08FE0','#503780','#5A3F8C','#3F6B34','#F6F2FC','#FFFDFF']]
 ];
 
 const TAB_PAGE = {
-  main:'../index.html', profile:'../index.html', schedule:'../schedule/',
-  song:'../song/', work:'../work/', inquiry:'../index.html',
-  words:'../schedule/', theme:'../index.html'
+  img:'../index.html', top:'../index.html', prof:'../index.html', song2:'../index.html',
+  schedule:'../schedule/', song:'../song/', work:'../work/', dress:'../dress/',
+  inquiry:'../index.html', words:'../schedule/', theme:'../index.html'
 };
 
 const $ = id => document.getElementById(id);
@@ -500,7 +537,7 @@ function enterAdmin(){
     if (++n > 6) clearInterval(iv);
   }, 500);
   loadProfileFields();
-  loadSchedule(); loadSong(); loadOriginalSongs(); loadInquiry(); loadWork();
+  loadSchedule(); loadSong(); loadOriginalSongs(); loadInquiry(); loadWork(); loadDress();
 }
 (async function(){
   try { if (!db) return; const r = await db.auth.getSession(); if (r && r.data && r.data.session) enterAdmin(); }
@@ -644,8 +681,8 @@ function syncPaletteInputs(){
   });
 }
 const PAL_VAR = {
-  'theme-main':'--main', 'theme-sub':'--sub', 'theme-bg':'--bg', 'theme-sheet':'--sheet',
-  'theme-main-dark':'--main-dark', 'theme-main-deep':'--main-deep', 'theme-sub-deep':'--sub-deep'
+  'theme-main':'--main', 'theme-sub':'--sub', 'theme-accent':'--accent', 'theme-logo':'--logo',
+  'theme-main-deep':'--main-deep', 'theme-sub-deep':'--sub-deep', 'theme-bg':'--bg', 'theme-sheet':'--sheet'
 };
 function previewPalette(){
   Object.keys(PAL_VAR).forEach(function(k){
@@ -936,6 +973,40 @@ $('cnt-panel').addEventListener('click', async function(e){
   if (!ok) { showToast('저장에 실패했습니다'); return; }
   await loadWork();
 });
+
+
+/* ---------- wardrobe ---------- */
+
+/* Categories live in three places: this list, the select above and dress/index.html CATS. */
+const DRESS_CATS = { hair:'헤어', outfit:'의상', lens:'렌즈' };
+
+async function loadDress(){
+  const data = await fetchAll('dress_items', { order:'id', asc:false });
+  const t = $('dr-list');
+  if (!data.length) { t.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-soft);padding:20px">등록된 옷이 없습니다</td></tr>'; return; }
+  t.innerHTML = data.map(function(d){
+    const isNew = String(d.badges || '').toUpperCase().indexOf('NEW') >= 0;
+    return '<tr><td>' + esc(d.title) + '</td>' +
+      '<td>' + esc(DRESS_CATS[d.category] || d.category || '-') + '</td>' +
+      '<td><span class="badge' + (isNew ? '' : ' badge-pink') + '">' + (isNew ? '새 옷' : '기존') + '</span></td>' +
+      '<td>' + String(d.created_at || '').slice(0,10) + '</td>' +
+      '<td><button class="delete-btn" data-del-dr="' + d.id + '">🗑</button></td></tr>';
+  }).join('');
+}
+$('dr-list').addEventListener('click', function(e){
+  const b = e.target.closest('[data-del-dr]'); if (b) del('dress_items', +b.dataset.delDr, loadDress);
+});
+$('addDr').onclick = async function(){
+  const title = $('dr-title').value.trim();
+  if (!title) { showToast('이름을 입력하세요'); return; }
+  const ok = await insertRow('dress_items', {
+    title: title, category: $('dr-cat').value,
+    image_url: $('dr-img').value.trim(),
+    badges: $('dr-new').checked ? 'NEW' : ''
+  });
+  if (ok) { showToast('추가했습니다'); $('dr-title').value = ''; $('dr-img').value = ''; loadDress(); }
+  else showToast('추가에 실패했습니다');
+};
 
 /* ---------- inquiries ---------- */
 
