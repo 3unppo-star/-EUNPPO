@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1180, user-scalable=yes">
+<title>최은뽀 · 업보</title>
+<meta name="description" content="EUNPPO OFFICIAL — 최은뽀 업보 현황.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="최은뽀 · 업보">
+<meta property="og:description" content="EUNPPO OFFICIAL — 최은뽀 업보 현황.">
+<meta property="og:image" content="https://profile.img.sooplive.co.kr/LOGO/eu/eunpp0/eunpp0.jpg">
+<link rel="icon" type="image/jpeg" href="https://profile.img.sooplive.co.kr/LOGO/eu/eunpp0/eunpp0.jpg">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="../style.css">
+<script src="../pcview.js"></script>
+<style>
+  body{ --char:url('../assets/char.png'); }
+  .upbo-head{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:6px; }
+  .upbo-eyebrow{ font-family:var(--serif); font-size:calc(12px * var(--fs-label)); letter-spacing:.24em; color:var(--sub-deep); font-weight:600; }
+  .upbo-title{ font-family:var(--disp); font-size:calc(24px * var(--fs-title)); font-weight:800; color:var(--text); }
+  .upbo-update{ font-size:calc(12px * var(--fs-label)); color:var(--text-soft); background:var(--sheet);
+    border:1px solid var(--line); padding:6px 14px; border-radius:var(--radius-pill); }
+  .search-box{ width:100%; box-sizing:border-box; padding:13px 18px; border-radius:var(--radius-pill);
+    border:1.5px solid var(--line); background:var(--sheet); color:var(--text);
+    font-size:calc(14px * var(--fs-body)); outline:none; margin:14px 0 18px; font-family:inherit; }
+  .search-box:focus{ border-color:var(--accent); }
+
+  .viewer-grid{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; }
+  .viewer-card{ background:var(--sheet); border:1.5px solid var(--line); border-radius:18px;
+    padding:20px 14px; text-align:center; cursor:pointer; transition:all .2s; }
+  .viewer-card:hover{ transform:translateY(-3px); box-shadow:var(--shadow-hover); border-color:var(--accent); }
+  .viewer-av{ width:62px; height:62px; border-radius:50%; object-fit:cover; margin:0 auto 10px; display:block;
+    border:3px solid var(--main); background:var(--main); }
+  .viewer-av-fb{ width:62px; height:62px; border-radius:50%; margin:0 auto 10px; display:flex;
+    align-items:center; justify-content:center; background:linear-gradient(135deg, var(--main), var(--sub));
+    color:var(--main-deep); font-size:calc(24px * var(--fs-title)); font-weight:800; border:3px solid var(--main); }
+  .viewer-nick{ font-size:calc(14px * var(--fs-body)); font-weight:700; color:var(--text); }
+  .viewer-id{ font-size:calc(11px * var(--fs-label)); color:var(--text-soft); margin:2px 0 8px; }
+  .viewer-total{ display:inline-block; background:var(--accent); color:var(--ink-on-dark);
+    border-radius:var(--radius-pill); padding:3px 14px; font-size:calc(12px * var(--fs-label)); font-weight:700; }
+
+  .modal-top{ display:flex; align-items:center; gap:12px; padding:20px 22px 16px;
+    border-bottom:1px solid var(--line-soft); position:relative; }
+  .modal-av{ width:52px; height:52px; border-radius:50%; object-fit:cover; border:3px solid var(--main);
+    background:var(--main); flex-shrink:0; }
+  .modal-av-fb{ width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(135deg, var(--main), var(--sub)); color:var(--main-deep);
+    font-size:calc(20px * var(--fs-title)); font-weight:800; border:3px solid var(--main); flex-shrink:0; }
+  .modal-nick{ font-family:var(--disp); font-size:calc(18px * var(--fs-title)); font-weight:800; color:var(--text); line-height:1.2; }
+  .modal-id{ font-size:calc(12px * var(--fs-label)); color:var(--text-soft); }
+  .modal-x{ position:absolute; top:16px; right:18px; background:none; border:0;
+    font-size:calc(22px * var(--fs-title)); color:var(--text-soft); cursor:pointer; line-height:1; }
+  .modal-body{ padding:14px 18px 20px; max-height:60vh; overflow-y:auto; }
+  body.embed .modal-body{ max-height:none; }
+  .upbo-row{ display:flex; align-items:center; gap:10px; padding:11px 14px; margin-bottom:7px;
+    background:var(--card2); border:1px solid var(--line-soft); border-radius:12px; }
+  .upbo-row .nm{ flex:1; font-size:calc(14px * var(--fs-body)); color:var(--text); font-weight:600; }
+  .upbo-row .ev{ font-size:calc(10px * var(--fs-label)); font-weight:800; color:var(--main-deep);
+    background:var(--main); padding:2px 8px; border-radius:var(--radius-pill); }
+  .upbo-row .ct{ font-size:calc(13px * var(--fs-body)); font-weight:800; color:var(--sub-deep);
+    background:var(--sheet); border:1.5px solid var(--line); border-radius:var(--radius-pill);
+    padding:3px 12px; min-width:42px; text-align:center; }
+  .modal .modal-pad{ padding:0; }
+  @media (max-width:900px){ .viewer-grid{ grid-template-columns:repeat(3,minmax(0,1fr)); } }
+  @media (max-width:680px){ .viewer-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; } }
+  @media (max-width:380px){ .viewer-card{ padding:14px 8px; } .viewer-av,.viewer-av-fb{ width:52px; height:52px; } }
+</style>
+</head>
+<body>
+<script>
+  try { if (window.self !== window.top) document.body.classList.add('embed'); }
+  catch (e) { document.body.classList.add('embed'); }
+  if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
+</script>
+
+<div class="sheet">
+  <div class="chrome">
+    <span class="dots"><i></i><i></i><i></i></span>
+    <div class="addr"><span class="lock">🔒</span> https://eunppo.pages.dev/work</div>
+    <button class="theme-switch" id="themeSwitch" type="button" aria-label="다크모드 전환"><span id="themeKnob">🍋</span></button>
+  </div>
+
+  <nav class="nav"><div class="nav-inner">
+      <a class="nav-logo" href="../">최은뽀<span class="lg-en">EUNPPO</span></a>
+      <a href="../" class="ntab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7.5"/><path d="M12 4.5V2.8M14.6 5.2c1.6-1.4 3.6-1.6 3.6-1.6s-.4 2-2 3.2"/></svg>프로필</a>
+      <a href="../schedule/" class="ntab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M8 3.5v3M16 3.5v3M3.5 10h17"/></svg>방송 일정</a>
+      <a href="../song/" class="ntab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="17.5" r="3"/><circle cx="17.5" cy="15.5" r="3"/><path d="M10.5 17.5V6.5l10-2v11"/></svg>노래책</a>
+      <a href="./" class="ntab active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4.5" width="14" height="16" rx="2.5"/><path d="M9.5 3.5h5v3h-5z"/><path d="M9 13l2.2 2.2L15.5 11"/></svg>업보</a>
+      <a href="../game/" class="ntab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="4.5"/><circle cx="9" cy="9" r="1.4" fill="currentColor" stroke="none"/><circle cx="15" cy="9" r="1.4" fill="currentColor" stroke="none"/><circle cx="9" cy="15" r="1.4" fill="currentColor" stroke="none"/><circle cx="15" cy="15" r="1.4" fill="currentColor" stroke="none"/></svg>미니게임</a>
+      <button class="ntab" type="button" onclick="openInquiry()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 0-3.1 6.3L20.5 19l-.8-3.4A8 8 0 0 0 20 12z"/></svg>문의</button>
+    </div></nav>
+
+  <div class="container stagger">
+    <div class="ohd"><i></i><span class="dm">✦</span><span id="hd-kicker">UPBO</span><span class="dm">✦</span><i></i></div>
+    <div class="ohd-sub" id="hd-sub">업보 현황</div>
+    <div class="card" style="margin-top:18px">
+      <div class="upbo-head">
+        <div>
+          <div class="upbo-eyebrow">UPBO</div>
+          <div class="upbo-title">업보 현황</div>
+        </div>
+        <span class="upbo-update" id="update-date"></span>
+      </div>
+      <input class="search-box" id="search" placeholder="🔍 닉네임 또는 아이디 검색">
+      <div class="viewer-grid" id="grid"><div class="spinner"></div></div>
+    </div>
+  </div>
+
+  <footer>© 2026 EUNPPO Official.<br><span class="biz">비즈니스 문의 · 문의 버튼을 이용해 주세요</span></footer>
+</div>
+
+<div class="ov" id="ov" onclick="if(event.target===this)closeModal()">
+  <div class="modal" style="padding:0">
+    <div class="modal-top" id="modal-top"></div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+
+<div class="iq-ov" id="iq-ov" onclick="if(event.target===this)closeInquiry()">
+  <div class="iq-modal">
+    <div class="iq-title">✉️ 최은뽀에게</div>
+    <div class="iq-desc">남긴 내용은 관리자만 확인합니다</div>
+    <input class="iq-input" id="iq-nick" placeholder="닉네임 (비우면 익명)">
+    <textarea class="iq-input" id="iq-msg" rows="4" placeholder="하고 싶은 말"></textarea>
+    <div class="iq-btns">
+      <button class="iq-cancel" type="button" onclick="closeInquiry()">취소</button>
+      <button class="iq-send" type="button" onclick="sendInquiry()">보내기 🍋</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="../supabase.js"></script>
+<script src="../site.js"></script>
+<script>
+let viewers = [], types = [], counts = [];
+
+async function init(){
+  try {
+    const r = await Promise.all([
+      fetchAll('viewers', { order:'sort_order', asc:true }),
+      fetchAll('upbo_types', { order:'sort_order', asc:true }),
+      fetchAll('upbo_counts', { order:'id', asc:true })
+    ]);
+    viewers = r[0]; types = r[1]; counts = r[2];
+  } catch (e) { viewers = []; types = []; counts = []; }
+
+  const latest = counts.reduce((m,c) => (c.updated_at && c.updated_at > m) ? c.updated_at : m, '');
+  document.getElementById('update-date').textContent = latest ? '갱신일 ' + latest.slice(0,10) : '';
+  render(viewers);
+  try { applyHeading('work', await window.profileData || {}); } catch (e) {}
+  document.body.classList.add('ready');
+  enableIframeAutoHeight();
+}
+
+function viewerTotal(vid){
+  return counts.filter(c => c.viewer_id === vid && c.count > 0).reduce((s,c) => s + c.count, 0);
+}
+
+function render(list){
+  const grid = document.getElementById('grid');
+  if (!list.length) {
+    grid.innerHTML = '<div style="grid-column:1/-1"><div class="empty"><span class="empty-icon">🍋</span>' +
+      (viewers.length ? '검색 결과가 없어요' : '아직 등록된 양배추가 없어요') + '</div></div>';
+    return;
+  }
+  grid.innerHTML = list.map(function(v){
+    const av = soopAvatar(v.soop_id);
+    const ini = esc(String(v.nickname || '?').charAt(0));
+    const avHtml = av
+      ? '<img class="viewer-av" src="' + esc(av) + '" referrerpolicy="no-referrer" alt="" onerror="this.outerHTML=\'<div class=&quot;viewer-av-fb&quot;>' + ini + '</div>\'">'
+      : '<div class="viewer-av-fb">' + ini + '</div>';
+    return '<div class="viewer-card" onclick="openModal(' + v.id + ')">' + avHtml +
+      '<div class="viewer-nick">' + esc(v.nickname) + '</div>' +
+      '<div class="viewer-id">' + (v.soop_id ? '(' + esc(v.soop_id) + ')' : '&nbsp;') + '</div>' +
+      '<span class="viewer-total">업보 ' + viewerTotal(v.id) + '</span></div>';
+  }).join('');
+}
+
+function openModal(vid){
+  const v = viewers.find(x => x.id === vid);
+  if (!v) return;
+  const av = soopAvatar(v.soop_id);
+  const ini = esc(String(v.nickname || '?').charAt(0));
+  const avHtml = av
+    ? '<img class="modal-av" src="' + esc(av) + '" referrerpolicy="no-referrer" alt="" onerror="this.outerHTML=\'<div class=&quot;modal-av-fb&quot;>' + ini + '</div>\'">'
+    : '<div class="modal-av-fb">' + ini + '</div>';
+  document.getElementById('modal-top').innerHTML = avHtml +
+    '<div><div class="modal-nick">' + esc(v.nickname) + '</div>' +
+    (v.soop_id ? '<div class="modal-id">(' + esc(v.soop_id) + ')</div>' : '') + '</div>' +
+    '<button class="modal-x" type="button" onclick="closeModal()">✕</button>';
+
+  const mine = {};
+  counts.filter(c => c.viewer_id === vid).forEach(function(c){ mine[c.type_id] = c.count; });
+  const rows = types.filter(t => (mine[t.id] || 0) > 0).map(function(t){
+    return '<div class="upbo-row"><span class="nm">' + esc(t.name) + '</span>' +
+      (t.category === '이벤트' ? '<span class="ev">이벤트</span>' : '') +
+      '<span class="ct">×' + mine[t.id] + '</span></div>';
+  }).join('');
+  document.getElementById('modal-body').innerHTML = rows ||
+    '<div class="empty">아직 쌓인 업보가 없어요 🍋</div>';
+
+  const ov = document.getElementById('ov');
+  ov.style.top = Math.max(10, (LAST_Y || window.scrollY + 160) - 80) + 'px';
+  ov.classList.add('show');
+}
+function closeModal(){
+  const ov = document.getElementById('ov');
+  if (ov) ov.classList.remove('show');
+}
+
+document.getElementById('search').addEventListener('input', function(e){
+  const q = e.target.value.trim().toLowerCase();
+  render(viewers.filter(function(v){
+    return String(v.nickname || '').toLowerCase().indexOf(q) >= 0 ||
+           String(v.soop_id || '').toLowerCase().indexOf(q) >= 0;
+  }));
+});
+
+init();
+setTimeout(function(){ document.body.classList.add('ready'); }, 1200);
+</script>
+<script src="../fx.js"></script>
+<script>
+(function(){
+  if (typeof window.fxHearts === 'function') return;
+  var fx = document.createElement('div'); fx.id = 'fx';
+  fx.style.cssText = 'position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden';
+  document.body.appendChild(fx);
+  for (var i = 0; i < 12; i++) {
+    var s = document.createElement('span');
+    s.className = 'fxfb'; s.textContent = '🍋';
+    s.style.left = (Math.random() * 100).toFixed(1) + 'vw';
+    s.style.fontSize = (9 + Math.random() * 7).toFixed(0) + 'px';
+    fx.appendChild(s);
+  }
+})();
+</script>
+</body>
+</html>

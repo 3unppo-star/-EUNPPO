@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1180, user-scalable=yes">
+<title>최은뽀 · 미니게임</title>
+<meta name="description" content="EUNPPO OFFICIAL — 최은뽀 미니게임 — 사다리타기와 제비뽑기.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="최은뽀 · 미니게임">
+<meta property="og:description" content="EUNPPO OFFICIAL — 최은뽀 미니게임 — 사다리타기와 제비뽑기.">
+<meta property="og:image" content="https://profile.img.sooplive.co.kr/LOGO/eu/eunpp0/eunpp0.jpg">
+<link rel="icon" type="image/jpeg" href="https://profile.img.sooplive.co.kr/LOGO/eu/eunpp0/eunpp0.jpg">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="../style.css">
+<script src="../pcview.js"></script>
+<style>
+  body{ --char:url('../assets/char.png'); }
+  .game-tabs{ display:flex; justify-content:center; gap:10px; margin:16px 0 14px; }
+  .game-tab{ border:1.5px solid var(--line); background:var(--sheet); color:var(--text-soft);
+    border-radius:var(--radius-pill); padding:10px 22px; font-size:calc(14.5px * var(--fs-body));
+    font-weight:800; cursor:pointer; font-family:inherit; transition:all .18s ease; }
+  .game-tab:hover{ background:var(--sub); color:var(--sub-deep); }
+  .game-tab.on{ background:var(--accent); border-color:transparent; color:var(--ink-on-dark);
+    box-shadow:0 6px 16px color-mix(in srgb, var(--sub-deep) 32%, transparent); }
+
+  .lg-top{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:14px; }
+  .lg-count{ display:flex; align-items:center; gap:12px; font-size:calc(14px * var(--fs-body)); font-weight:700; color:var(--text); }
+  .lg-count button{ width:36px; height:36px; border-radius:50%; border:1.5px solid var(--line);
+    background:var(--sheet); color:var(--sub-deep); font-size:calc(18px * var(--fs-title));
+    font-weight:800; cursor:pointer; font-family:inherit; }
+  .lg-count button:hover{ background:var(--sub); }
+  .lg-count b{ font-family:var(--disp); font-size:calc(20px * var(--fs-title)); min-width:30px; text-align:center; color:var(--sub-deep); }
+  .lg-btn{ border:0; cursor:pointer; border-radius:var(--radius-pill); padding:12px 24px;
+    font-size:calc(15px * var(--fs-body)); font-weight:800; font-family:inherit;
+    background:var(--accent); color:var(--ink-on-dark); transition:transform .15s ease; }
+  .lg-btn:hover{ transform:translateY(-2px); }
+  .lg-btn.ghost{ background:var(--main); color:var(--main-deep); }
+  .lg-hint{ font-size:calc(12.5px * var(--fs-label)); color:var(--text-soft); margin-bottom:6px; }
+
+  .lg-stage{ position:relative; margin-top:4px; }
+  .lg-row{ position:relative; height:60px; }
+  .tok{ font-size:26px; line-height:1; display:block; }
+  .lg-av{ position:absolute; transform:translateX(-50%); width:50px; height:50px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; border:3px solid; background:var(--sheet);
+    cursor:default; transition:transform .15s ease, opacity .2s ease;
+    box-shadow:0 4px 10px color-mix(in srgb, var(--sub-deep) 18%, transparent); padding:0; font-family:inherit; }
+  .lg-av.clickable{ cursor:pointer; }
+  .lg-av.clickable:hover{ transform:translateX(-50%) scale(1.14); }
+  .lg-av.done{ opacity:.35; }
+  .lg-runner{ position:absolute; width:46px; height:46px; border-radius:50%; display:flex;
+    align-items:center; justify-content:center; border:3px solid; background:var(--sheet);
+    z-index:5; pointer-events:none; transform:translate(-50%,-50%);
+    box-shadow:0 5px 12px rgba(0,0,0,.2); }
+  .lg-runner .tok{ font-size:22px; }
+  #lgCanvas{ display:block; width:100%; }
+  .lg-res{ position:absolute; transform:translateX(-50%); width:88px; }
+  .lg-res input{ width:100%; box-sizing:border-box; text-align:center; padding:9px 6px; border-radius:12px;
+    border:1.5px solid var(--line); background:var(--sheet); color:var(--text);
+    font-size:calc(13px * var(--fs-body)); font-weight:700; font-family:inherit; outline:none; }
+  .lg-res input:focus{ border-color:var(--accent); }
+  .lg-res .mask{ display:block; text-align:center; padding:9px 6px; border-radius:12px; background:var(--main);
+    color:var(--main-deep); font-size:calc(14px * var(--fs-body)); font-weight:800; transition:all .2s ease; }
+  .lg-res .mask.open{ background:var(--sheet); border:1.5px solid;
+    box-shadow:0 6px 14px color-mix(in srgb, var(--sub-deep) 22%, transparent); transform:scale(1.08); }
+  .lg-name{ position:absolute; transform:translateX(-50%); width:86px; top:58px; }
+  .lg-name input{ width:100%; box-sizing:border-box; text-align:center; padding:6px 4px; border-radius:10px;
+    border:1.5px solid var(--line); background:var(--sheet); color:var(--text);
+    font-size:calc(12px * var(--fs-body)); font-weight:700; font-family:inherit; outline:none; }
+  .lg-name input:focus{ border-color:var(--accent); }
+  .lg-name .nm{ display:block; text-align:center; font-size:calc(12.5px * var(--fs-body)); font-weight:800;
+    color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .lg-log{ margin-top:16px; display:flex; flex-direction:column; gap:6px; }
+  .lg-log div{ display:flex; align-items:center; gap:9px; font-size:calc(14px * var(--fs-body));
+    font-weight:700; color:var(--text); background:var(--card2); border-radius:10px; padding:8px 14px; }
+  .lg-log .tok{ font-size:20px; }
+
+  .jb-set{ display:flex; align-items:center; gap:22px; flex-wrap:wrap; }
+  .jb-stage{ display:flex; justify-content:center; padding:168px 0 14px; overflow-x:auto; }
+  .jb-scene{ position:relative; display:inline-flex; flex-direction:column; align-items:stretch; }
+  .jb-sticks{ position:relative; display:flex; gap:32px; padding:0 36px; align-items:flex-end;
+    height:176px; z-index:1; justify-content:center; }
+  .jb-stick{ position:relative; width:22px; height:172px; background:none; border:0; padding:0; cursor:pointer;
+    font-family:inherit; transform:translateY(0) rotate(var(--rot,0deg));
+    transition:transform .78s cubic-bezier(.35,.05,.25,1.22);
+    animation:jbRise .5s cubic-bezier(.3,1.2,.5,1) backwards; }
+  @keyframes jbRise{ from{ opacity:0; transform:translateY(48px) rotate(var(--rot,0deg)); } }
+  .jb-stick:not(.out):not(.wig):hover{ transform:translateY(-11px) rotate(var(--rot,0deg)); }
+  .jb-stick.wig{ animation:jbWig .32s ease; }
+  @keyframes jbWig{ 25%{transform:translateY(-5px) rotate(-3.5deg)} 60%{transform:translateY(-9px) rotate(3deg)} 100%{transform:translateY(-11px) rotate(0deg)} }
+  .jb-stick.out{ transform:translateY(-132px) rotate(0deg); cursor:default; z-index:5; }
+  .jb-stick .bar{ position:absolute; left:50%; transform:translateX(-50%); bottom:0; width:15px; height:100%;
+    border-radius:8px 8px 6px 6px;
+    background:linear-gradient(90deg, color-mix(in srgb,var(--main) 70%,#C9A96B), color-mix(in srgb,var(--main) 30%,#B08F55) 55%, #9C7C46);
+    box-shadow:inset -2px 0 2px rgba(0,0,0,.14), inset 2px 0 2px rgba(255,255,255,.4); }
+  .jb-stick .cap{ position:absolute; top:-27px; left:50%; transform:translateX(-50%); width:48px; height:48px;
+    border-radius:50%; background:var(--sheet); border:2px solid var(--line); display:flex;
+    align-items:center; justify-content:center; box-shadow:0 3px 7px color-mix(in srgb,var(--sub-deep) 26%,transparent); }
+  .jb-stick .cap .tok{ font-size:24px; }
+  .jb-stick .cap .win-b{ position:absolute; right:-6px; bottom:-4px; font-size:17px; filter:drop-shadow(0 2px 3px rgba(0,0,0,.25)); }
+  .jb-stick .no{ position:absolute; top:26px; left:50%; transform:translateX(-50%);
+    font-size:9.5px; font-weight:800; color:var(--main-deep); font-style:normal; }
+  .jb-stick .tip{ position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:15px; height:40px;
+    border-radius:2px 2px 6px 6px; opacity:0; transition:opacity .25s ease .35s; }
+  .jb-stick.out .tip{ opacity:1; }
+  .tip.win{ background:linear-gradient(#F7DC7A, #E0A828); box-shadow:0 0 14px rgba(224,168,40,.6); }
+  .tip.lose{ background:linear-gradient(#C6D3B4, #9FAE8C); }
+  .jb-toastwrap{ height:52px; display:flex; justify-content:center; align-items:center; }
+  .jb-toast{ opacity:0; transform:scale(.55); transition:all .3s cubic-bezier(.3,1.4,.5,1);
+    background:var(--sheet); border:2px solid; border-radius:var(--radius-pill); padding:10px 24px;
+    font-size:calc(16px * var(--fs-title)); font-weight:800;
+    box-shadow:var(--shadow-hover); white-space:nowrap; }
+  .jb-toast.show{ opacity:1; transform:scale(1); }
+  .jb-toast.win{ border-color:#E0A828; color:#96700F; font-family:var(--disp); }
+  .jb-toast.lose{ border-color:var(--line); color:var(--text-soft); }
+  .jb-cup{ position:relative; z-index:3; height:96px; margin-top:-92px; border-radius:16px 16px 30px 30px;
+    background:linear-gradient(color-mix(in srgb,var(--sub-mid) 80%,#FFFFFF), var(--sub-deep));
+    box-shadow:inset 0 10px 0 rgba(255,255,255,.13), inset 0 -8px 14px rgba(0,0,0,.18),
+               0 12px 24px color-mix(in srgb,var(--sub-deep) 26%,transparent); }
+  .jb-cup::before{ content:''; position:absolute; top:0; left:0; right:0; height:13px;
+    border-radius:16px 16px 46% 46%; background:rgba(0,0,0,.16); }
+  .jb-cup::after{ content:'🍋 은뽀의 제비뽑기 🍋'; position:absolute; inset:0; display:flex;
+    align-items:center; justify-content:center; color:var(--ink-on-dark);
+    font-size:calc(13.5px * var(--fs-body)); font-weight:800; letter-spacing:.14em; font-family:var(--disp); }
+
+  @media (max-width:640px){
+    .lg-res{ width:64px; } .lg-res input,.lg-res .mask{ font-size:11.5px; padding:8px 3px; }
+    .lg-av{ width:40px; height:40px; } .tok{ font-size:20px; }
+    .jb-sticks{ gap:20px; padding:0 26px; } .jb-stage{ padding-top:160px; }
+    .jb-stick .cap{ width:40px; height:40px; top:-23px; }
+  }
+</style>
+</head>
+<body>
+<script>
+  try { if (window.self !== window.top) document.body.classList.add('embed'); }
+  catch (e) { document.body.classList.add('embed'); }
+  if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
+</script>
+
+<div class="sheet">
+  <div class="chrome">
+    <span class="dots"><i></i><i></i><i></i></span>
+    <div class="addr"><span class="lock">🔒</span> https://eunppo.pages.dev/game</div>
+    <button class="theme-switch" id="themeSwitch" type="button" aria-label="다크모드 전환"><span id="themeKnob">🍋</span></button>
+  </div>
+
+  <nav class="nav"><div class="nav-inner">
+      <a class="nav-logo" href="../">최은뽀<span class="lg-en">EUNPPO</span></a>
+      <a href="../" class="ntab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7.5"/><path d="M12 4.5V2.8M14.6 5.2c1.6-1.4 3.6-1.6 3.6-1.6s-.4 2-2 3.2"/></svg>프로필</a>
+      <a href="../schedule/" class="ntab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M8 3.5v3M16 3.5v3M3.5 10h17"/></svg>방송 일정</a>
+      <a href="../song/" class="ntab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="17.5" r="3"/><circle cx="17.5" cy="15.5" r="3"/><path d="M10.5 17.5V6.5l10-2v11"/></svg>노래책</a>
+      <a href="../work/" class="ntab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4.5" width="14" height="16" rx="2.5"/><path d="M9.5 3.5h5v3h-5z"/><path d="M9 13l2.2 2.2L15.5 11"/></svg>업보</a>
+      <a href="./" class="ntab active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="4.5"/><circle cx="9" cy="9" r="1.4" fill="currentColor" stroke="none"/><circle cx="15" cy="9" r="1.4" fill="currentColor" stroke="none"/><circle cx="9" cy="15" r="1.4" fill="currentColor" stroke="none"/><circle cx="15" cy="15" r="1.4" fill="currentColor" stroke="none"/></svg>미니게임</a>
+      <button class="ntab" type="button" onclick="openInquiry()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 0-3.1 6.3L20.5 19l-.8-3.4A8 8 0 0 0 20 12z"/></svg>문의</button>
+    </div></nav>
+
+  <div class="container stagger">
+    <div class="ohd"><i></i><span class="dm">✦</span><span id="hd-kicker">MINI GAME</span><span class="dm">✦</span><i></i></div>
+    <div class="ohd-sub" id="hd-sub">미니게임</div>
+    <div class="game-tabs">
+      <button class="game-tab on" type="button" id="tabbtn-ladder" onclick="switchGame('ladder')">🍋 사다리타기</button>
+      <button class="game-tab" type="button" id="tabbtn-lots" onclick="switchGame('lots')">🌿 제비뽑기</button>
+    </div>
+
+    <div class="card" id="game-ladder">
+      <div class="lg-top">
+        <div class="lg-count">인원
+          <button type="button" onclick="setN(-1)">−</button><b id="lg-n">4</b><button type="button" onclick="setN(1)">+</button>
+        </div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap">
+          <button class="lg-btn ghost" type="button" id="lg-reset" style="display:none" onclick="resetGame()">↺ 다시하기</button>
+          <button class="lg-btn ghost" type="button" id="lg-all" style="display:none" onclick="revealAll()">전부 공개</button>
+          <button class="lg-btn" type="button" id="lg-start" onclick="startGame()">🍋 시작하기</button>
+        </div>
+      </div>
+      <div class="lg-hint" id="lg-hint">아래 칸에 결과를 적고 시작하기를 누르면 사다리가 숨겨져요. 레몬을 눌러 타고 내려갑니다 🍋</div>
+      <div class="lg-stage" id="lg-stage">
+        <div class="lg-row" id="lg-tops" style="height:96px"></div>
+        <canvas id="lgCanvas"></canvas>
+        <div class="lg-row" id="lg-bots" style="height:48px"></div>
+      </div>
+      <div class="lg-log" id="lg-log"></div>
+    </div>
+
+    <div class="card" id="game-lots" style="display:none">
+      <div class="lg-top">
+        <div class="jb-set">
+          <div class="lg-count">제비
+            <button type="button" onclick="jbSetN(-1)">−</button><b id="jb-n">4</b><button type="button" onclick="jbSetN(1)">+</button>
+          </div>
+          <div class="lg-count">당첨
+            <button type="button" onclick="jbSetW(-1)">−</button><b id="jb-w">1</b><button type="button" onclick="jbSetW(1)">+</button>
+          </div>
+        </div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap">
+          <button class="lg-btn ghost" type="button" id="jb-reset" style="display:none" onclick="jbReset()">↺ 다시하기</button>
+          <button class="lg-btn ghost" type="button" id="jb-all" style="display:none" onclick="jbRevealAll()">전부 공개</button>
+          <button class="lg-btn" type="button" id="jb-start" onclick="jbStart()">🌿 시작하기</button>
+        </div>
+      </div>
+      <div class="lg-hint" id="jb-hint">제비 개수와 당첨 개수를 정하고 시작하기. 막대를 눌러 뽑아보세요 🌿</div>
+      <div class="jb-toastwrap"><div class="jb-toast" id="jb-toast"></div></div>
+      <div class="jb-stage" id="jb-stage" style="display:none">
+        <div class="jb-scene">
+          <div class="jb-sticks" id="jb-sticks"></div>
+          <div class="jb-cup"></div>
+        </div>
+      </div>
+      <div class="lg-log" id="jb-log"></div>
+    </div>
+  </div>
+
+  <footer>© 2026 EUNPPO Official.<br><span class="biz">비즈니스 문의 · 문의 버튼을 이용해 주세요</span></footer>
+</div>
+
+
+<div class="iq-ov" id="iq-ov" onclick="if(event.target===this)closeInquiry()">
+  <div class="iq-modal">
+    <div class="iq-title">✉️ 최은뽀에게</div>
+    <div class="iq-desc">남긴 내용은 관리자만 확인합니다</div>
+    <input class="iq-input" id="iq-nick" placeholder="닉네임 (비우면 익명)">
+    <textarea class="iq-input" id="iq-msg" rows="4" placeholder="하고 싶은 말"></textarea>
+    <div class="iq-btns">
+      <button class="iq-cancel" type="button" onclick="closeInquiry()">취소</button>
+      <button class="iq-send" type="button" onclick="sendInquiry()">보내기 🍋</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="../supabase.js"></script>
+<script src="../site.js"></script>
+<script>
+/* Ported from the moyo minigame source: ladder + lots. Structure and probabilities are
+   unchanged; the goblin sprites are replaced with lemon/leaf tokens. */
+const TOK = ['🍋','🌿','🍃','🍀','🌱','🍐','🌵','🪴','🌾','🍈','🥬','🌻'];
+const PC = ['#5E8A3F','#C98A2A','#7BA84F','#E0A63C','#4E7B93','#9A7BC0','#C7615B','#7E8A6E','#3FA07E','#C06FA0','#8AA33F','#B0803F'];
+const gob = i => TOK[i % TOK.length];
+const $ = id => document.getElementById(id);
+function cssVar(n){ return getComputedStyle(document.body).getPropertyValue(n).trim() || '#2F5E24'; }
+function switchGame(g){
+  $('game-ladder').style.display = g === 'ladder' ? '' : 'none';
+  $('game-lots').style.display   = g === 'lots'   ? '' : 'none';
+  $('tabbtn-ladder').classList.toggle('on', g === 'ladder');
+  $('tabbtn-lots').classList.toggle('on', g === 'lots');
+  if (g === 'ladder' && !busy) repaint();
+}
+
+/* Ladder. Rung chance 0.45, no adjacent duplicates, every column gets at least one. */
+let N=4, phase='setup', G=null, busy=false;
+function setN(d){
+  if(phase!=='setup') return;
+  N=Math.min(10, Math.max(2, N+d)); $('lg-n').textContent=N; renderSetup();
+}
+function geom(){
+  const cv=$('lgCanvas'); const W=cv.clientWidth, H=440;
+  const minPad=Math.max(50, W*0.06);
+  const colW=Math.min(150, (W-minPad*2)/(N-1));   /* 칸 간격 상한 → 인원 적으면 좁게 */
+  const pad=(W - colW*(N-1))/2;                    /* 남는 폭은 중앙 정렬 */
+  const rows=(G&&G.rows)||9; const y0=10, y1=H-10, rowH=(y1-y0)/(rows+1);
+  return {W,H,pad,colW,y0,y1,rowH,rows};
+}
+function renderSetup(){
+  const keep=[...document.querySelectorAll('#lg-bots .lg-res input')].map(i=>i.value);
+  const keepN=(G&&G.names)? G.names.map((n,i)=>G.rawNames[i]) : [...document.querySelectorAll('#lg-tops .lg-name input')].map(i=>i.value);
+  const {pad,colW}=geom();
+  $('lgCanvas').style.height='440px';
+  const tops=$('lg-tops'), bots=$('lg-bots');
+  tops.innerHTML=''; bots.innerHTML='';
+  for(let i=0;i<N;i++){
+    const a=document.createElement('button');
+    a.className='lg-av'; a.type='button'; a.id='lg-av-'+i;
+    a.innerHTML='<span class="tok">'+gob(i)+'</span>';
+    a.style.left=(pad+i*colW)+'px'; a.style.top='2px'; a.style.borderColor=PC[i%12];
+    tops.appendChild(a);
+    const nw=document.createElement('div');
+    nw.className='lg-name'; nw.id='lg-name-'+i; nw.style.left=(pad+i*colW)+'px';
+    const ni=document.createElement('input');
+    ni.placeholder=(i+1)+'번'; ni.value=keepN[i]!==undefined? keepN[i] : '';
+    nw.appendChild(ni); tops.appendChild(nw);
+    const w=document.createElement('div');
+    w.className='lg-res'; w.style.left=(pad+i*colW)+'px'; w.style.top='2px'; w.id='lg-res-'+i;
+    const inp=document.createElement('input');
+    inp.placeholder='결과'; inp.value = keep[i]!==undefined? keep[i] : (i===0?'당첨 🎁':'꽝');
+    w.appendChild(inp); bots.appendChild(w);
+  }
+  drawBase();
+}
+function drawBase(){
+  const cv=$('lgCanvas');
+  const {W,H,pad,colW,y0,y1}=geom();
+  const dpr=window.devicePixelRatio||1;
+  cv.width=W*dpr; cv.height=H*dpr;
+  const c=cv.getContext('2d'); c.setTransform(dpr,0,0,dpr,0,0);
+  c.clearRect(0,0,W,H);
+  c.lineCap='round'; c.lineWidth=4; c.strokeStyle=cssVar('--main-dark'); c.globalAlpha=.85;
+  for(let i=0;i<N;i++){
+    const x=pad+i*colW;
+    c.beginPath(); c.moveTo(x,y0); c.lineTo(x,y1); c.stroke();
+  }
+  c.globalAlpha=1;
+}
+function startGame(){
+  if(phase!=='setup') return;
+  const rows=9+((Math.random()*3)|0);
+  const rung=[];
+  for(let g=0; g<N-1; g++){
+    rung[g]=[];
+    for(let r=0; r<rows; r++) rung[g][r] = Math.random()<0.45 && !(g>0 && rung[g-1][r]);
+  }
+  for(let g=0; g<N-1; g++) if(!rung[g].some(Boolean)){
+    let r=(Math.random()*rows)|0;
+    while(g>0 && rung[g-1][r]) r=(r+1)%rows;
+    rung[g][r]=true;
+  }
+  const results=[...document.querySelectorAll('#lg-bots .lg-res input')].map(i=>i.value.trim()||'꽝');
+  const rawNames=[...document.querySelectorAll('#lg-tops .lg-name input')].map(i=>i.value);
+  const names=rawNames.map((v,i)=>v.trim()||((i+1)+'번'));
+  G={rows, rung, results, names, rawNames, done:Array(N).fill(false)};
+  for(let i=0;i<N;i++){
+    const nw=$('lg-name-'+i); nw.innerHTML='';
+    const sp=document.createElement('span'); sp.className='nm'; sp.textContent=names[i]; sp.style.color=PC[i%12];
+    nw.appendChild(sp);
+  }
+  phase='play'; busy=false;
+  for(let i=0;i<N;i++){
+    const w=$('lg-res-'+i); w.innerHTML='';
+    const m=document.createElement('span'); m.className='mask'; m.id='lg-mask-'+i; m.textContent=results[i];
+    w.appendChild(m);
+    const a=$('lg-av-'+i); a.classList.add('clickable'); a.onclick=()=>run(i,false);
+  }
+  $('lg-start').style.display='none';
+  $('lg-reset').style.display=''; $('lg-all').style.display='';
+  $('lg-hint').textContent='레몬을 눌러보세요. 사다리는 숨겨져 있어서 어디로 갈지 몰라요 🍋';
+  drawBase();
+}
+function resetGame(){
+  phase='setup'; G=null; busy=false;
+  document.querySelectorAll('.lg-runner').forEach(e=>e.remove());
+  $('lg-start').style.display='';
+  $('lg-reset').style.display='none'; $('lg-all').style.display='none';
+  $('lg-log').innerHTML='';
+  $('lg-hint').textContent='아래 칸에 결과를 적고 시작하기를 누르면 사다리가 숨겨져요. 레몬을 눌러 타고 내려갑니다 🍋';
+  renderSetup();
+}
+function pathOf(start){
+  const {pad,colW,y0,y1,rowH,rows}=geom();
+  let col=start; const pts=[[pad+col*colW,y0]];
+  for(let r=0;r<rows;r++){
+    const y=y0+rowH*(r+1);
+    pts.push([pad+col*colW,y]);
+    if(col<N-1 && G.rung[col][r]){ col++; pts.push([pad+col*colW,y]); }
+    else if(col>0 && G.rung[col-1][r]){ col--; pts.push([pad+col*colW,y]); }
+  }
+  pts.push([pad+col*colW,y1]);
+  return {pts,end:col};
+}
+function strokePath(c,pts,upto,col){
+  c.strokeStyle=col; c.lineWidth=5.5; c.lineCap='round'; c.lineJoin='round';
+  c.beginPath(); c.moveTo(pts[0][0],pts[0][1]);
+  for(let k=1;k<=upto;k++) c.lineTo(pts[k][0],pts[k][1]);
+  c.stroke();
+}
+function finishRun(i,end,pts){
+  G.done[i]=true;
+  $('lg-av-'+i).classList.remove('clickable'); $('lg-av-'+i).classList.add('done'); $('lg-av-'+i).onclick=null;
+  const m=$('lg-mask-'+end);
+  m.textContent=G.results[end]; m.classList.add('open');
+  m.style.borderColor=PC[i%12]; m.style.color=PC[i%12];
+  const log=document.createElement('div');
+  log.innerHTML='<span class="tok">'+gob(i)+'</span> <b>'+G.names[i].replace(/</g,'&lt;')+'</b>  →  '+G.results[end].replace(/</g,'&lt;');
+  log.style.borderLeft='4.5px solid '+PC[i%12];
+  $('lg-log').appendChild(log);
+  if(typeof window.fxHearts==='function'){
+    const r=$('lgCanvas').getBoundingClientRect();
+    window.fxHearts(r.left+pts[pts.length-1][0], r.top+pts[pts.length-1][1], 8);
+  }
+}
+function run(i, instant){
+  if(phase!=='play' || !G || G.done[i] || busy) return;
+  const {pts,end}=pathOf(i);
+  const cv=$('lgCanvas'), c=cv.getContext('2d');
+  if(instant){ strokePath(c,pts,pts.length-1,PC[i%12]); finishRun(i,end,pts); return; }
+  busy=true;
+  const stage=$('lg-stage'), crect=cv.getBoundingClientRect(), srect=stage.getBoundingClientRect();
+  const ox=crect.left-srect.left, oy=crect.top-srect.top;
+  const runner=document.createElement('div');
+  runner.className='lg-runner'; runner.innerHTML='<span class="tok">'+gob(i)+'</span>'; runner.style.borderColor=PC[i%12];
+  stage.appendChild(runner);
+  const seg=[0];
+  for(let k=1;k<pts.length;k++) seg[k]=seg[k-1]+Math.hypot(pts[k][0]-pts[k-1][0], pts[k][1]-pts[k-1][1]);
+  const total=seg[seg.length-1], SPEED=470;
+  const t0=performance.now();
+  (function step(now){
+    const dist=Math.min(total, (now-t0)/1000*SPEED);
+    let k=1; while(k<seg.length && seg[k]<dist) k++;
+    const a=pts[k-1], b=pts[Math.min(k,pts.length-1)];
+    const segLen=seg[k]-seg[k-1]||1, t=(dist-seg[k-1])/segLen;
+    const x=a[0]+(b[0]-a[0])*t, y=a[1]+(b[1]-a[1])*t;
+    drawBase();
+    for(let j=0;j<N;j++) if(G.done[j]){ const p=pathOf(j); strokePath(c,p.pts,p.pts.length-1,PC[j%12]); }
+    strokePath(c,pts,k-1,PC[i%12]);
+    c.strokeStyle=PC[i%12]; c.lineWidth=5.5;
+    c.beginPath(); c.moveTo(a[0],a[1]); c.lineTo(x,y); c.stroke();
+    runner.style.left=(ox+x)+'px'; runner.style.top=(oy+y)+'px';
+    if(dist<total) requestAnimationFrame(step);
+    else{ runner.remove(); busy=false; strokePath(c,pts,pts.length-1,PC[i%12]); finishRun(i,end,pts); }
+  })(performance.now());
+}
+function revealAll(){
+  if(phase!=='play'||!G||busy) return;
+  for(let i=0;i<N;i++) if(!G.done[i]) run(i,true);
+}
+function repaint(){
+  if(phase==='setup'){ renderSetup(); return; }
+  const {pad,colW}=geom();
+  for(let i=0;i<N;i++){
+    $('lg-av-'+i).style.left=(pad+i*colW)+'px';
+    $('lg-name-'+i).style.left=(pad+i*colW)+'px';
+    $('lg-res-'+i).style.left=(pad+i*colW)+'px';
+  }
+  drawBase();
+  const c=$('lgCanvas').getContext('2d');
+  for(let j=0;j<N;j++) if(G.done[j]){ const p=pathOf(j); strokePath(c,p.pts,p.pts.length-1,PC[j%12]); }
+}
+
+/* Lots. Wins are shuffled across the sticks before the first draw. */
+let JN=4, JW=1, jbPhase='setup', JB=null;
+function jbSetN(d){
+  if(jbPhase!=='setup') return;
+  JN=Math.min(12, Math.max(2, JN+d));
+  JW=Math.min(JW, JN-1);
+  $('jb-n').textContent=JN; $('jb-w').textContent=JW;
+}
+function jbSetW(d){
+  if(jbPhase!=='setup') return;
+  JW=Math.min(JN-1, Math.max(1, JW+d));
+  $('jb-w').textContent=JW;
+}
+function jbHint(){
+  const left=JB.results.filter((r,i)=>r==='win'&&!JB.done[i]).length;
+  const rem=JB.done.filter(d=>!d).length;
+  $('jb-hint').textContent=`남은 제비 ${rem}개 · 남은 당첨 ${left}개 🌿`;
+}
+function jbStart(){
+  if(jbPhase!=='setup') return;
+  const arr=Array(JN).fill('lose'); for(let i=0;i<JW;i++) arr[i]='win';
+  for(let i=arr.length-1;i>0;i--){ const j=(Math.random()*(i+1))|0; [arr[i],arr[j]]=[arr[j],arr[i]]; }
+  JB={results:arr, done:Array(JN).fill(false)};
+  jbPhase='play';
+  $('jb-start').style.display='none'; $('jb-reset').style.display=''; $('jb-all').style.display='';
+  $('jb-log').innerHTML='';
+  $('jb-stage').style.display='flex';
+  const box=$('jb-sticks'); box.innerHTML='';
+  for(let i=0;i<JN;i++){
+    const win=JB.results[i]==='win';
+    const b=document.createElement('button');
+    b.className='jb-stick'; b.type='button'; b.id='jb-stick-'+i;
+    b.style.setProperty('--rot', (Math.random()*4-2).toFixed(1)+'deg');
+    b.style.animationDelay=(i*0.05)+'s';
+    b.innerHTML='<span class="bar"></span><span class="cap"><span class="tok">'+gob(i)+'</span></span><i class="no">'+(i+1)+'</i>'
+      +'<span class="tip '+(win?'win':'lose')+'"></span>';
+    b.onclick=()=>jbPull(i,false);
+    box.appendChild(b);
+  }
+  jbHint();
+}
+function jbPull(i, instant){
+  if(jbPhase!=='play'||!JB||JB.done[i]) return;
+  JB.done[i]=true;
+  const win=JB.results[i]==='win';
+  const st=$('jb-stick-'+i); st.onclick=null;
+  function pullOut(){
+    st.classList.add('out');
+    if(win) st.querySelector('.cap').insertAdjacentHTML('beforeend','<span class="win-b">🎁</span>');
+    if(!instant){
+      const t=$('jb-toast');
+      t.className='jb-toast show '+(win?'win':'lose');
+      t.textContent=(i+1)+'번 제비  →  '+(win?'당첨 🎁':'꽝 🍂');
+      clearTimeout(window.__jbToastT);
+      window.__jbToastT=setTimeout(()=>t.classList.remove('show'), 1700);
+    }
+    const log=document.createElement('div');
+    log.textContent=(i+1)+'번 제비  →  '+(win?'당첨 🎁':'꽝');
+    log.style.borderLeft='4.5px solid '+(win?'#d9a520':'#a9ae94');
+    $('jb-log').appendChild(log);
+    jbHint();
+    if(win && !instant && typeof window.fxHearts==='function'){
+      setTimeout(()=>{
+        const r=st.getBoundingClientRect();
+        window.fxHearts(r.left+r.width/2, r.bottom-30, 10);
+      }, 820);
+    }
+  }
+  if(instant){ pullOut(); return; }
+  st.classList.add('wig');
+  setTimeout(()=>{ st.classList.remove('wig'); pullOut(); }, 310);
+}
+function jbRevealAll(){
+  if(jbPhase!=='play'||!JB) return;
+  for(let i=0;i<JN;i++) jbPull(i,true);
+}
+function jbReset(){
+  jbPhase='setup'; JB=null;
+  $('jb-sticks').innerHTML=''; $('jb-log').innerHTML=''; $('jb-stage').style.display='none';
+  const _t=$('jb-toast'); if(_t) _t.classList.remove('show');
+  $('jb-start').style.display=''; $('jb-reset').style.display='none'; $('jb-all').style.display='none';
+  $('jb-hint').textContent='제비 개수와 당첨 개수를 정하고 시작하기. 막대를 눌러 뽑아보세요 🌿';
+}
+
+
+window.addEventListener('resize', function(){ if (!busy) repaint(); });
+renderSetup();
+
+(async function(){
+  try { applyHeading('game', await window.profileData || {}); } catch (e) {}
+  document.body.classList.add('ready');
+})();
+setTimeout(function(){ document.body.classList.add('ready'); }, 1200);
+</script>
+<script src="../fx.js"></script>
+<script>
+(function(){
+  if (typeof window.fxHearts === 'function') return;
+  var fx = document.createElement('div'); fx.id = 'fx';
+  fx.style.cssText = 'position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden';
+  document.body.appendChild(fx);
+  for (var i = 0; i < 12; i++) {
+    var s = document.createElement('span');
+    s.className = 'fxfb'; s.textContent = '🍋';
+    s.style.left = (Math.random() * 100).toFixed(1) + 'vw';
+    s.style.fontSize = (9 + Math.random() * 7).toFixed(0) + 'px';
+    fx.appendChild(s);
+  }
+})();
+</script>
+</body>
+</html>

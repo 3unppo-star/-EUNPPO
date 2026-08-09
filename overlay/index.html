@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>EUNPPO Overlay</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root{
+  --ov-main: #A8CB84;
+  --ov-main-2: #2F5E24;
+}
+* { box-sizing:border-box; margin:0; padding:0; }
+html, body { background: transparent; overflow: hidden; width: 700px; height: 120px; }
+.bar {
+  display:inline-flex; align-items:center; height:90px; margin:15px 0 0 10px;
+  border-radius:50px; padding:0 20px 0 6px;
+  background: rgba(255,255,255,0.85);
+  border:1.5px solid var(--ov-main);
+  opacity:0; transition:opacity .5s ease, width .35s ease; max-width:460px;
+}
+.bar.visible { opacity:1; }
+.profile-wrap { flex-shrink:0; z-index:2; }
+.profile-bg { width:78px; height:78px; border-radius:50%; background:linear-gradient(135deg,var(--ov-main),var(--ov-main-2)); overflow:hidden; display:flex; align-items:center; justify-content:center; }
+.profile-bg img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
+.song-info { overflow:hidden; padding:0 14px; min-width:0; display:flex; flex-direction:column; justify-content:center; gap:3px; }
+.song-title-wrap { white-space:nowrap; overflow:hidden; max-width:340px; }
+.song-title-text { display:inline-block; font-family:'Pretendard',sans-serif; font-size:20px; font-weight:700; color:#1C1C2E; white-space:nowrap; }
+.song-artist { font-family:'Pretendard',sans-serif; font-size:12px; font-weight:500; color:#6B7280; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; display:flex; align-items:center; gap:5px; }
+.singer-name { color:var(--ov-main-2); font-weight:700; }
+.artist-sep { font-size:10px; opacity:.4; }
+@keyframes rolling { 0%{ transform:translateX(0); } 100%{ transform:translateX(var(--roll-dist)); } }
+</style>
+</head>
+<body>
+<div class="bar" id="bar">
+  <div class="profile-wrap">
+    <div class="profile-bg">
+      <img src="https://profile.img.sooplive.co.kr/LOGO/eu/eunpp0/eunpp0.jpg" alt="" onerror="this.style.display='none'">
+    </div>
+  </div>
+  <div class="song-info" id="songInfo">
+    <div class="song-title-wrap" id="titleWrap"><span class="song-title-text" id="titleText">🎵 최은뽀</span></div>
+    <div class="song-artist" id="artistText"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const sb = supabase.createClient('https://fqzgqqenrznzhfpxjltf.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZxemdxcWVucnpuemhmcHhqbHRmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYyMjM4NzIsImV4cCI6MjEwMTc5OTg3Mn0.o_l9AilywN8YK-YTS5tU-tqeibz9O_133tjGevibetA');
+const MAX_WIDTH = 460;
+let lastKey = null;
+
+function fitBar(titleEl){
+  requestAnimationFrame(()=>{
+    const bar=document.getElementById('bar');
+    const profileW=78+6+20;
+    const textW=Math.min(titleEl.scrollWidth+40, MAX_WIDTH);
+    bar.style.width=(profileW+textW+20)+'px';
+  });
+}
+
+async function poll(){
+  try {
+    const { data } = await sb.from('overlay_state').select('*').eq('id',1).single();
+    const bar=document.getElementById('bar');
+    if(!data || !data.is_visible || !data.song_title){ bar.classList.remove('visible'); return; }
+    const key=data.song_title+'|'+(data.song_artist||'');
+    if(key===lastKey){ bar.classList.add('visible'); return; }
+    lastKey=key;
+    const titleEl=document.getElementById('titleText');
+    const artistEl=document.getElementById('artistText');
+    titleEl.textContent='🎵 '+data.song_title;
+    artistEl.innerHTML = data.song_artist ? `<span>${data.song_artist}</span>` : '';
+    fitBar(titleEl);
+    bar.classList.add('visible');
+  } catch(e){}
+}
+poll();
+setInterval(poll, 1500);
+</script>
+</body>
+</html>

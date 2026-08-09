@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EUNPPO OFFICIAL — 관리자</title>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="../style.css">
+<style>
+  body{ padding-bottom:60px; }
+  .ep-gate{ position:fixed; inset:0; background:var(--bg); display:flex; align-items:center; justify-content:center; z-index:999; padding:20px; }
+  .ep-box{ background:var(--sheet); border:1.5px solid var(--line); border-radius:22px; box-shadow:var(--shadow); padding:34px 30px; width:340px; text-align:center; }
+  .ep-box h1{ font-family:var(--disp); font-weight:800; font-size:26px; color:var(--main-deep); margin-bottom:4px; }
+  .ep-box p{ font-size:12px; color:var(--text-soft); margin-bottom:20px; }
+  .ep-err{ color:#C4574F; font-size:12.5px; margin-top:10px; min-height:19px; }
+  .adm-top{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; padding:22px 0 14px; }
+  .adm-top h1{ font-family:var(--disp); font-weight:800; font-size:26px; color:var(--main-deep); }
+  .adm-top .sp{ margin-left:auto; display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+  #act-dirty{ font-size:11.5px; font-weight:800; color:#C4574F; }
+  .tabs{ display:flex; gap:4px; flex-wrap:wrap; background:var(--card2); border-radius:18px; padding:5px; margin-bottom:18px; }
+  .tab-btn{ flex:1 1 auto; min-width:84px; padding:10px 8px; border:0; background:transparent; border-radius:13px; font-size:12.5px; font-weight:800; color:var(--text-mid); cursor:pointer; font-family:inherit; }
+  .tab-btn.active{ background:var(--sheet); color:var(--main-deep); box-shadow:var(--shadow-hover); }
+  .tab-panel{ display:none; } .tab-panel.active{ display:block; }
+  .grid2{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+  .grid2 .full{ grid-column:1 / -1; }
+  @media(max-width:720px){ .grid2{ grid-template-columns:minmax(0,1fr); } }
+  .card-note{ font-size:11.5px; color:var(--text-soft); margin:-8px 0 14px; line-height:1.7; }
+  .row-act{ display:flex; gap:8px; justify-content:flex-end; flex-wrap:wrap; margin-top:6px; }
+  .thumb{ margin-top:9px; border:1.5px solid var(--line); border-radius:12px; height:104px; display:none; background:var(--card2) center/contain no-repeat; }
+  .thumb.on{ display:block; }
+  .thumb.err{ display:flex; align-items:center; justify-content:center; text-align:center; color:#C4574F; font-size:11.5px; background-image:none; padding:8px; }
+  .daybox{ display:flex; gap:7px; flex-wrap:wrap; }
+  .daybox label{ display:inline-flex; align-items:center; gap:6px; border:1.5px solid var(--line); border-radius:999px; padding:7px 13px; font-size:13px; font-weight:800; cursor:pointer; background:var(--sheet); }
+  .palette{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+  @media(max-width:720px){ .palette{ grid-template-columns:minmax(0,1fr); } }
+  .pal-row{ display:grid; grid-template-columns:42px minmax(0,1fr); grid-template-rows:auto auto; gap:4px 10px; align-items:center; padding:10px 12px; border:1.5px solid var(--line); border-radius:13px; }
+  .pal-row input[type=color]{ grid-row:1 / span 2; width:42px; height:42px; border:1.5px solid var(--line); border-radius:9px; background:none; cursor:pointer; padding:2px; }
+  .pal-row label{ font-size:12.5px; font-weight:800; }
+  .pal-row .input{ height:32px; font-size:12px; padding:4px 8px; }
+  .pal-row .pal-desc{ grid-column:1 / -1; font-size:11px; color:var(--text-soft); }
+  .presets{ display:flex; gap:8px; flex-wrap:wrap; }
+  .preset{ display:flex; align-items:center; gap:8px; border:1.5px solid var(--line); border-radius:999px; padding:6px 13px 6px 8px; background:var(--sheet); cursor:pointer; font-size:12.5px; font-weight:800; font-family:inherit; }
+  .preset .sw{ display:flex; gap:2px; }
+  .preset .sw i{ width:11px; height:11px; border-radius:50%; display:block; border:1px solid rgba(0,0,0,.08); }
+  .ctr{ margin-top:14px; display:grid; gap:6px; }
+  .ctr .r{ display:grid; grid-template-columns:1fr auto auto; gap:10px; align-items:center; font-size:12px; padding:7px 11px; border:1.5px solid var(--line); border-radius:12px; }
+  .ctr .ok{ color:#2E7D46; font-weight:800; } .ctr .mid{ color:#8A6A10; font-weight:800; } .ctr .bad{ color:#C4574F; font-weight:800; }
+  .tsgrid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:12px; }
+  .tsgrid .t{ border:1.5px solid var(--line); border-radius:13px; padding:14px 16px; }
+  .tsgrid .t .n{ font-size:10px; font-weight:800; letter-spacing:.2em; color:var(--sub-deep); text-transform:uppercase; }
+  .tsgrid .t .u{ font-size:11.5px; color:var(--text-soft); margin:5px 0 11px; line-height:1.6; }
+  .tsgrid .t .ctl{ display:flex; align-items:center; gap:10px; }
+  .tsgrid .t input[type=range]{ flex:1; accent-color:var(--accent); }
+  .tsgrid .t .v{ font-family:var(--disp); font-weight:800; font-size:15px; min-width:44px; text-align:right; }
+  .tsprev{ margin-top:14px; border:1.5px solid var(--line); border-radius:13px; padding:20px; }
+  .tsprev .p-disp{ font-family:var(--disp); font-weight:800; line-height:1; font-size:calc(40px * var(--pv-display,1)); color:var(--main-deep); }
+  .tsprev .p-lbl{ font-size:calc(10px * var(--pv-label,1)); font-weight:800; letter-spacing:.24em; color:var(--sub-deep); margin-top:13px; }
+  .tsprev .p-title{ font-family:var(--disp); font-weight:800; font-size:calc(23px * var(--pv-title,1)); margin-top:4px; }
+  .tsprev .p-body{ font-size:calc(14px * var(--pv-body,1)); color:var(--text-soft); margin-top:8px; }
+  .table-wrap table{ width:100%; border-collapse:collapse; }
+  .table-wrap th{ text-align:left; font-size:11.5px; font-weight:800; color:var(--main-deep); background:var(--main); padding:11px 13px; white-space:nowrap; }
+  .table-wrap th:first-child{ border-radius:9px 0 0 9px; }
+  .table-wrap th:last-child{ border-radius:0 9px 9px 0; text-align:center; width:58px; }
+  .table-wrap td{ font-size:13px; padding:11px 13px; border-bottom:1px solid var(--line-soft); vertical-align:middle; }
+  .table-wrap td:last-child{ text-align:center; }
+  .table-wrap tr:last-child td{ border-bottom:0; }
+  .delete-btn{ background:none; border:0; cursor:pointer; color:var(--text-soft); font-size:16px; padding:4px 8px; border-radius:6px; }
+  .delete-btn:hover{ color:#C4574F; }
+  .color-pick{ display:flex; gap:8px; flex-wrap:wrap; }
+  .color-pick label{ cursor:pointer; } .color-pick input{ display:none; }
+  .color-pick span{ width:30px; height:30px; border-radius:50%; display:inline-block; border:1px solid rgba(0,0,0,.08); }
+  .color-pick input:checked + span{ box-shadow:0 0 0 2px var(--sheet), 0 0 0 4px var(--accent); }
+  .cdot-green{background:#5FA36B}.cdot-pink{background:#E293AC}.cdot-yellow{background:#E8C455}
+  .cdot-orange{background:#E6A162}.cdot-blue{background:#7BA6D4}.cdot-purple{background:#A392CE}
+  .cdot-red{background:#D9776B}.cdot-gray{background:#ADA79C}
+  .inq{ border:1.5px solid var(--line); border-radius:13px; padding:13px 15px; margin-bottom:9px; background:var(--sheet); }
+  .inq .h{ display:flex; justify-content:space-between; gap:10px; margin-bottom:5px; }
+  .inq .nk{ font-size:13px; font-weight:800; color:var(--main-deep); }
+  .inq .dt{ font-size:11px; color:var(--text-soft); }
+  .inq .bd{ font-size:13.5px; white-space:pre-wrap; line-height:1.7; }
+  .up-grid{ display:grid; grid-template-columns:220px minmax(0,1fr); gap:14px; }
+  @media(max-width:820px){ .up-grid{ grid-template-columns:minmax(0,1fr); } }
+  .vw-list{ max-height:420px; overflow-y:auto; border:1.5px solid var(--line); border-radius:13px; padding:6px; }
+  .vw-item{ display:flex; align-items:center; gap:9px; padding:8px 10px; border-radius:10px; cursor:pointer; font-size:13px; font-weight:700; }
+  .vw-item:hover{ background:var(--card2); }
+  .vw-item.on{ background:var(--accent); color:var(--ink-on-dark); }
+  .vw-item .tot{ margin-left:auto; font-size:11px; opacity:.8; }
+  .cnt-row{ display:grid; grid-template-columns:1fr auto; gap:10px; align-items:center; padding:9px 12px; border-bottom:1px solid var(--line-soft); }
+  .cnt-row:last-child{ border-bottom:0; }
+  .cnt-ctl{ display:flex; align-items:center; gap:8px; }
+  .cnt-ctl button{ width:30px; height:30px; border-radius:50%; border:1.5px solid var(--line); background:var(--sheet); color:var(--sub-deep); font-size:15px; font-weight:800; cursor:pointer; font-family:inherit; }
+  .cnt-ctl b{ min-width:28px; text-align:center; font-family:var(--disp); font-size:15px; }
+  #epDiag{ position:relative; display:none; margin:12px auto; max-width:760px; border:1.6px solid #C4574F; border-radius:12px; padding:14px 16px; background:#FFF3F1; color:#7A2A22; font-size:12.5px; line-height:1.8; word-break:break-all; }
+</style>
+</head>
+<body>
+
+<div id="epDiag"></div>
+<script>
+(function(){
+  var box = document.getElementById('epDiag');
+  var lines = [];
+  function add(m){
+    lines.push(m); box.style.display = 'block';
+    box.innerHTML = '<b>자가진단</b><br>' + lines.map(function(x){ return '· ' + x; }).join('<br>');
+  }
+  window.addEventListener('error', function(e){
+    if (e.target && e.target !== window && (e.target.src || e.target.href))
+      add('파일을 못 불러왔습니다: ' + (e.target.src || e.target.href));
+  }, true);
+  window.addEventListener('unhandledrejection', function(e){
+    add('처리되지 않은 오류: ' + ((e.reason && (e.reason.message || e.reason)) || e));
+  });
+  setTimeout(function(){
+    var g = document.getElementById('epGate'), a = document.getElementById('epApp');
+    var gv = g && g.getBoundingClientRect().height > 20 && parseFloat(getComputedStyle(g).opacity) > 0.05;
+    var av = a && a.style.display !== 'none' && a.getBoundingClientRect().height > 20;
+    if (gv || av) return;
+    add('로그인 화면이 그려지지 않았습니다.');
+    add('style.css ' + (getComputedStyle(document.body).getPropertyValue('--main').trim() ? 'O' : 'X') +
+        ' / supabase.js ' + (typeof fetchAll === 'function' ? 'O' : 'X') +
+        ' / 라이브러리 ' + (typeof supabase !== 'undefined' ? 'O' : 'X'));
+    var f = document.createElement('div');
+    f.style.cssText = 'margin-top:12px;display:grid;gap:6px;max-width:320px';
+    f.innerHTML = '<input id="epEmail2" placeholder="이메일" style="padding:9px 11px;border:1px solid #C4574F;border-radius:8px">' +
+                  '<input id="epPw2" type="password" placeholder="비밀번호" style="padding:9px 11px;border:1px solid #C4574F;border-radius:8px">' +
+                  '<button id="epGo2" style="padding:9px 11px;border-radius:8px;border:0;background:#C4574F;color:#fff;font-weight:800;cursor:pointer">비상 로그인</button>';
+    box.appendChild(f);
+    document.getElementById('epGo2').onclick = function(){
+      if (typeof tryLoginWith === 'function')
+        tryLoginWith(document.getElementById('epEmail2').value, document.getElementById('epPw2').value);
+    };
+  }, 2500);
+})();
+</script>
+
+<div class="ep-gate" id="epGate">
+  <div class="ep-box">
+    <h1>EUNPPO</h1>
+    <p>Supabase에 등록된 관리자 계정으로 로그인</p>
+    <input class="input" type="email" id="epEmail" autocomplete="username" placeholder="이메일" style="margin-bottom:8px;text-align:center">
+    <input class="input" type="password" id="epPw" autocomplete="current-password" placeholder="비밀번호" style="margin-bottom:10px;text-align:center">
+    <button class="btn btn-primary" style="width:100%" id="epLoginBtn">입장</button>
+    <div class="ep-err" id="epErr"></div>
+  </div>
+</div>
+
+<div class="container" id="epApp" style="display:none">
+  <div class="adm-top">
+    <h1>관리자</h1>
+    <div class="sp">
+      <span id="act-dirty"></span>
+      <a class="btn sm" id="act-view" href="../index.html" target="_blank" rel="noreferrer">이 탭 화면 보기 ↗</a>
+      <button class="btn sm" id="act-backup">백업 내려받기</button>
+      <label class="btn sm" style="margin:0">복원<input type="file" id="act-restore" accept="application/json" hidden></label>
+      <button class="btn sm" id="act-logout">로그아웃</button>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="main">🏠 메인</button>
+    <button class="tab-btn" data-tab="profile">🎀 프로필</button>
+    <button class="tab-btn" data-tab="schedule">📅 일정</button>
+    <button class="tab-btn" data-tab="song">🎵 노래</button>
+    <button class="tab-btn" data-tab="work">⚡ 업보</button>
+    <button class="tab-btn" data-tab="inquiry">✉️ 문의</button>
+    <button class="tab-btn" data-tab="words">✏️ 문구</button>
+    <button class="tab-btn" data-tab="theme">🎨 테마</button>
+  </div>
+
+  <div class="tab-panel active" id="tab-main">
+    <div class="card">
+      <div class="card-title">🖼 사진</div>
+      <div class="card-note">나오는 곳 — 프로필 페이지 히어로 · 프사 · 갤러리</div>
+      <div class="grid2"><div class="form-field"><label class="input-label" for="f-hero-bg">히어로 배경 사진</label><input class="input" id="f-hero-bg" type="url" placeholder="https://..."><div class="hint">가로 2.5:1 (예 1560×612). 비우면 사이트에 들어있는 기본 사진</div></div><div class="form-field"><label class="input-label" for="f-soop-id">SOOP 아이디</label><input class="input" id="f-soop-id" type="text" placeholder="eunpp0"><div class="hint">아이디만 넣으면 SOOP 프사를 자동으로 가져옵니다</div></div><div class="form-field"><label class="input-label" for="f-avatar">프사 직접 주소</label><input class="input" id="f-avatar" type="url" placeholder="https://.../image.png"><div class="hint">1:1 (예 400×400). 채우면 SOOP 프사보다 우선. gif 가능</div></div><div class="form-field"><label class="input-label" for="f-gallery-1">갤러리 사진 1</label><input class="input" id="f-gallery-1" type="url" placeholder="https://..."><div class="hint">1:1 (예 900×900)</div></div><div class="form-field"><label class="input-label" for="f-gallery-2">갤러리 사진 2</label><input class="input" id="f-gallery-2" type="url" placeholder="https://..."><div class="hint">1:1 (예 900×900)</div></div><div class="form-field"><label class="input-label" for="f-gallery-3">갤러리 사진 3</label><input class="input" id="f-gallery-3" type="url" placeholder="https://..."><div class="hint">1:1 (예 900×900)</div></div><div class="form-field"><label class="input-label" for="f-gallery-4">갤러리 사진 4</label><input class="input" id="f-gallery-4" type="url" placeholder="https://..."><div class="hint">1:1. 비우면 🌿 자리표시자가 보입니다</div></div></div>
+      <div class="row-act"><button class="btn btn-primary" data-save="1">저장</button></div>
+    </div>
+    <div class="card">
+      <div class="card-title">✒️ 히어로 문구</div>
+      <div class="card-note">나오는 곳 — 프로필 페이지 맨 위 이름 아래</div>
+      <div class="grid2"><div class="form-field"><label class="input-label" for="f-hero-quote">히어로 한마디</label><input class="input" id="f-hero-quote" type="text" placeholder="흠냐, 힝"><div class="hint">큰따옴표 안에 들어가는 한 줄</div></div><div class="form-field"><label class="input-label" for="f-hero-badges">히어로 배지</label><input class="input" id="f-hero-badges" type="text" placeholder="LEMON GREENHOUSE, 어인섬 CREW, ISTP"><div class="hint">쉼표로 구분. 마지막 항목에 초록 점이 붙습니다</div></div></div>
+      <div class="row-act"><button class="btn btn-primary" data-save="1">저장</button></div>
+    </div>
+    <div class="card">
+      <div class="card-title">📊 스탯 6칸</div>
+      <div class="card-note">나오는 곳 — 히어로 바로 아래 가로 6칸</div>
+      <div class="grid2"><div class="form-field"><label class="input-label" for="f-stat-debut">스탯 · 데뷔</label><input class="input" id="f-stat-debut" type="text" placeholder="2017.07.07"><div class="hint">형식 자유</div></div><div class="form-field"><label class="input-label" for="f-stat-birth">스탯 · 생일</label><input class="input" id="f-stat-birth" type="text" placeholder="12.20"><div class="hint">MM.DD 형식. 이 값으로 생일 D-Day를 계산합니다</div></div><div class="form-field"><label class="input-label" for="f-stat-crew">스탯 · 소속</label><input class="input" id="f-stat-crew" type="text" placeholder="어인섬"><div class="hint">크루·소속명</div></div><div class="form-field"><label class="input-label" for="f-stat-mbti">스탯 · MBTI</label><input class="input" id="f-stat-mbti" type="text" placeholder="ISTP"><div class="hint">네 글자</div></div><div class="form-field"><label class="input-label" for="f-stat-fan">스탯 · 팬네임</label><input class="input" id="f-stat-fan" type="text" placeholder="양배추 🥬"><div class="hint">이모지 사용 가능</div></div><div class="form-field"><label class="input-label" for="f-stat-status">스탯 · 상태</label><input class="input" id="f-stat-status" type="text" placeholder="온실 문 열림 🍋"><div class="hint">지금 상태 한 줄. 자주 바꾸는 칸</div></div></div>
+      <div class="row-act"><button class="btn btn-primary" data-save="1">저장</button></div>
+    </div>
+    <div class="card">
+      <div class="card-title">🔗 관련 링크</div>
+      <div class="card-note">나오는 곳 — LINKS 카드 4개 버튼</div>
+      <div class="grid2"><div class="form-field"><label class="input-label" for="f-link-soop">SOOP 방송국</label><input class="input" id="f-link-soop" type="url" placeholder="https://www.sooplive.com/station/eunpp0"><div class="hint">방송국 주소</div></div><div class="form-field"><label class="input-label" for="f-link-youtube">유튜브</label><input class="input" id="f-link-youtube" type="url" placeholder="https://www.youtube.com/@..."><div class="hint">채널 주소</div></div><div class="form-field"><label class="input-label" for="f-link-x">X (트위터)</label><input class="input" id="f-link-x" type="url" placeholder="https://x.com/..."><div class="hint">프로필 주소</div></div><div class="form-field"><label class="input-label" for="f-link-cafe">카페 · 커뮤니티</label><input class="input" id="f-link-cafe" type="url" placeholder="https://cafe.naver.com/..."><div class="hint">어인섬 카페 주소</div></div></div>
+      <div class="row-act"><button class="btn btn-primary" data-save="1">저장</button></div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-profile">
+    <div class="card">
+      <div class="card-title">📋 PROFILE 카드</div>
+      <div class="card-note">나오는 곳 — 잎 장식 카드 왼쪽</div>
+      <div class="grid2"><div class="form-field"><label class="input-label" for="f-info-name">이름</label><input class="input" id="f-info-name" type="text" placeholder="최은뽀 (EUNPPO)"><div class="hint">PROFILE 카드 첫 줄</div></div><div class="form-field"><label class="input-label" for="f-info-tags">성격 태그</label><input class="input" id="f-info-tags" type="text" placeholder="차분한 또라이, 리트리버"><div class="hint">쉼표로 구분. 비우면 줄이 사라집니다</div></div><div class="form-field"><label class="input-label" for="f-info-gender">성별</label><input class="input" id="f-info-gender" type="text" placeholder="여"></div><div class="form-field"><label class="input-label" for="f-info-content">컨텐츠</label><input class="input" id="f-info-content" type="text" placeholder="게임 / 노래"><div class="hint">슬래시로 구분</div></div><div class="form-field"><label class="input-label" for="f-info-item">소지품</label><input class="input" id="f-info-item" type="text" placeholder="레몬 모양 머리핀"></div><div class="form-field"><label class="input-label" for="f-info-motif">모티브</label><input class="input" id="f-info-motif" type="text" placeholder="레몬 / 나뭇잎"><div class="hint">슬래시로 구분</div></div><div class="form-field"><label class="input-label" for="f-info-fandom">팬네임</label><input class="input" id="f-info-fandom" type="text" placeholder="양배추"></div></div>
+      <div class="row-act"><button class="btn btn-primary" data-save="1">저장</button></div>
+    </div>
+    <div class="card">
+      <div class="card-title">🌿 SUNROOM 카드</div>
+      <div class="card-note">나오는 곳 — 잎 장식 카드 오른쪽</div>
+      <div class="grid2"><div class="form-field"><label class="input-label" for="f-cc-media">SUNROOM 영상 VOD ID</label><input class="input" id="f-cc-media" type="text" placeholder="202554605"><div class="hint">VOD 주소 vod.sooplive.com/player/<b>202554605</b> 의 숫자만</div></div><div class="form-field full"><label class="input-label" for="f-msg">ABOUT · 하고픈 말</label><textarea class="input" id="f-msg" rows="3" placeholder="놀러 와줘서 고마워요."></textarea><div class="hint">SUNROOM 카드 ABOUT 줄. 한두 문장</div></div><div class="form-field"><label class="input-label" for="f-like-list">LIKE</label><input class="input" id="f-like-list" type="text" placeholder="팬들, 노래, 게임"><div class="hint">쉼표로 구분. 연두 칩으로 나옵니다</div></div><div class="form-field"><label class="input-label" for="f-dislike-list">DISLIKE</label><input class="input" id="f-dislike-list" type="text" placeholder="운동, 공포게임, 힙합 곡"><div class="hint">쉼표로 구분. 크림 칩으로 나옵니다</div></div></div>
+      <div class="row-act"><button class="btn btn-primary" data-save="1">저장</button></div>
+    </div>
+    <div class="card">
+      <div class="card-title">♪ 대표곡 블록</div>
+      <div class="card-note">나오는 곳 — SIGNATURE SONG 초록 블록</div>
+      <div class="grid2"><div class="form-field"><label class="input-label" for="f-sing-title">대표곡 제목</label><input class="input" id="f-sing-title" type="text" placeholder="여우비"><div class="hint">SIGNATURE SONG 블록</div></div><div class="form-field"><label class="input-label" for="f-sing-sub">대표곡 설명</label><input class="input" id="f-sing-sub" type="text" placeholder="인디 · 잔잔한 여자 발라드"><div class="hint">한 줄</div></div><div class="form-field"><label class="input-label" for="f-sing-link">대표곡 링크</label><input class="input" id="f-sing-link" type="url" placeholder="https://vod.sooplive.com/player/..."><div class="hint">버튼이 열 주소</div></div><div class="form-field"><label class="input-label" for="f-sing-art">대표곡 이미지</label><input class="input" id="f-sing-art" type="url" placeholder="https://..."><div class="hint">1:1. 비우면 ♪ 아이콘</div></div></div>
+      <div class="row-act"><button class="btn btn-primary" data-save="1">저장</button></div>
+    </div>
+    <div class="card">
+      <div class="card-title">📅 방송 일정 카드</div>
+      <div class="card-note">나오는 곳 — 대표곡 블록 오른쪽</div>
+      <div class="grid2"><div class="form-field full"><label class="input-label">방송 요일</label><div class="daybox"><label><input type="checkbox" class="day-chk" value="0"> 월</label><label><input type="checkbox" class="day-chk" value="1"> 화</label><label><input type="checkbox" class="day-chk" value="2"> 수</label><label><input type="checkbox" class="day-chk" value="3"> 목</label><label><input type="checkbox" class="day-chk" value="4"> 금</label><label><input type="checkbox" class="day-chk" value="5"> 토</label><label><input type="checkbox" class="day-chk" value="6"> 일</label></div><div class="hint">체크한 요일이 진하게 표시됩니다</div><input type="hidden" id="f-days"></div><div class="form-field"><label class="input-label" for="f-sched-line1">일정 1줄</label><input class="input" id="f-sched-line1" type="text" placeholder="크루 컨텐츠 · 오후 12시"><div class="hint">가운뎃점(·) 앞이 굵게 나옵니다</div></div><div class="form-field"><label class="input-label" for="f-sched-line2">일정 2줄</label><input class="input" id="f-sched-line2" type="text" placeholder="개인 방송 · 오후 6시"><div class="hint">가운뎃점(·) 앞이 굵게 나옵니다</div></div><div class="form-field"><label class="input-label" for="f-sched-line3">일정 3줄</label><input class="input" id="f-sched-line3" type="text" placeholder="휴방 · 주 1회"><div class="hint">가운뎃점(·) 앞이 굵게 나옵니다</div></div></div>
+      <div class="row-act"><button class="btn btn-primary" data-save="1">저장</button></div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-schedule">
+    <div class="card">
+      <div class="card-title">일정 추가</div>
+      <div class="card-note">나오는 곳 — 방송 일정 달력 + 다가오는 일정</div>
+      <div class="grid2">
+        <div class="form-field"><label class="input-label" for="sch-date">날짜</label>
+          <input class="input" id="sch-date" type="date"><div class="hint">필수</div></div>
+        <div class="form-field"><label class="input-label" for="sch-end">종료일</label>
+          <input class="input" id="sch-end" type="date">
+          <div class="hint">비우면 하루짜리. 채우면 시작일부터 그날까지 달력에 하나의 띠로 이어집니다</div></div>
+        <div class="form-field"><label class="input-label" for="sch-type">유형</label>
+          <select class="input" id="sch-type"><option value="방송">방송</option><option value="휴방">휴방</option></select>
+          <div class="hint">휴방을 고르면 목록에 휴방 배지가 붙습니다</div></div>
+        <div class="form-field full"><label class="input-label">색상</label>
+          <div class="color-pick">
+            <label><input type="radio" name="schcolor" value="green" checked><span class="cdot-green"></span></label>
+            <label><input type="radio" name="schcolor" value="pink"><span class="cdot-pink"></span></label>
+            <label><input type="radio" name="schcolor" value="yellow"><span class="cdot-yellow"></span></label>
+            <label><input type="radio" name="schcolor" value="orange"><span class="cdot-orange"></span></label>
+            <label><input type="radio" name="schcolor" value="blue"><span class="cdot-blue"></span></label>
+            <label><input type="radio" name="schcolor" value="purple"><span class="cdot-purple"></span></label>
+            <label><input type="radio" name="schcolor" value="red"><span class="cdot-red"></span></label>
+            <label><input type="radio" name="schcolor" value="gray"><span class="cdot-gray"></span></label>
+          </div>
+          <div class="hint">달력 칸에 칠할 색. 휴방은 회색 권장</div></div>
+        <div class="form-field"><label class="input-label" for="sch-time">1부 시간</label>
+          <input class="input" id="sch-time" placeholder="오후 6시"><div class="hint">형식 자유</div></div>
+        <div class="form-field"><label class="input-label" for="sch-title">1부 제목</label>
+          <input class="input" id="sch-title" placeholder="방송 제목"><div class="hint">비우면 유형(방송/휴방)이 제목이 됩니다</div></div>
+        <div class="form-field"><label class="input-label" for="sch-time2">2부 시간</label>
+          <input class="input" id="sch-time2" placeholder="오후 9시"><div class="hint">2부가 없으면 비웁니다</div></div>
+        <div class="form-field"><label class="input-label" for="sch-title2">2부 제목</label>
+          <input class="input" id="sch-title2"><div class="hint">2부가 없으면 비웁니다</div></div>
+        <div class="form-field full"><label class="input-label" for="sch-desc">설명</label>
+          <textarea class="input" id="sch-desc" rows="2"></textarea>
+          <div class="hint">달력 칸을 눌렀을 때 나오는 상세 창에 표시됩니다</div></div>
+        <div class="form-field full">
+          <label style="font-size:13px;font-weight:800"><input type="checkbox" id="sch-hl"> 하이라이트</label>
+          <div class="hint">그날 칸에 테두리 강조가 들어갑니다</div></div>
+      </div>
+      <div class="row-act"><button class="btn btn-primary" id="addSch">추가</button></div>
+    </div>
+    <div class="card">
+      <div class="card-title">등록된 일정</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>날짜</th><th>종료</th><th>시간</th><th>유형</th><th>제목</th><th>삭제</th></tr></thead>
+        <tbody id="sch-list"><tr><td colspan="6"><div class="spinner"></div></td></tr></tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-song">
+    <div class="card">
+      <div class="card-title">노래 추가</div>
+      <div class="card-note">나오는 곳 — 노래책 목록 + 오늘의 한 곡 뽑기 대상</div>
+      <div class="grid2">
+        <div class="form-field"><label class="input-label" for="song-title">제목</label>
+          <input class="input" id="song-title" placeholder="여우비"><div class="hint">필수</div></div>
+        <div class="form-field"><label class="input-label" for="song-artist">아티스트</label>
+          <input class="input" id="song-artist"><div class="hint">비우면 목록에 - 로 표시</div></div>
+        <div class="form-field"><label class="input-label" for="song-genre">장르</label>
+          <select class="input" id="song-genre">
+            <option>발라드</option><option>인디</option><option>K-Pop</option><option>J-Pop</option>
+            <option>OST</option><option>애니</option><option>기타</option></select>
+          <div class="hint">장르 목록을 바꿀 땐 <code>song/index.html</code>의 <code>GENRES</code>도 같이 수정</div></div>
+        <div class="form-field"><label class="input-label" for="song-diff">숙련도</label>
+          <input class="input" id="song-diff" type="number" min="1" max="5" value="3">
+          <div class="hint">1~5. 목록에서 점 개수로 표시</div></div>
+      </div>
+      <div class="row-act"><button class="btn btn-primary" id="addSong">추가</button></div>
+    </div>
+    <div class="card">
+      <div class="card-title">등록된 노래</div>
+      <div class="grid2" style="margin-bottom:12px">
+        <div class="form-field"><label class="input-label" for="song-search">검색</label>
+          <input class="input" id="song-search" placeholder="제목 · 아티스트"><div class="hint">아래 목록만 걸러냅니다</div></div>
+        <div class="form-field"><label class="input-label">제목 ↔ 아티스트 바꾸기</label>
+          <button class="btn sm" id="swapSong" style="width:100%">전체 뒤집기</button>
+          <div class="hint">반대로 입력했을 때 한 번에 되돌립니다</div></div>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>제목</th><th>아티스트</th><th>장르</th><th>숙련도</th><th>삭제</th></tr></thead>
+        <tbody id="song-list"><tr><td colspan="5"><div class="spinner"></div></td></tr></tbody>
+      </table></div>
+    </div>
+    <div class="card">
+      <div class="card-title">🎬 기록 영상 (SOOP VOD)</div>
+      <div class="card-note">나오는 곳 — 프로필 페이지 ARCHIVE 가로 스크롤. 0개면 카드가 숨겨집니다</div>
+      <div class="grid2">
+        <div class="form-field"><label class="input-label" for="os-title">영상 제목</label>
+          <input class="input" id="os-title" placeholder="여우비"><div class="hint">카드 아래 표시되는 이름</div></div>
+        <div class="form-field"><label class="input-label" for="os-vod">VOD ID</label>
+          <input class="input" id="os-vod" placeholder="202554605">
+          <div class="hint">VOD 주소 <code>vod.sooplive.com/player/202554605</code>의 숫자만</div></div>
+      </div>
+      <div class="row-act"><button class="btn btn-primary" id="addOs">추가</button></div>
+      <div id="os-list" style="margin-top:12px"></div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-work">
+    <div class="card">
+      <div class="card-title">👤 시청자</div>
+      <div class="card-note">나오는 곳 — 업보 페이지 카드 그리드</div>
+      <div class="grid2">
+        <div class="form-field"><label class="input-label" for="vw-nick">닉네임</label>
+          <input class="input" id="vw-nick" placeholder="양배추1호"><div class="hint">필수. 카드에 크게 나옵니다</div></div>
+        <div class="form-field"><label class="input-label" for="vw-id">SOOP 아이디</label>
+          <input class="input" id="vw-id" placeholder="eunpp0">
+          <div class="hint">넣으면 SOOP 프사를 자동으로 가져옵니다. 비우면 닉네임 첫 글자</div></div>
+      </div>
+      <div class="row-act"><button class="btn btn-primary" id="addVw">추가</button></div>
+    </div>
+    <div class="card">
+      <div class="card-title">⚡ 업보 종류</div>
+      <div class="card-note">나오는 곳 — 시청자 카드를 눌렀을 때 나오는 상세 창</div>
+      <div class="grid2">
+        <div class="form-field"><label class="input-label" for="ut-name">종류 이름</label>
+          <input class="input" id="ut-name" placeholder="지각"><div class="hint">필수</div></div>
+        <div class="form-field"><label class="input-label" for="ut-cat">분류</label>
+          <select class="input" id="ut-cat"><option value="일반">일반</option><option value="이벤트">이벤트</option></select>
+          <div class="hint">이벤트를 고르면 상세 창에 이벤트 배지가 붙습니다</div></div>
+      </div>
+      <div class="row-act"><button class="btn btn-primary" id="addUt">추가</button></div>
+      <div class="table-wrap" style="margin-top:12px"><table>
+        <thead><tr><th>종류</th><th>분류</th><th>삭제</th></tr></thead>
+        <tbody id="ut-list"></tbody>
+      </table></div>
+    </div>
+    <div class="card">
+      <div class="card-title">🔢 업보 부여</div>
+      <div class="card-note">왼쪽에서 시청자를 고르고 오른쪽에서 종류별 횟수를 조절합니다. 0이면 상세 창에 안 나옵니다</div>
+      <div class="up-grid">
+        <div class="vw-list" id="vw-list"></div>
+        <div id="cnt-panel"><div class="hint">왼쪽에서 시청자를 선택하세요</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-inquiry">
+    <div class="card">
+      <div class="card-title">📬 받은 쪽지</div>
+      <div class="card-note">사이트 문의 버튼으로 들어온 내용. 관리자만 볼 수 있습니다</div>
+      <div id="inquiry-list"><div class="spinner"></div></div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-words">
+    <div class="card">
+      <div class="card-title">✏️ 항목 검색</div>
+      <div class="form-field"><input class="input" id="wordFind" placeholder="예: 노래책">
+        <div class="hint">아래 입력칸만 걸러냅니다</div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">페이지 머리글</div>
+      <div class="card-note">각 페이지 맨 위 ✦ 영문 ✦ 과 한글 제목. 비우면 기본 문구가 나옵니다</div>
+      <div class="grid2"><div class="form-field"><label class="input-label" for="f-schedule-kicker">방송 일정 · 영문 라벨</label><input class="input" id="f-schedule-kicker" type="text" placeholder="SCHEDULE"><div class="hint">대문자 영문</div></div><div class="form-field"><label class="input-label" for="f-schedule-sub">방송 일정 · 한글 제목</label><input class="input" id="f-schedule-sub" type="text" placeholder="방송 일정"></div><div class="form-field"><label class="input-label" for="f-song-kicker">노래책 · 영문 라벨</label><input class="input" id="f-song-kicker" type="text" placeholder="SONG BOOK"><div class="hint">대문자 영문</div></div><div class="form-field"><label class="input-label" for="f-song-sub">노래책 · 한글 제목</label><input class="input" id="f-song-sub" type="text" placeholder="노래책"></div><div class="form-field"><label class="input-label" for="f-work-kicker">업보 · 영문 라벨</label><input class="input" id="f-work-kicker" type="text" placeholder="UPBO"><div class="hint">대문자 영문</div></div><div class="form-field"><label class="input-label" for="f-work-sub">업보 · 한글 제목</label><input class="input" id="f-work-sub" type="text" placeholder="업보 현황"></div><div class="form-field"><label class="input-label" for="f-game-kicker">미니게임 · 영문 라벨</label><input class="input" id="f-game-kicker" type="text" placeholder="MINI GAME"><div class="hint">대문자 영문</div></div><div class="form-field"><label class="input-label" for="f-game-sub">미니게임 · 한글 제목</label><input class="input" id="f-game-sub" type="text" placeholder="미니게임"></div></div>
+      <div class="row-act"><button class="btn btn-primary" data-save="1">저장</button></div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-theme">
+    <div class="card">
+      <div class="card-title">🎨 색상 팔레트</div>
+      <div class="card-note">전 페이지에 한 번에 적용됩니다. 메인·서브 두 색이 기준이고 나머지는 거기서 나온 톤입니다</div>
+      <div class="form-field">
+        <label class="input-label">프리셋</label>
+        <div class="presets" id="presets"></div>
+        <div class="hint">누르면 7칸이 한 번에 채워집니다. 저장을 눌러야 사이트에 반영</div>
+      </div>
+      <div class="palette"><div class="pal-row"><input type="color" id="c-theme-main"><label for="f-theme-main">메인 색 (크림)</label><input class="input" id="f-theme-main" placeholder="#FFE6BF"><div class="pal-desc">카드·칩·태그 면 색</div></div><div class="pal-row"><input type="color" id="c-theme-sub"><label for="f-theme-sub">서브 색 (연두)</label><input class="input" id="f-theme-sub" placeholder="#E8FFD9"><div class="pal-desc">강조 면 색. 활성 탭·요일칩·버튼이 여기서 파생</div></div><div class="pal-row"><input type="color" id="c-theme-bg"><label for="f-theme-bg">페이지 배경</label><input class="input" id="f-theme-bg" placeholder="#FFFFFF"><div class="pal-desc">시트 바깥 배경</div></div><div class="pal-row"><input type="color" id="c-theme-sheet"><label for="f-theme-sheet">시트 배경</label><input class="input" id="f-theme-sheet" placeholder="#FFFFFF"><div class="pal-desc">흰 시트 바닥색</div></div><div class="pal-row"><input type="color" id="c-theme-main-dark"><label for="f-theme-main-dark">앰버 (글자)</label><input class="input" id="f-theme-main-dark" placeholder="#A1722B"><div class="pal-desc">로고·세리프 헤딩 글자</div></div><div class="pal-row"><input type="color" id="c-theme-main-deep"><label for="f-theme-main-deep">진한 앰버</label><input class="input" id="f-theme-main-deep" placeholder="#6E4708"><div class="pal-desc">이름·큰 글자</div></div><div class="pal-row"><input type="color" id="c-theme-sub-deep"><label for="f-theme-sub-deep">진한 연두</label><input class="input" id="f-theme-sub-deep" placeholder="#2F5E24"><div class="pal-desc">채워진 버튼·활성 탭 배경</div></div></div>
+      <div class="ctr" id="ctr"></div>
+      <div class="hint">대비 4.5:1 미만이면 그 조합은 화면에서 읽기 어렵습니다</div>
+      <div class="row-act">
+        <button class="btn" id="palReset">기본값으로</button>
+        <button class="btn btn-primary" data-save="1">저장</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">🔠 글자 크기</div>
+      <div class="card-note">배율입니다. 1.0이 기본, 1.2면 20% 크게. 전 페이지에 함께 적용됩니다</div>
+      <div class="tsgrid" id="tsgrid"></div>
+      <div class="tsprev" id="tsprev">
+        <div class="p-disp">최은뽀</div>
+        <div class="p-lbl">✦ EUNPPO ✦</div>
+        <div class="p-title">PROFILE</div>
+        <div class="p-body">이 문장 크기가 본문 크기입니다.</div>
+      </div>
+      <div class="row-act">
+        <button class="btn" id="tsReset">기본값으로</button>
+        <button class="btn btn-primary" data-save="1">저장</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>EUNPPO OFFICIAL — 관리자</footer>
+<div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="../supabase.js"></script>
+<script>
+/* profileKeys is the source of truth: every key needs an #f-{key} input and a page hook.
+   Adding a key here means adding the input and the hook on the page too. */
+const profileKeys = ["hero-bg", "avatar", "soop-id", "hero-quote", "hero-badges", "stat-debut", "stat-birth", "stat-crew", "stat-mbti", "stat-fan", "stat-status", "gallery-1", "gallery-2", "gallery-3", "gallery-4", "link-soop", "link-youtube", "link-x", "link-cafe", "info-name", "info-tags", "info-gender", "info-content", "info-item", "info-motif", "info-fandom", "msg", "like-list", "dislike-list", "cc-media", "sing-title", "sing-sub", "sing-link", "sing-art", "sched-line1", "sched-line2", "sched-line3", "days", "schedule-kicker", "schedule-sub", "song-kicker", "song-sub", "work-kicker", "work-sub", "game-kicker", "game-sub", "theme-main", "theme-sub", "theme-bg", "theme-sheet", "theme-main-dark", "theme-main-deep", "theme-sub-deep", "type-display", "type-title", "type-body", "type-label"];
+const IMG_FIELDS = ["hero-bg", "avatar", "gallery-1", "gallery-2", "gallery-3", "gallery-4", "link-soop", "link-youtube", "link-x", "link-cafe", "sing-link", "sing-art"];
+const PAL_DEFAULT = {"theme-main": "#FFE6BF", "theme-sub": "#E8FFD9", "theme-bg": "#FFFFFF", "theme-sheet": "#FFFFFF", "theme-main-dark": "#A1722B", "theme-main-deep": "#6E4708", "theme-sub-deep": "#2F5E24"};
+const TS = [["type-display", "디스플레이 배율", "페이지 맨 위 초대형 제목"], ["type-title", "제목 배율", "카드 제목"], ["type-body", "본문 배율", "설명·값·목록"], ["type-label", "라벨 배율", "영문 라벨·캡션"]];
+
+const PRESETS = [
+  ['레몬 온실', ['#FFE6BF','#E8FFD9','#FFFFFF','#FFFFFF','#A1722B','#6E4708','#2F5E24']],
+  ['라임 소다', ['#FFF6C9','#DFF3D0','#FFFFFF','#FFFFFF','#7E8A26','#4C5A12','#33632B']],
+  ['살구 크림', ['#FFE0D2','#FFEFD9','#FFFFFF','#FFFFFF','#B26640','#7A3C1C','#8A4B2A']],
+  ['민트 유리', ['#DFF3EF','#E6FBF3','#FFFFFF','#FFFFFF','#2E8378','#1C5A52','#22665C']],
+  ['연보라 화분', ['#EFE6FA','#EAF6E2','#FFFFFF','#FFFFFF','#7B5EAE','#503780','#3F6B34']]
+];
+
+const TAB_PAGE = {
+  main:'../index.html', profile:'../index.html', schedule:'../schedule/',
+  song:'../song/', work:'../work/', inquiry:'../index.html',
+  words:'../schedule/', theme:'../index.html'
+};
+
+const $ = id => document.getElementById(id);
+function esc(s){
+  return String(s == null ? '' : s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function soopAvatar(id){
+  id = String(id || '').trim().toLowerCase();
+  if (id.length < 2) return '';
+  return 'https://profile.img.sooplive.co.kr/LOGO/' + id.slice(0,2) + '/' + id + '/' + id + '.jpg';
+}
+
+let DIRTY = false;
+function markDirty(){ DIRTY = true; $('act-dirty').textContent = '● 저장하지 않은 변경이 있습니다'; }
+function clearDirty(){ DIRTY = false; $('act-dirty').textContent = ''; }
+window.addEventListener('beforeunload', function(e){ if (DIRTY) { e.preventDefault(); e.returnValue = ''; } });
+
+/* ---------- login ---------- */
+
+async function tryLoginWith(email, pw){
+  const err = $('epErr');
+  email = (email || '').trim();
+  if (!email || !pw) { if (err) err.textContent = '이메일과 비밀번호를 입력하세요'; return; }
+  if (!db) { if (err) err.textContent = 'Supabase에 연결할 수 없습니다'; return; }
+  if (err) err.textContent = '확인 중...';
+  try {
+    const r = await db.auth.signInWithPassword({ email: email, password: pw });
+    if (r.error) {
+      if (err) err.textContent = /Invalid/i.test(r.error.message) ? '이메일 또는 비밀번호가 맞지 않습니다' : r.error.message;
+      return;
+    }
+    enterAdmin();
+  } catch (e) { if (err) err.textContent = '로그인 중 오류: ' + (e && e.message || e); }
+}
+$('epLoginBtn').onclick = function(){ tryLoginWith($('epEmail').value, $('epPw').value); };
+['epEmail','epPw'].forEach(function(id){
+  $(id).addEventListener('keydown', function(e){ if (e.key === 'Enter') $('epLoginBtn').click(); });
+});
+$('act-logout').onclick = async function(){
+  try { if (db) await db.auth.signOut(); } catch (e) {}
+  location.reload();
+};
+
+function enterAdmin(){
+  const gate = $('epGate'), app = $('epApp');
+  gate.style.setProperty('display','none','important');
+  app.style.setProperty('display','block','important');
+  /* extensions can hide elements after load; re-assert for a few seconds */
+  let n = 0;
+  const iv = setInterval(function(){
+    app.style.setProperty('display','block','important');
+    if (++n > 6) clearInterval(iv);
+  }, 500);
+  loadProfileFields();
+  loadSchedule(); loadSong(); loadOriginalSongs(); loadInquiry(); loadWork();
+}
+(async function(){
+  try { if (!db) return; const r = await db.auth.getSession(); if (r && r.data && r.data.session) enterAdmin(); }
+  catch (e) {}
+})();
+
+/* ---------- tabs ---------- */
+
+document.querySelector('.tabs').addEventListener('click', function(e){
+  const b = e.target.closest('.tab-btn'); if (!b) return;
+  const name = b.dataset.tab;
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(x => x.classList.remove('active'));
+  $('tab-' + name).classList.add('active');
+  b.classList.add('active');
+  $('act-view').href = TAB_PAGE[name] || '../index.html';
+});
+
+/* ---------- profile save / load ---------- */
+
+async function loadProfileFields(){
+  let saved = {};
+  try {
+    const r = await db.from('profile').select('data').eq('id', 1);
+    if (r && r.data && r.data[0] && r.data[0].data) saved = r.data[0].data;
+  } catch (e) {}
+  profileKeys.forEach(function(k){
+    const el = $('f-' + k);
+    if (el) el.value = typeof saved[k] === 'string' ? saved[k] : '';
+  });
+  TS.forEach(function(t){ const el = $('f-' + t[0]); if (el && !el.value) el.value = '1'; });
+  tsPreview();
+  const days = String(saved.days || '').split(',').map(x => x.trim());
+  document.querySelectorAll('.day-chk').forEach(c => { c.checked = days.indexOf(c.value) >= 0; });
+  syncPaletteInputs(); previewPalette(); paintThumbs(); clearDirty();
+}
+
+async function saveProfile(){
+  let saved = {};
+  try {
+    const r = await db.from('profile').select('data').eq('id', 1);
+    if (r && r.data && r.data[0] && r.data[0].data) saved = r.data[0].data;
+  } catch (e) {}
+  profileKeys.forEach(function(k){ const el = $('f-' + k); if (el) saved[k] = el.value; });
+  const { error } = await db.from('profile').upsert({ id: 1, data: saved });
+  if (error) { showToast('저장 실패 — ' + error.message); return; }
+  clearDirty(); showToast('저장했습니다');
+}
+document.addEventListener('click', function(e){ if (e.target.closest('[data-save]')) saveProfile(); });
+document.addEventListener('input', function(e){ if (e.target.id && e.target.id.indexOf('f-') === 0) markDirty(); });
+document.querySelectorAll('.day-chk').forEach(function(c){
+  c.addEventListener('change', function(){
+    $('f-days').value = [].slice.call(document.querySelectorAll('.day-chk:checked')).map(x => x.value).join(',');
+    markDirty();
+  });
+});
+
+/* ---------- backup / restore ---------- */
+
+$('act-backup').onclick = function(){
+  const data = {};
+  profileKeys.forEach(function(k){ const el = $('f-' + k); data[k] = el ? el.value : ''; });
+  const blob = new Blob([JSON.stringify({ saved_at: new Date().toISOString(), profile: data }, null, 2)], { type:'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'eunppo-profile-' + new Date().toISOString().slice(0,10) + '.json';
+  a.click();
+};
+$('act-restore').onchange = function(e){
+  const f = e.target.files && e.target.files[0]; if (!f) return;
+  const rd = new FileReader();
+  rd.onload = function(){
+    try {
+      const j = JSON.parse(rd.result); const p = j.profile || j;
+      profileKeys.forEach(function(k){ const el = $('f-' + k); if (el && typeof p[k] === 'string') el.value = p[k]; });
+      const days = String(p.days || '').split(',').map(x => x.trim());
+      document.querySelectorAll('.day-chk').forEach(c => { c.checked = days.indexOf(c.value) >= 0; });
+      tsPreview(); syncPaletteInputs(); previewPalette(); paintThumbs(); markDirty();
+      showToast('불러왔습니다. 저장을 눌러야 반영됩니다');
+    } catch (err) { showToast('파일을 읽을 수 없습니다'); }
+  };
+  rd.readAsText(f); e.target.value = '';
+};
+
+/* ---------- image thumbnails ---------- */
+
+function paintThumbs(){
+  IMG_FIELDS.forEach(function(k){
+    const input = $('f-' + k); if (!input) return;
+    if (!$('th-' + k)) {
+      const box = document.createElement('div');
+      box.className = 'thumb'; box.id = 'th-' + k;
+      input.parentElement.appendChild(box);
+      input.addEventListener('input', function(){ paintOne(k); });
+    }
+    paintOne(k);
+  });
+}
+function paintOne(k){
+  const input = $('f-' + k), box = $('th-' + k);
+  if (!input || !box) return;
+  const v = String(input.value || '').trim();
+  if (!v) { box.className = 'thumb'; box.textContent = ''; box.style.backgroundImage = ''; return; }
+  const probe = new Image();
+  probe.referrerPolicy = 'no-referrer';
+  probe.onload = function(){
+    box.className = 'thumb on'; box.textContent = '';
+    box.style.backgroundImage = 'url("' + v.replace(/"/g,'%22') + '")';
+  };
+  probe.onerror = function(){
+    box.className = 'thumb on err'; box.style.backgroundImage = '';
+    box.textContent = '이 주소로는 이미지가 열리지 않습니다. 글 주소가 아니라 이미지 주소인지 확인하세요';
+  };
+  probe.src = v;
+}
+
+/* ---------- palette ---------- */
+
+$('presets').innerHTML = PRESETS.map(function(p, i){
+  return '<button class="preset" data-preset="' + i + '"><span class="sw">' +
+    p[1].slice(0,4).map(function(c){ return '<i style="background:' + c + '"></i>'; }).join('') +
+    '</span>' + p[0] + '</button>';
+}).join('');
+$('presets').addEventListener('click', function(e){
+  const b = e.target.closest('.preset'); if (!b) return;
+  const p = PRESETS[+b.dataset.preset];
+  Object.keys(PAL_DEFAULT).forEach(function(k, i){ const f = $('f-' + k); if (f) f.value = p[1][i]; });
+  syncPaletteInputs(); previewPalette(); markDirty();
+});
+Object.keys(PAL_DEFAULT).forEach(function(k){
+  const c = $('c-' + k), f = $('f-' + k);
+  if (c) c.addEventListener('input', function(){ f.value = c.value.toUpperCase(); previewPalette(); markDirty(); });
+  if (f) f.addEventListener('input', function(){
+    if (/^#[0-9a-fA-F]{6}$/.test(f.value)) { c.value = f.value; previewPalette(); }
+  });
+});
+function syncPaletteInputs(){
+  Object.keys(PAL_DEFAULT).forEach(function(k){
+    const c = $('c-' + k), f = $('f-' + k); if (!c || !f) return;
+    c.value = /^#[0-9a-fA-F]{6}$/.test(f.value) ? f.value : PAL_DEFAULT[k];
+  });
+}
+const PAL_VAR = {
+  'theme-main':'--main', 'theme-sub':'--sub', 'theme-bg':'--bg', 'theme-sheet':'--sheet',
+  'theme-main-dark':'--main-dark', 'theme-main-deep':'--main-deep', 'theme-sub-deep':'--sub-deep'
+};
+function previewPalette(){
+  Object.keys(PAL_VAR).forEach(function(k){
+    const f = $('f-' + k);
+    if (f && /^#[0-9a-fA-F]{6}$/.test(f.value)) document.documentElement.style.setProperty(PAL_VAR[k], f.value);
+  });
+  renderContrast();
+}
+$('palReset').onclick = function(){
+  Object.keys(PAL_DEFAULT).forEach(function(k){ const f = $('f-' + k); if (f) f.value = PAL_DEFAULT[k]; });
+  syncPaletteInputs(); previewPalette(); markDirty();
+  showToast('기본값으로 되돌렸습니다. 저장을 눌러야 반영됩니다');
+};
+function palVal(k){ const f = $('f-' + k); return (f && /^#[0-9a-fA-F]{6}$/.test(f.value)) ? f.value : PAL_DEFAULT[k]; }
+function _lum(hex){
+  const m = /^#([0-9a-fA-F]{6})$/.exec(hex || ''); if (!m) return null;
+  const n = parseInt(m[1], 16);
+  const f = [(n >> 16) & 255, (n >> 8) & 255, n & 255].map(function(v){
+    v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+  });
+  return 0.2126 * f[0] + 0.7152 * f[1] + 0.0722 * f[2];
+}
+function _ratio(a, b){
+  const l1 = _lum(a), l2 = _lum(b);
+  if (l1 === null || l2 === null) return null;
+  return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
+}
+function renderContrast(){
+  const sheet = palVal('theme-sheet');
+  const pairs = [
+    ['앰버 글자 / 시트', palVal('theme-main-dark'), sheet],
+    ['진한 앰버 / 시트', palVal('theme-main-deep'), sheet],
+    ['진한 연두 / 시트', palVal('theme-sub-deep'), sheet],
+    ['버튼 글자 / 진한 연두', '#FBFFF4', palVal('theme-sub-deep')],
+    ['칩 글자 / 메인 색', palVal('theme-main-deep'), palVal('theme-main')]
+  ];
+  $('ctr').innerHTML = pairs.map(function(p){
+    const r = _ratio(p[1], p[2]);
+    const v = r ? r.toFixed(2) : '—';
+    const cls = !r ? '' : (r >= 4.5 ? 'ok' : (r >= 3 ? 'mid' : 'bad'));
+    const word = !r ? '' : (r >= 4.5 ? '좋음' : (r >= 3 ? '아슬함' : '안 읽힘'));
+    return '<div class="r"><span>' + p[0] + '</span><b>' + v + ':1</b><span class="' + cls + '">' + word + '</span></div>';
+  }).join('');
+}
+
+/* ---------- type scale ---------- */
+
+$('tsgrid').innerHTML = TS.map(function(t){
+  return '<div class="t"><div class="n">' + t[1] + '</div><div class="u">' + t[2] + '</div>' +
+    '<div class="ctl"><input type="range" id="r-' + t[0] + '" min="0.8" max="1.4" step="0.05" value="1">' +
+    '<span class="v" id="v-' + t[0] + '">1.00</span></div>' +
+    '<input type="hidden" id="f-' + t[0] + '" value="1"></div>';
+}).join('');
+function tsPreview(){
+  TS.forEach(function(t){
+    const v = parseFloat($('f-' + t[0]).value) || 1;
+    $('r-' + t[0]).value = v;
+    $('v-' + t[0]).textContent = v.toFixed(2);
+    $('tsprev').style.setProperty('--pv-' + t[0].replace('type-',''), v);
+  });
+}
+$('tsgrid').addEventListener('input', function(e){
+  const r = e.target.closest('input[type=range]'); if (!r) return;
+  $('f-' + r.id.slice(2)).value = r.value; tsPreview(); markDirty();
+});
+$('tsReset').onclick = function(){
+  TS.forEach(function(t){ $('f-' + t[0]).value = '1'; }); tsPreview(); markDirty();
+};
+tsPreview();
+
+/* ---------- words search ---------- */
+
+$('wordFind').addEventListener('input', function(){
+  const q = this.value.trim().toLowerCase();
+  document.querySelectorAll('#tab-words .card').forEach(function(card, i){
+    if (i === 0) return;
+    let any = false;
+    card.querySelectorAll('.form-field').forEach(function(fd){
+      const inp = fd.querySelector('input');
+      const hay = fd.textContent + ' ' + (inp ? inp.placeholder : '');
+      const ok = !q || hay.toLowerCase().indexOf(q) >= 0;
+      fd.style.display = ok ? '' : 'none';
+      if (ok) any = true;
+    });
+    card.style.display = any ? '' : 'none';
+  });
+});
+
+/* ---------- shared delete ---------- */
+
+async function del(table, id, fn){
+  if (!confirm('삭제할까요?')) return;
+  const ok = await deleteRow(table, id);
+  if (ok) { showToast('삭제했습니다'); fn(); } else showToast('삭제에 실패했습니다');
+}
+
+/* ---------- schedule ---------- */
+
+async function loadSchedule(){
+  const data = await fetchAll('schedule', { order:'date', asc:true });
+  const t = $('sch-list');
+  if (!data.length) { t.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text-soft);padding:20px">등록된 일정이 없습니다</td></tr>'; return; }
+  t.innerHTML = data.map(function(s){
+    const off = s.type === '휴방';
+    return '<tr><td>' + s.date + '</td><td>' + (s.end_date || '-') + '</td><td>' + (s.time || '-') + '</td>' +
+      '<td><span class="badge' + (off ? '' : ' badge-pink') + '">' + (off ? '휴방' : '방송') + '</span></td>' +
+      '<td>' + esc(s.title || '-') + '</td>' +
+      '<td><button class="delete-btn" data-del-sch="' + s.id + '">🗑</button></td></tr>';
+  }).join('');
+}
+$('sch-list').addEventListener('click', function(e){
+  const b = e.target.closest('[data-del-sch]'); if (b) del('schedule', +b.dataset.delSch, loadSchedule);
+});
+$('addSch').onclick = async function(){
+  const date = $('sch-date').value;
+  if (!date) { showToast('날짜를 입력하세요'); return; }
+  const type = $('sch-type').value;
+  let title = $('sch-title').value.trim();
+  if (!title) title = (type === '휴방' ? '휴방' : '방송');
+  const endDate = $('sch-end').value;
+  if (endDate && endDate < date) { showToast('종료일이 시작일보다 앞설 수 없습니다'); return; }
+  const color = (document.querySelector('input[name="schcolor"]:checked') || {}).value || 'green';
+  const ok = await insertRow('schedule', {
+    title: title, date: date, type: type, color: color, end_date: endDate || null,
+    time: $('sch-time').value, time2: $('sch-time2').value,
+    title2: $('sch-title2').value.trim(), description: $('sch-desc').value.trim(),
+    highlight: $('sch-hl').checked
+  });
+  if (ok) {
+    showToast('추가했습니다');
+    ['sch-title','sch-date','sch-end','sch-time','sch-time2','sch-title2','sch-desc'].forEach(function(id){ $(id).value = ''; });
+    $('sch-hl').checked = false; loadSchedule();
+  } else showToast('추가에 실패했습니다');
+};
+
+/* ---------- songs ---------- */
+
+let songData = [];
+async function loadSong(){ songData = await fetchAll('songs', { order:'id', asc:true }); renderSongs(); }
+function renderSongs(){
+  const q = ($('song-search').value || '').trim().toLowerCase();
+  const list = songData.filter(function(s){
+    return !q || String(s.title || '').toLowerCase().indexOf(q) >= 0 || String(s.artist || '').toLowerCase().indexOf(q) >= 0;
+  });
+  const t = $('song-list');
+  if (!songData.length) { t.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-soft);padding:20px">등록된 노래가 없습니다</td></tr>'; return; }
+  if (!list.length) { t.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-soft);padding:20px">검색 결과가 없습니다</td></tr>'; return; }
+  t.innerHTML = list.map(function(s){
+    const d = parseInt(s.difficulty, 10) || 0;
+    return '<tr><td>' + esc(s.title) + '</td><td>' + (esc(s.artist) || '-') + '</td>' +
+      '<td><span class="badge badge-pink">' + (esc(s.genre) || '기타') + '</span></td>' +
+      '<td>' + (d ? '●'.repeat(d) : '-') + '</td>' +
+      '<td><button class="delete-btn" data-del-song="' + s.id + '">🗑</button></td></tr>';
+  }).join('');
+}
+$('song-search').addEventListener('input', renderSongs);
+$('song-list').addEventListener('click', function(e){
+  const b = e.target.closest('[data-del-song]'); if (b) del('songs', +b.dataset.delSong, loadSong);
+});
+$('addSong').onclick = async function(){
+  const title = $('song-title').value.trim();
+  if (!title) { showToast('제목을 입력하세요'); return; }
+  let diff = parseInt($('song-diff').value, 10) || 3;
+  diff = Math.min(5, Math.max(1, diff));
+  const ok = await insertRow('songs', {
+    title: title, artist: $('song-artist').value.trim(), genre: $('song-genre').value, difficulty: diff
+  });
+  if (ok) { showToast('추가했습니다'); $('song-title').value = ''; $('song-artist').value = ''; loadSong(); }
+  else showToast('추가에 실패했습니다');
+};
+$('swapSong').onclick = async function(){
+  if (!songData.length) { showToast('노래가 없습니다'); return; }
+  if (!confirm('등록된 ' + songData.length + '곡의 제목과 아티스트를 서로 바꿉니다. 계속할까요?')) return;
+  for (const s of songData) await updateRow('songs', s.id, { title: s.artist || '', artist: s.title || '' });
+  showToast('바꿨습니다'); loadSong();
+};
+
+/* ---------- original songs (VOD) ---------- */
+
+async function loadOriginalSongs(){
+  const data = await fetchAll('original_songs', { order:'id', asc:false });
+  const el = $('os-list');
+  if (!data.length) { el.innerHTML = '<div class="hint">등록된 영상이 없습니다</div>'; return; }
+  el.innerHTML = data.map(function(s){
+    return '<div class="inq"><div class="h"><span class="nk">' + esc(s.title) + '</span>' +
+      '<span class="dt">' + esc(s.vod_id || '') + '</span></div>' +
+      '<div style="text-align:right"><button class="delete-btn" data-del-os="' + s.id + '">🗑 삭제</button></div></div>';
+  }).join('');
+}
+$('os-list').addEventListener('click', function(e){
+  const b = e.target.closest('[data-del-os]'); if (b) del('original_songs', +b.dataset.delOs, loadOriginalSongs);
+});
+$('addOs').onclick = async function(){
+  const title = $('os-title').value.trim(), vod = $('os-vod').value.trim();
+  if (!title || !vod) { showToast('제목과 VOD ID를 입력하세요'); return; }
+  const ok = await insertRow('original_songs', { title: title, vod_id: vod });
+  if (ok) { showToast('추가했습니다'); $('os-title').value = ''; $('os-vod').value = ''; loadOriginalSongs(); }
+  else showToast('추가에 실패했습니다');
+};
+
+/* ---------- upbo ---------- */
+
+let VW = [], UT = [], CNT = [], curVw = null;
+
+async function loadWork(){
+  try {
+    const r = await Promise.all([
+      fetchAll('viewers', { order:'sort_order', asc:true }),
+      fetchAll('upbo_types', { order:'sort_order', asc:true }),
+      fetchAll('upbo_counts', { order:'id', asc:true })
+    ]);
+    VW = r[0]; UT = r[1]; CNT = r[2];
+  } catch (e) { VW = []; UT = []; CNT = []; }
+  renderUt(); renderVwList(); renderCnt();
+}
+function vwTotal(vid){
+  return CNT.filter(c => c.viewer_id === vid && c.count > 0).reduce((s,c) => s + c.count, 0);
+}
+function renderUt(){
+  const t = $('ut-list');
+  if (!UT.length) { t.innerHTML = '<tr><td colspan="3" style="text-align:center;color:var(--text-soft);padding:18px">등록된 업보 종류가 없습니다</td></tr>'; return; }
+  t.innerHTML = UT.map(function(u){
+    return '<tr><td>' + esc(u.name) + '</td>' +
+      '<td><span class="badge' + (u.category === '이벤트' ? '' : ' badge-pink') + '">' + esc(u.category || '일반') + '</span></td>' +
+      '<td><button class="delete-btn" data-del-ut="' + u.id + '">🗑</button></td></tr>';
+  }).join('');
+}
+$('ut-list').addEventListener('click', function(e){
+  const b = e.target.closest('[data-del-ut]'); if (b) del('upbo_types', +b.dataset.delUt, loadWork);
+});
+$('addUt').onclick = async function(){
+  const name = $('ut-name').value.trim();
+  if (!name) { showToast('종류 이름을 입력하세요'); return; }
+  const ok = await insertRow('upbo_types', { name: name, category: $('ut-cat').value, sort_order: UT.length + 1 });
+  if (ok) { showToast('추가했습니다'); $('ut-name').value = ''; loadWork(); }
+  else showToast('추가에 실패했습니다');
+};
+$('addVw').onclick = async function(){
+  const nick = $('vw-nick').value.trim();
+  if (!nick) { showToast('닉네임을 입력하세요'); return; }
+  const ok = await insertRow('viewers', { nickname: nick, soop_id: $('vw-id').value.trim(), sort_order: VW.length + 1 });
+  if (ok) { showToast('추가했습니다'); $('vw-nick').value = ''; $('vw-id').value = ''; loadWork(); }
+  else showToast('추가에 실패했습니다');
+};
+function renderVwList(){
+  const el = $('vw-list');
+  if (!VW.length) { el.innerHTML = '<div class="hint" style="padding:10px">등록된 시청자가 없습니다</div>'; return; }
+  el.innerHTML = VW.map(function(v){
+    return '<div class="vw-item' + (curVw === v.id ? ' on' : '') + '" data-vw="' + v.id + '">' +
+      esc(v.nickname) + '<span class="tot">' + vwTotal(v.id) + '</span>' +
+      '<button class="delete-btn" data-del-vw="' + v.id + '">🗑</button></div>';
+  }).join('');
+}
+$('vw-list').addEventListener('click', function(e){
+  const d = e.target.closest('[data-del-vw]');
+  if (d) { del('viewers', +d.dataset.delVw, function(){ curVw = null; loadWork(); }); return; }
+  const b = e.target.closest('[data-vw]'); if (!b) return;
+  curVw = +b.dataset.vw; renderVwList(); renderCnt();
+});
+function getCount(vid, tid){
+  const row = CNT.find(c => c.viewer_id === vid && c.type_id === tid);
+  return row ? row.count : 0;
+}
+function renderCnt(){
+  const el = $('cnt-panel');
+  if (!curVw) { el.innerHTML = '<div class="hint">왼쪽에서 시청자를 선택하세요</div>'; return; }
+  if (!UT.length) { el.innerHTML = '<div class="hint">먼저 업보 종류를 추가하세요</div>'; return; }
+  const v = VW.find(x => x.id === curVw);
+  el.innerHTML = '<div class="card-title" style="margin-bottom:8px">' + esc(v ? v.nickname : '') + '</div>' +
+    UT.map(function(u){
+      return '<div class="cnt-row"><span>' + esc(u.name) + '</span>' +
+        '<span class="cnt-ctl"><button data-step="-1" data-type="' + u.id + '">−</button>' +
+        '<b id="cnt-' + u.id + '">' + getCount(curVw, u.id) + '</b>' +
+        '<button data-step="1" data-type="' + u.id + '">+</button></span></div>';
+    }).join('');
+}
+$('cnt-panel').addEventListener('click', async function(e){
+  const b = e.target.closest('[data-step]'); if (!b || !curVw) return;
+  const tid = +b.dataset.type, step = +b.dataset.step;
+  const cur = getCount(curVw, tid);
+  const next = Math.max(0, cur + step);
+  if (next === cur) return;
+  const row = CNT.find(c => c.viewer_id === curVw && c.type_id === tid);
+  const stamp = new Date().toISOString();
+  let ok;
+  if (row) ok = await updateRow('upbo_counts', row.id, { count: next, updated_at: stamp });
+  else ok = await insertRow('upbo_counts', { viewer_id: curVw, type_id: tid, count: next, updated_at: stamp });
+  if (!ok) { showToast('저장에 실패했습니다'); return; }
+  await loadWork();
+});
+
+/* ---------- inquiries ---------- */
+
+async function loadInquiry(){
+  const data = await fetchAll('inquiries', { order:'created_at', asc:false });
+  const el = $('inquiry-list');
+  if (!data.length) { el.innerHTML = '<div class="empty">받은 쪽지가 없습니다</div>'; return; }
+  el.innerHTML = data.map(function(q){
+    return '<div class="inq"><div class="h"><span class="nk">' + esc(q.nickname || '익명') + '</span>' +
+      '<span class="dt">' + String(q.created_at || '').slice(0,16).replace('T',' ') + '</span></div>' +
+      '<div class="bd">' + esc(q.message || '') + '</div>' +
+      '<div style="text-align:right;margin-top:8px"><button class="delete-btn" data-del-inq="' + q.id + '">🗑 삭제</button></div></div>';
+  }).join('');
+}
+$('inquiry-list').addEventListener('click', function(e){
+  const b = e.target.closest('[data-del-inq]'); if (b) del('inquiries', +b.dataset.delInq, loadInquiry);
+});
+
+</script>
+</body>
+</html>

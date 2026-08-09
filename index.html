@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1180, user-scalable=yes">
+<title>최은뽀 · 프로필</title>
+<meta name="description" content="EUNPPO OFFICIAL — 최은뽀 프로필 페이지. 프로필 · 방송 일정 · 노래책.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="최은뽀 · EUNPPO OFFICIAL">
+<meta property="og:description" content="EUNPPO OFFICIAL — 볕 잘 드는 자리의 레몬나무 한 그루.">
+<meta property="og:image" content="https://profile.img.sooplive.co.kr/LOGO/eu/eunpp0/eunpp0.jpg">
+<link rel="icon" type="image/jpeg" href="https://profile.img.sooplive.co.kr/LOGO/eu/eunpp0/eunpp0.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="./style.css">
+<script src="./pcview.js"></script>
+<style>
+  body{ --char:url('./assets/char.png'); }
+
+  /* ── hero (moyo structure: photo fills the hero, avatar left / text centre / empty right slot) ── */
+  .hero{ position:relative; height:470px; overflow:hidden;
+    background:linear-gradient(180deg, var(--sub) 0%, var(--main) 58%, var(--sheet) 100%); }
+  .hero::before{ content:''; position:absolute; inset:0; z-index:2; pointer-events:none;
+    background-image:
+      repeating-linear-gradient(0deg, var(--line-soft) 0 1px, transparent 1px 34px),
+      repeating-linear-gradient(90deg, var(--line-soft) 0 1px, transparent 1px 34px);
+    opacity:.5;
+    -webkit-mask-image:radial-gradient(60% 80% at 50% 45%, #000 30%, transparent 78%);
+            mask-image:radial-gradient(60% 80% at 50% 45%, #000 30%, transparent 78%); }
+  .hero::after{ content:''; position:absolute; inset:0; z-index:2; pointer-events:none;
+    background:linear-gradient(180deg, transparent 76%, var(--sheet) 100%); }
+  #heroBg{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+    object-position:50% 20%; display:block; }
+  .hero-in{ position:relative; z-index:3; height:100%; display:flex; align-items:center; gap:52px; padding:0 64px; }
+  .hero-ava{ flex-shrink:0; }
+  .avatar{
+    width:252px; height:252px; border-radius:50%;
+    border:9px solid var(--card);
+    box-shadow:0 0 0 1.5px var(--line), 0 14px 34px color-mix(in srgb, var(--main-deep) 20%, transparent);
+    background:linear-gradient(150deg, color-mix(in srgb,var(--main) 70%,#fff), color-mix(in srgb,var(--sub) 70%,#fff));
+    display:flex; align-items:center; justify-content:center;
+    font-size:calc(64px * var(--fs-display));
+    overflow:hidden; cursor:pointer;
+  }
+  .avatar img{ width:100%; height:100%; object-fit:cover; border-radius:50%; display:none; }
+  .hero-mid{ flex:1; text-align:center; min-width:0; }
+  .hero-right{ flex:0 0 250px; height:100%; }
+  .h-title{
+    font-family:var(--disp); font-weight:800;
+    font-size:calc(72px * var(--fs-display)); line-height:1.05; letter-spacing:.04em;
+    color:var(--logo); position:relative; display:inline-block;
+  }
+  .h-title .h-leaf{ position:absolute; right:-36px; top:6px; font-size:calc(26px * var(--fs-title)); }
+  .h-sub{
+    display:flex; align-items:center; justify-content:center; gap:14px; margin-top:16px;
+    font-family:var(--serif); font-size:calc(17px * var(--fs-title)); letter-spacing:.42em;
+    color:var(--main-deep);
+  }
+  .h-sub i{ flex:0 0 54px; height:1px; background:linear-gradient(90deg,transparent,var(--line)); }
+  .h-sub i:last-child{ background:linear-gradient(-90deg,transparent,var(--line)); }
+  .h-sub .dm{ font-size:calc(11px * var(--fs-label)); letter-spacing:0; color:var(--sub-mid); }
+  .h-badges{ display:flex; justify-content:center; gap:10px; margin-top:20px; flex-wrap:wrap; }
+  .hb{
+    font-family:var(--serif); font-size:calc(11.5px * var(--fs-label)); letter-spacing:.2em;
+    color:var(--main-deep); border:1.5px solid var(--line); border-radius:var(--radius-pill);
+    background:color-mix(in srgb, var(--card2) 82%, transparent); padding:7px 16px 6px;
+    display:inline-flex; align-items:center; gap:7px;
+  }
+  .hb.live b{ width:7px; height:7px; border-radius:50%; background:var(--accent);
+    box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 24%,transparent); animation:pulse 1.6s ease infinite; }
+  @keyframes pulse{ 0%,100%{transform:scale(1)} 50%{transform:scale(1.25)} }
+  .h-quote{ margin-top:22px; font-family:var(--disp); font-size:calc(16.5px * var(--fs-title)); color:var(--text); }
+
+  /* ── stat strip ── */
+  .strip-wrap{ margin:24px 30px 0; background:var(--card2); border:1.5px solid var(--line); border-radius:22px; padding:14px; }
+  .strip{ display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:13px; }
+  .stat{ background:var(--sheet); border:1px solid var(--line-soft); border-radius:15px; padding:16px 8px 14px; text-align:center; }
+  .stat .s-k{ display:block; font-size:calc(12px * var(--fs-body)); font-weight:600; color:var(--text-soft); }
+  .stat .s-v{ display:block; font-size:calc(17px * var(--fs-title)); font-weight:800; color:var(--text); margin-top:8px; line-height:1.3; word-break:keep-all; }
+
+  /* ── duo ── */
+  .duo{ display:grid; grid-template-columns:.72fr 1fr; gap:24px; margin:24px 30px 0; align-items:stretch; }
+  .duo > *{ min-width:0; }
+  .plist{ flex:1; display:flex; flex-direction:column; }
+  .prow{ flex:1; display:flex; align-items:center; gap:14px; padding:9px 4px; border-bottom:1px solid var(--line-soft); }
+  .prow:last-child{ border-bottom:none; }
+  .pkey{ width:74px; flex-shrink:0; font-size:calc(13px * var(--fs-body)); font-weight:700; color:var(--text-soft); }
+  .pval{ flex:1; font-size:calc(15px * var(--fs-body)); font-weight:700; color:var(--text); line-height:1.5; word-break:keep-all; }
+
+  .cc-body{ flex:1; display:flex; flex-direction:column; gap:16px; min-height:0; }
+  .cc-img{ flex:none; aspect-ratio:16/9; border-radius:15px; position:relative; overflow:hidden;
+    background:linear-gradient(150deg, color-mix(in srgb,var(--main) 62%,#fff), color-mix(in srgb,var(--sub) 62%,#fff));
+    border:1px solid var(--line-soft); display:flex; align-items:center; justify-content:center;
+    font-size:calc(26px * var(--fs-display)); color:var(--main-dark); }
+  .cc-img iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .cc-rows{ flex-shrink:0; display:flex; flex-direction:column; }
+  .d-row{ display:flex; align-items:center; gap:14px; padding:13px 4px; border-top:1px solid var(--line-soft);
+    color:var(--text); font-size:calc(14.5px * var(--fs-body)); }
+  .d-row b{ font-size:calc(12px * var(--fs-label)); color:var(--sub-deep); letter-spacing:.16em; flex-shrink:0; width:72px; }
+  .d-row span{ flex:1; font-weight:600; }
+
+  /* ── signature song + schedule ── */
+  .mid-duo{ display:grid; grid-template-columns:1.25fr 1fr; gap:24px; margin:24px 30px 0; }
+  .mid-duo > *{ min-width:0; }
+  .player{ position:relative; overflow:hidden; border-radius:22px;
+    background:linear-gradient(135deg, var(--sub-mid), var(--sub-deep));
+    padding:24px 152px 24px 24px; display:flex; align-items:center; gap:20px;
+    color:var(--ink-on-dark); box-shadow:0 14px 34px color-mix(in srgb,var(--sub-deep) 34%,transparent); }
+  .p-art{ flex-shrink:0; width:124px; height:124px; border-radius:16px;
+    background:rgba(255,255,255,.10); border:1.5px solid color-mix(in srgb,var(--ink-on-dark) 28%,transparent);
+    display:flex; align-items:center; justify-content:center;
+    font-size:calc(32px * var(--fs-display)); color:color-mix(in srgb,var(--ink-on-dark) 55%,transparent); overflow:hidden; }
+  .p-art img{ width:100%; height:100%; object-fit:cover; display:none; }
+  .p-info{ flex:1; min-width:0; }
+  .p-eyebrow{ font-family:var(--serif); font-size:calc(11.5px * var(--fs-label)); font-weight:600; letter-spacing:.24em; opacity:.9; }
+  .p-title{ font-family:var(--disp); font-size:calc(25px * var(--fs-title)); font-weight:800; margin-top:8px; }
+  .p-sub{ font-size:calc(12.5px * var(--fs-label)); opacity:.85; margin-top:4px; }
+  .p-go{ display:inline-flex; align-items:center; gap:7px; margin-top:16px;
+    border:1.5px solid color-mix(in srgb,var(--ink-on-dark) 42%,transparent);
+    background:color-mix(in srgb,var(--ink-on-dark) 14%,transparent); color:var(--ink-on-dark);
+    border-radius:var(--radius-pill); padding:9px 17px;
+    font-size:calc(13px * var(--fs-body)); font-weight:700; transition:all var(--transition); }
+  .p-go:hover{ background:var(--ink-on-dark); color:var(--main-deep); }
+  .vinyl{ position:absolute; right:24px; top:50%; transform:translateY(-50%);
+    width:114px; height:114px; border-radius:50%;
+    background:repeating-radial-gradient(circle at 50% 50%,
+      color-mix(in srgb, var(--sub-deep) 66%, #000000) 0 1.5px,
+      color-mix(in srgb, var(--sub-deep) 88%, #FFFFFF) 1.5px 3.5px);
+    box-shadow:inset 0 0 0 2px rgba(0,0,0,.32), 0 8px 18px rgba(0,0,0,.28);
+    animation:spin 4.5s linear infinite; }
+  .vinyl i{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+    width:42px; height:42px; border-radius:50%; background:var(--main);
+    box-shadow:inset 0 0 0 3px color-mix(in srgb,var(--ink-on-dark) 55%,transparent); }
+  .vinyl i::after{ content:''; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+    width:7px; height:7px; border-radius:50%; background:color-mix(in srgb,var(--sub-deep) 70%,#000); }
+  .pnote{ position:absolute; color:color-mix(in srgb,var(--ink-on-dark) 85%,transparent); pointer-events:none; }
+  .pnote.n1{ right:146px; top:16px; font-size:19px; transform:rotate(-14deg); }
+  .pnote.n2{ right:120px; top:38px; font-size:27px; transform:rotate(8deg); }
+  @media (prefers-reduced-motion:reduce){ .vinyl{ animation:none } .hb.live b{ animation:none } }
+  @keyframes spin{ to{ transform:translateY(-50%) rotate(360deg) } }
+
+  .days{ display:flex; gap:9px; flex-wrap:wrap; margin-bottom:8px; }
+  .day{ width:42px; height:42px; border-radius:13px; display:flex; align-items:center; justify-content:center;
+    font-size:calc(14px * var(--fs-body)); font-weight:700;
+    background:var(--sheet); border:1px solid var(--line-soft); color:var(--text-soft); }
+  .day.on{ background:var(--accent); border-color:transparent; color:var(--ink-on-dark);
+    box-shadow:0 6px 14px color-mix(in srgb,var(--sub-deep) 30%,transparent); }
+  .s-row{ padding:13px 2px; font-size:calc(14.5px * var(--fs-body)); font-weight:600; color:var(--text); border-top:1px solid var(--line-soft); }
+  .s-row:first-of-type{ margin-top:6px; }
+  .s-row b{ color:var(--sub-deep); }
+
+  /* ── archive rail ── */
+  .adv{ margin:26px 30px 0; background:var(--card); border:1.5px solid var(--line); border-radius:20px; padding:22px 24px; }
+  .adv-wrap{ position:relative; }
+  .adv-grid{ display:grid; grid-auto-flow:column; grid-auto-columns:calc(33.333% - 12px); gap:18px;
+    overflow-x:auto; scroll-behavior:smooth; scrollbar-width:none; padding-bottom:4px; }
+  .adv-grid::-webkit-scrollbar{ display:none; }
+  .acard{ background:var(--card2); border:1.5px solid var(--line); border-radius:17px; overflow:hidden;
+    transition:transform .18s ease, box-shadow .18s ease; }
+  .acard:hover{ transform:translateY(-3px); box-shadow:var(--shadow-hover); }
+  .a-thumb{ aspect-ratio:16/9; position:relative;
+    background:linear-gradient(150deg, color-mix(in srgb,var(--main) 60%,#fff), color-mix(in srgb,var(--sub) 60%,#fff));
+    display:flex; align-items:center; justify-content:center; }
+  .a-thumb iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .a-thumb .pl{ width:40px; height:40px; border-radius:50%; border:2px solid var(--line);
+    color:var(--main-dark); display:flex; align-items:center; justify-content:center;
+    font-size:13px; padding-left:3px; }
+  .a-meta{ padding:13px 15px 15px; }
+  .a-cat{ font-size:calc(11.5px * var(--fs-label)); font-weight:700; color:var(--sub-deep); }
+  .a-title{ font-size:calc(14.5px * var(--fs-body)); font-weight:700; color:var(--text); margin-top:5px; line-height:1.4; }
+  .adv-btn{ position:absolute; top:50%; transform:translateY(-50%); z-index:3;
+    width:38px; height:38px; border-radius:50%; border:1.5px solid var(--line);
+    background:var(--sheet); color:var(--main-dark); font-size:18px; line-height:1; cursor:pointer;
+    box-shadow:var(--shadow-hover); display:flex; align-items:center; justify-content:center; }
+  .adv-btn:hover{ background:var(--sub); }
+  .adv-btn.prev{ left:-43px; } .adv-btn.next{ right:-43px; }
+
+  /* ── gallery + links ── */
+  .bot-duo{ display:grid; grid-template-columns:1.25fr 1fr; gap:24px; margin:26px 30px 0; }
+  .bot-duo > *{ min-width:0; }
+  .g-grid{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; }
+  .g-thumb{ aspect-ratio:1/1; border-radius:15px; overflow:hidden;
+    background:linear-gradient(150deg, color-mix(in srgb,var(--main) 60%,#fff), color-mix(in srgb,var(--sub) 60%,#fff));
+    border:1px solid var(--line-soft); display:flex; align-items:center; justify-content:center;
+    font-size:calc(20px * var(--fs-title)); color:var(--main-dark); }
+  .g-thumb img{ width:100%; height:100%; object-fit:cover; }
+  .l-grid{ display:grid; grid-template-columns:1fr 1fr; gap:13px; }
+  .lbtn{ display:flex; align-items:center; gap:12px; background:var(--card2); border:1.5px solid var(--line);
+    border-radius:15px; padding:12px 15px; font-size:calc(14.5px * var(--fs-body)); font-weight:700;
+    color:var(--text); transition:all .18s ease; }
+  .lbtn:hover{ transform:translateY(-2px); box-shadow:var(--shadow-hover); border-color:var(--accent); }
+  .l-ic{ flex-shrink:0; width:36px; height:36px; border-radius:11px; display:flex; align-items:center;
+    justify-content:center; color:#fff; font-size:calc(15px * var(--fs-body)); font-weight:800; }
+  .l-ic.soop{ background:#315EF0; } .l-ic.yt{ background:#E53935; font-size:12px; }
+  .l-ic.xx{ background:#15181C; } .l-ic.cafe{ background:#03C75A; }
+
+  @media (max-width:960px){
+    .hero{ height:auto; padding:40px 0 46px; }
+    .hero-in{ flex-direction:column; gap:26px; padding:0 26px; text-align:center; }
+    .hero-right{ display:none; }
+    .avatar{ width:180px; height:180px; border-width:7px; }
+    .h-title{ font-size:50px; }
+    .strip{ grid-template-columns:repeat(3,minmax(0,1fr)); }
+    .duo,.mid-duo,.bot-duo{ grid-template-columns:minmax(0,1fr); }
+    .player{ padding-right:24px; } .vinyl,.pnote{ display:none; }
+    .adv-grid{ grid-auto-columns:calc(50% - 9px); }
+    .strip-wrap,.duo,.mid-duo,.adv,.bot-duo{ margin-left:16px; margin-right:16px; }
+  }
+  @media (max-width:560px){
+    .strip{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .adv-grid{ grid-auto-columns:82%; }
+    .g-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .l-grid{ grid-template-columns:minmax(0,1fr); }
+    .adv-btn.prev{ left:-9px } .adv-btn.next{ right:-9px }
+    .prow{ flex-direction:column; align-items:flex-start; gap:2px; }
+    .pkey{ width:auto; }
+  }
+</style>
+</head>
+<body>
+<script>
+  try { if (window.self !== window.top) document.body.classList.add('embed'); }
+  catch (e) { document.body.classList.add('embed'); }
+  if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
+</script>
+
+<div class="sheet stagger">
+
+  <div class="chrome">
+    <span class="dots"><i></i><i></i><i></i></span>
+    <div class="addr"><span class="lock">🔒</span> https://eunppo.pages.dev</div>
+    <button class="theme-switch" id="themeSwitch" type="button" aria-label="다크모드 전환"><span id="themeKnob">🍋</span></button>
+  </div>
+
+  <section class="hero" id="heroScene">
+    <img id="heroBg" src="./assets/hero.jpg" alt="" referrerpolicy="no-referrer">
+    <div class="hero-in">
+      <div class="hero-ava">
+        <div class="avatar" id="avatarWrap">
+          <span id="avatarEmoji">🍋</span>
+          <img id="avatarImg" alt="" referrerpolicy="no-referrer" onerror="this.style.display='none'">
+        </div>
+      </div>
+      <div class="hero-mid">
+        <h1 class="h-title" id="hero-name">최은뽀<span class="h-leaf">🍋</span></h1>
+        <div class="h-sub"><i></i><span class="dm">✦</span>EUNPPO<span class="dm">✦</span><i></i></div>
+        <div class="h-badges" id="heroBadges">
+          <span class="hb">LEMON GREENHOUSE</span>
+          <span class="hb">어인섬 CREW</span>
+          <span class="hb live"><b></b>ISTP</span>
+        </div>
+        <p class="h-quote">“ <span id="hero-quote">흠냐, 힝</span> ”<span> 🌿</span></p>
+      </div>
+      <div class="hero-right" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <div class="strip-wrap">
+    <div class="strip">
+      <div class="stat"><span class="s-k">데뷔</span><span class="s-v" id="stat-debut">2017.07.07</span></div>
+      <div class="stat"><span class="s-k">생일</span><span class="s-v" id="stat-birth">12.20</span></div>
+      <div class="stat"><span class="s-k">소속</span><span class="s-v" id="stat-crew">어인섬</span></div>
+      <div class="stat"><span class="s-k">MBTI</span><span class="s-v" id="stat-mbti">ISTP</span></div>
+      <div class="stat"><span class="s-k">팬네임</span><span class="s-v" id="stat-fan">양배추 🥬</span></div>
+      <div class="stat"><span class="s-k">상태</span><span class="s-v" id="stat-status">온실 문 열림 🍋</span></div>
+    </div>
+  </div>
+
+  <nav class="nav"><div class="nav-inner">
+      <a class="nav-logo" href="./">최은뽀<span class="lg-en">EUNPPO</span></a>
+      <a href="./" class="ntab active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7.5"/><path d="M12 4.5V2.8M14.6 5.2c1.6-1.4 3.6-1.6 3.6-1.6s-.4 2-2 3.2"/></svg>프로필</a>
+      <a href="./schedule/" class="ntab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M8 3.5v3M16 3.5v3M3.5 10h17"/></svg>방송 일정</a>
+      <a href="./song/" class="ntab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="17.5" r="3"/><circle cx="17.5" cy="15.5" r="3"/><path d="M10.5 17.5V6.5l10-2v11"/></svg>노래책</a>
+      <a href="./work/" class="ntab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4.5" width="14" height="16" rx="2.5"/><path d="M9.5 3.5h5v3h-5z"/><path d="M9 13l2.2 2.2L15.5 11"/></svg>업보</a>
+      <a href="./game/" class="ntab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="4.5"/><circle cx="9" cy="9" r="1.4" fill="currentColor" stroke="none"/><circle cx="15" cy="9" r="1.4" fill="currentColor" stroke="none"/><circle cx="9" cy="15" r="1.4" fill="currentColor" stroke="none"/><circle cx="15" cy="15" r="1.4" fill="currentColor" stroke="none"/></svg>미니게임</a>
+      <button class="ntab" type="button" onclick="openInquiry()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 0-3.1 6.3L20.5 19l-.8-3.4A8 8 0 0 0 20 12z"/></svg>문의</button>
+    </div></nav>
+
+  <div class="duo">
+    <section class="ornate">
+      <svg class="corner tl" viewBox="0 0 70 70" fill="none"><path d="M6 52C6 22 22 6 52 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M20 13q9-8 17-5-5 10-17 5z" fill="currentColor" opacity=".8"/><path d="M9 32q-7-9-3-17 10 5 3 17z" fill="currentColor" opacity=".55"/><path d="M36 8q7-6 13-4-4 8-13 4z" fill="currentColor" opacity=".4"/></svg>
+      <svg class="corner tr" viewBox="0 0 70 70" fill="none"><path d="M6 52C6 22 22 6 52 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M20 13q9-8 17-5-5 10-17 5z" fill="currentColor" opacity=".8"/><path d="M9 32q-7-9-3-17 10 5 3 17z" fill="currentColor" opacity=".55"/><path d="M36 8q7-6 13-4-4 8-13 4z" fill="currentColor" opacity=".4"/></svg>
+      <div class="ohd" style="margin:0 0 20px"><i></i><span class="dm">✦</span>PROFILE<span class="dm">✦</span><i></i></div>
+      <div class="plist">
+        <div class="prow"><span class="pkey">이름</span><span class="pval" id="info-name">최은뽀 (EUNPPO)</span></div>
+        <div class="prow"><span class="pkey">성격</span><div class="tags" id="info-tags"><span class="tag">차분한 또라이</span><span class="tag">리트리버</span></div></div>
+        <div class="prow"><span class="pkey">성별</span><span class="pval" id="info-gender">여</span></div>
+        <div class="prow"><span class="pkey">컨텐츠</span><span class="pval" id="info-content">게임 / 노래</span></div>
+        <div class="prow"><span class="pkey">소지품</span><span class="pval" id="info-item">레몬 모양 머리핀</span></div>
+        <div class="prow"><span class="pkey">모티브</span><span class="pval" id="info-motif">레몬 / 나뭇잎</span></div>
+        <div class="prow"><span class="pkey">팬네임</span><span class="pval" id="info-fandom">양배추</span></div>
+      </div>
+    </section>
+
+    <section class="ornate">
+      <svg class="corner tl" viewBox="0 0 70 70" fill="none"><path d="M6 52C6 22 22 6 52 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M20 13q9-8 17-5-5 10-17 5z" fill="currentColor" opacity=".8"/><path d="M9 32q-7-9-3-17 10 5 3 17z" fill="currentColor" opacity=".55"/><path d="M36 8q7-6 13-4-4 8-13 4z" fill="currentColor" opacity=".4"/></svg>
+      <svg class="corner tr" viewBox="0 0 70 70" fill="none"><path d="M6 52C6 22 22 6 52 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M20 13q9-8 17-5-5 10-17 5z" fill="currentColor" opacity=".8"/><path d="M9 32q-7-9-3-17 10 5 3 17z" fill="currentColor" opacity=".55"/><path d="M36 8q7-6 13-4-4 8-13 4z" fill="currentColor" opacity=".4"/></svg>
+      <div class="ohd" style="margin:0 0 20px"><i></i><span class="dm">✦</span>SUNROOM<span class="dm">✦</span><i></i></div>
+      <div class="cc-body">
+        <div class="cc-img" id="ccImgBox">
+            <iframe id="cc-media" src="https://vod.sooplive.co.kr/player/202554605/embed?showChat=false&autoPlay=false&mutePlay=false" title="최은뽀 노래" frameborder="0" allowfullscreen scrolling="no"></iframe>
+          </div>
+        <div class="cc-rows">
+          <div class="d-row"><b>ABOUT</b><span id="msg">놀러 와줘서 고마워요. 오늘도 잘 자라는 중입니다.</span></div>
+          <div class="d-row"><b>LIKE</b><div class="tags" id="like-list"></div></div>
+          <div class="d-row"><b>DISLIKE</b><div class="tags" id="dislike-list"></div></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="mid-duo">
+    <div class="player">
+      <div class="p-art" id="pArt"><span>♪</span><img id="sing-art" alt="" referrerpolicy="no-referrer"></div>
+      <div class="p-info">
+        <div class="p-eyebrow">♪ SIGNATURE SONG</div>
+        <div class="p-title" id="sing-title">여우비</div>
+        <div class="p-sub" id="sing-sub">인디 · 잔잔한 여자 발라드를 즐겨 부릅니다</div>
+        <a class="p-go" id="sing-link" href="https://vod.sooplive.com/player/202554605?change_second=15688" target="_blank" rel="noreferrer">SOOP VOD에서 듣기 ↗</a>
+      </div>
+      <div class="vinyl"><i></i></div>
+      <span class="pnote n1">♪</span><span class="pnote n2">♫</span>
+    </div>
+    <section class="card">
+      <div class="sec-hd kr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M8 3.5v3M16 3.5v3M3.5 10h17"/></svg>방송 일정</div>
+      <div class="days">
+        <span class="day" id="day-0">월</span>
+        <span class="day" id="day-1">화</span>
+        <span class="day" id="day-2">수</span>
+        <span class="day" id="day-3">목</span>
+        <span class="day" id="day-4">금</span>
+        <span class="day" id="day-5">토</span>
+        <span class="day" id="day-6">일</span>
+      </div>
+      <div class="s-row" id="sched-line1"><b>크루 컨텐츠</b> · 오후 12시</div>
+      <div class="s-row" id="sched-line2"><b>개인 방송</b> · 오후 6시</div>
+      <div class="s-row" id="sched-line3"><b>휴방</b> · 주 1회</div>
+    </section>
+  </div>
+
+  <section class="adv" id="songs-card">
+    <div class="sec-hd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M10.2 9.2l4.6 2.8-4.6 2.8z" fill="currentColor" stroke="none"/></svg>ARCHIVE</div>
+    <div class="adv-wrap">
+      <button class="adv-btn prev" type="button" aria-label="이전" onclick="advScroll(-1)">‹</button>
+      <div class="adv-grid" id="ovod-grid"></div>
+      <button class="adv-btn next" type="button" aria-label="다음" onclick="advScroll(1)">›</button>
+    </div>
+  </section>
+
+  <div class="bot-duo">
+    <section class="card">
+      <div class="sec-hd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="3"/><circle cx="9" cy="10" r="1.7"/><path d="M4.5 17.5l4.5-4 3.5 3 3-2.5 4 3.5"/></svg>GALLERY</div>
+      <div class="g-grid">
+        <div class="g-thumb"><img id="gallery-1" src="./assets/photo-1.jpg" alt="" referrerpolicy="no-referrer" loading="lazy"></div>
+        <div class="g-thumb"><img id="gallery-2" src="./assets/photo-2.jpg" alt="" referrerpolicy="no-referrer" loading="lazy"></div>
+        <div class="g-thumb"><img id="gallery-3" src="./assets/photo-3.jpg" alt="" referrerpolicy="no-referrer" loading="lazy"></div>
+        <div class="g-thumb"><span>🌿</span><img id="gallery-4" alt="" referrerpolicy="no-referrer" loading="lazy" style="display:none"></div>
+      </div>
+    </section>
+    <section class="card">
+      <div class="sec-hd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 14.5l5-5"/><path d="M11 6.5L12.5 5a4 4 0 0 1 5.5 5.5L16.5 12M13 17.5L11.5 19a4 4 0 0 1-5.5-5.5L7.5 12"/></svg>LINKS</div>
+      <div class="l-grid">
+        <a class="lbtn" id="link-soop" href="https://www.sooplive.com/station/eunpp0" target="_blank" rel="noreferrer"><span class="l-ic soop">S</span>SOOP 방송국</a>
+        <a class="lbtn" id="link-youtube" href="https://www.youtube.com/@eunppo1220" target="_blank" rel="noreferrer"><span class="l-ic yt">▶</span>YouTube</a>
+        <a class="lbtn" id="link-x" href="https://x.com/eunppo04" target="_blank" rel="noreferrer"><span class="l-ic xx">X</span>X (트위터)</a>
+        <a class="lbtn" id="link-cafe" href="https://cafe.naver.com/fishmanisland" target="_blank" rel="noreferrer"><span class="l-ic cafe">N</span>어인섬 카페</a>
+      </div>
+    </section>
+  </div>
+
+  <footer>© 2026 EUNPPO Official. All rights reserved.<br><span class="biz">비즈니스 문의 · 문의 버튼을 이용해 주세요</span></footer>
+</div>
+
+<div class="iq-ov" id="iq-ov" onclick="if(event.target===this)closeInquiry()">
+  <div class="iq-modal">
+    <div class="iq-title">✉️ 최은뽀에게</div>
+    <div class="iq-desc">남긴 내용은 관리자만 확인합니다</div>
+    <input class="iq-input" id="iq-nick" placeholder="닉네임 (비우면 익명)">
+    <textarea class="iq-input" id="iq-msg" rows="4" placeholder="하고 싶은 말"></textarea>
+    <div class="iq-btns">
+      <button class="iq-cancel" type="button" onclick="closeInquiry()">취소</button>
+      <button class="iq-send" type="button" onclick="sendInquiry()">보내기 🍋</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="./supabase.js"></script>
+<script src="./site.js"></script>
+<script>
+const defaults = {
+  'soop-id':'eunpp0', avatar:'', 'hero-bg':'',
+  'hero-quote':'흠냐, 힝',
+  'hero-badges':'LEMON GREENHOUSE,어인섬 CREW,ISTP',
+  'stat-debut':'2017.07.07', 'stat-birth':'12.20', 'stat-crew':'어인섬',
+  'stat-mbti':'ISTP', 'stat-fan':'양배추 🥬', 'stat-status':'온실 문 열림 🍋',
+  'info-name':'최은뽀 (EUNPPO)',
+  'info-tags':'차분한 또라이, 리트리버',
+  'info-gender':'여', 'info-content':'게임 / 노래',
+  'info-item':'레몬 모양 머리핀', 'info-motif':'레몬 / 나뭇잎', 'info-fandom':'양배추',
+  msg:'놀러 와줘서 고마워요. 오늘도 잘 자라는 중입니다.',
+  'like-list':'팬들, 노래, 게임',
+  'dislike-list':'운동, 공포게임, 힙합 곡',
+  'sing-title':'여우비',
+  'sing-sub':'인디 · 잔잔한 여자 발라드를 즐겨 부릅니다 · 노래방송 정기',
+  'sing-link':'https://vod.sooplive.com/player/202554605?change_second=15688',
+  'sing-art':'', 'cc-media':'202554605',
+  'sched-line1':'크루 컨텐츠 · 오후 12시',
+  'sched-line2':'개인 방송 · 오후 6시',
+  'sched-line3':'휴방 · 주 1회',
+  days:'0,1,2,3,4,5',
+  'gallery-1':'', 'gallery-2':'', 'gallery-3':'', 'gallery-4':'',
+  'link-soop':'https://www.sooplive.com/station/eunpp0',
+  'link-youtube':'https://www.youtube.com/@eunppo1220',
+  'link-x':'https://x.com/eunppo04',
+  'link-cafe':'https://cafe.naver.com/fishmanisland'
+};
+
+function advScroll(dir){
+  var g = document.getElementById('ovod-grid');
+  if (g) g.scrollBy({ left: dir * Math.round(g.clientWidth * 0.6), behavior:'smooth' });
+}
+
+/* a bold key + a plain rest, split on the first ' · ' */
+function schedLine(id, v){
+  var el = document.getElementById(id); if (!el) return;
+  var s = txt(v); if (!s) return;
+  var i = s.indexOf('·');
+  if (i < 0) { el.innerHTML = '<b>' + esc(s) + '</b>'; return; }
+  el.innerHTML = '<b>' + esc(s.slice(0, i).trim()) + '</b> · ' + esc(s.slice(i + 1).trim());
+}
+
+async function load(){
+  var d = Object.assign({}, defaults);
+  try {
+    var saved = await window.profileData;
+    Object.keys(saved || {}).forEach(function(k){
+      if (saved[k] !== '' && saved[k] != null) d[k] = saved[k];
+    });
+  } catch (e) { console.log('profile load', e); }
+
+  try {
+    var url = txt(d.avatar) || soopAvatar(txt(d['soop-id']));
+    var img = document.getElementById('avatarImg');
+    var ph  = document.getElementById('avatarEmoji');
+    if (url && img) {
+      img.src = url;
+      img.onload = function(){ img.style.display = 'block'; if (ph) ph.style.display = 'none'; };
+    }
+    setImg('heroBg', d['hero-bg']);
+
+    setText(['hero-quote','stat-debut','stat-birth','stat-crew','stat-mbti','stat-fan','stat-status',
+             'info-name','info-gender','info-content','info-item','info-motif','info-fandom',
+             'sing-title','sing-sub'], d);
+    var about = document.getElementById('msg');
+    if (about && txt(d.msg)) about.textContent = txt(d.msg);
+
+    var badges = toList(d['hero-badges']);
+    if (badges.length) {
+      document.getElementById('heroBadges').innerHTML = badges.map(function(b, i){
+        return i === badges.length - 1
+          ? '<span class="hb live"><b></b>' + esc(b) + '</span>'
+          : '<span class="hb">' + esc(b) + '</span>';
+      }).join('');
+    }
+
+    renderTags('info-tags', d['info-tags']);
+    renderChips('like-list', d['like-list'], 'leaf');
+    renderChips('dislike-list', d['dislike-list']);
+    renderDays(d.days);
+    ['sched-line1','sched-line2','sched-line3'].forEach(function(id){ schedLine(id, d[id]); });
+
+    var sl = document.getElementById('sing-link');
+    if (sl && txt(d['sing-link'])) sl.href = txt(d['sing-link']);
+    setImg('sing-art', d['sing-art']);
+    var cc = document.getElementById('cc-media');
+    var vid = txt(d['cc-media']);
+    if (cc && vid) cc.src = 'https://vod.sooplive.co.kr/player/' + encodeURIComponent(vid) +
+      '/embed?showChat=false&autoPlay=false&mutePlay=false';
+    ['gallery-1','gallery-2','gallery-3','gallery-4'].forEach(function(k){
+      if (txt(d[k])) setImg(k, d[k]);
+    });
+    setLinks(d, ['link-soop','link-youtube','link-x','link-cafe']);
+
+    /* birthday D-Day badge appended to the stat cell */
+    var mmdd = parseMMDD(d['stat-birth']);
+    if (mmdd && typeof fxDday === 'function') {
+      var n = fxDday(mmdd);
+      var cell = document.getElementById('stat-birth');
+      if (n !== null && cell) cell.textContent = txt(d['stat-birth']) + (n === 0 ? ' 🎉' : ' (D-' + n + ')');
+    }
+  } catch (e) { console.log('render', e); }
+
+  document.body.classList.add('ready');
+}
+
+async function loadArchive(){
+  var card = document.getElementById('songs-card');
+  var grid = document.getElementById('ovod-grid');
+  if (!card || !grid) return;
+  var list = [];
+  try { list = await fetchAll('original_songs', { order:'id', asc:false }); } catch (e) { list = []; }
+  if (!list.length) { card.style.display = 'none'; return; }
+  card.style.display = '';
+  grid.innerHTML = list.map(function(s){
+    var vid = txt(s.vod_id);
+    return '<div class="acard"><div class="a-thumb">' +
+      (vid ? '<iframe src="https://vod.sooplive.co.kr/player/' + encodeURIComponent(vid) +
+             '/embed?showChat=false&autoPlay=false&mutePlay=false" frameborder="0" allowfullscreen scrolling="no"></iframe>'
+           : '<span class="pl">▶</span>') +
+      '</div><div class="a-meta"><div class="a-cat">기록 영상</div>' +
+      '<div class="a-title">' + esc(s.title) + '</div></div></div>';
+  }).join('');
+}
+
+load();
+loadArchive();
+setTimeout(function(){ document.body.classList.add('ready'); }, 1600);
+</script>
+<script src="./fx.js"></script>
+<script>
+(function(){
+  if (typeof window.fxHearts === 'function') return;
+  var fx = document.createElement('div'); fx.id = 'fx';
+  fx.style.cssText = 'position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden';
+  document.body.appendChild(fx);
+  for (var i = 0; i < 12; i++) {
+    var s = document.createElement('span');
+    s.className = 'fxfb'; s.textContent = '🍋';
+    s.style.left = (Math.random() * 100).toFixed(1) + 'vw';
+    s.style.fontSize = (9 + Math.random() * 7).toFixed(0) + 'px';
+    fx.appendChild(s);
+  }
+})();
+</script>
+</body>
+</html>
