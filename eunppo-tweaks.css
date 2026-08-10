@@ -89,6 +89,25 @@
 }
 
 /* narrow screens: the footer stacks so pills never sit on the copyright */
+/* the fifth pill needs the footer to stack a little earlier */
+@media(max-width:900px){
+  .profile-sheet>footer{
+    display:flex !important; flex-direction:column !important; align-items:center !important;
+    gap:14px !important; height:auto !important; min-height:0 !important;
+    padding:26px 18px 24px !important;
+  }
+  .profile-sheet>footer>.moments-links,
+  .profile-sheet>footer>.moments-links .l-grid{
+    position:static !important; transform:none !important;
+    width:100% !important; height:auto !important; min-height:0 !important;
+  }
+  .profile-sheet>footer>.moments-links .l-grid{
+    flex-wrap:wrap !important; justify-content:center !important; gap:8px !important;
+  }
+  .profile-sheet>footer>.footer-copy{ position:static !important; transform:none !important; text-align:center !important; }
+  .profile-sheet>footer::before{ display:none !important; }
+}
+
 @media(max-width:640px){
   .profile-sheet>footer{
     display:flex !important; flex-direction:column !important; align-items:center !important;
@@ -105,4 +124,30 @@
   }
   .profile-sheet>footer>.footer-copy{ position:static !important; transform:none !important; text-align:center !important; }
   .profile-sheet>footer::before{ display:none !important; }
+}
+
+/* ── inquiry button in the footer link row (the nav button stays hidden by design) ── */
+.profile-sheet .moments-links .lbtn-ask{
+  cursor:pointer !important;
+  font-family:inherit !important;
+}
+.profile-sheet .moments-links .l-ic.ask{ background:var(--ep-forest) !important; font-size:10px !important; }
+
+/* category pages: a single centred button above the footer */
+.sub-ask{
+  display:flex; justify-content:center;
+  padding:6px 0 22px;
+}
+.sub-ask .lbtn-ask{
+  display:inline-flex; align-items:center; gap:9px;
+  height:36px; padding:0 18px 0 9px;
+  border:1px solid var(--ep-line); border-radius:999px;
+  background:var(--ep-paper-soft); color:var(--ep-ink);
+  font:700 12.5px/1 var(--font-body,Pretendard,sans-serif);
+  cursor:pointer; transition:background .18s ease,border-color .18s ease,transform .18s ease;
+}
+.sub-ask .lbtn-ask:hover{ background:var(--ep-paper); border-color:var(--ep-yellow); transform:translateY(-2px); }
+.sub-ask .l-ic{
+  display:grid; place-items:center; width:20px; height:20px;
+  border-radius:50%; background:var(--ep-forest); color:#fff; font:800 10px/1 Arial,sans-serif;
 }
