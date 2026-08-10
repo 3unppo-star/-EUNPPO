@@ -16,7 +16,7 @@ var FX_BASE = (function () {
   return (sc && sc.src ? sc.src.replace(/[^/]*$/, '') : '');
 })();
 var FX_LOADER_TEXT = '';
-var FX_TRANS_MS    = 800;
+var FX_TRANS_MS    = 460;
 
 (function () {
   var mqReduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -43,10 +43,10 @@ var FX_TRANS_MS    = 800;
     @media (prefers-reduced-motion: reduce){ #fx{ display:none; } .card{ transition:none; } .fx-heart{ display:none; } }
 
     
-    #fxload{ position:fixed; inset:0; z-index:9999; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; background:var(--bg); transition:opacity .34s ease; }
+    #fxload{ position:fixed; inset:0; z-index:9999; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; background:var(--bg); transition:opacity .2s ease; }
     #fxload.fx-hide{ opacity:0; pointer-events:none; }
     #fxload.fx-hide .fxload-av, #fxload.fx-hide .fxload-dots i{ animation-play-state:paused; }
-    #fxload .fxload-av{ width:136px; height:136px; border-radius:50%; border:5px solid var(--sheet, #fffdf7); background:var(--main-light); background-size:cover; background-position:center; display:flex; align-items:center; justify-content:center; font-size:46px; font-weight:800; color:var(--main-dark); box-shadow:0 10px 28px rgba(0,0,0,.14); animation:fxBob 1.1s ease-in-out infinite; }
+    #fxload .fxload-av{ width:136px; height:136px; border-radius:50%; border:5px solid var(--sheet, #fffdf7); background:var(--main-light); background-size:cover; background-position:center; display:flex; align-items:center; justify-content:center; font-size:46px; font-weight:800; color:var(--main-dark); box-shadow:0 10px 28px rgba(0,0,0,.14); animation:fxBob .85s ease-in-out infinite; }
     #fxload .fxload-av.mascot{ width:150px; height:150px; border-radius:0; background-color:transparent; background-size:contain; background-repeat:no-repeat; box-shadow:none; filter:drop-shadow(0 12px 22px rgba(0,0,0,.16)); }
     @keyframes fxBob{ 0%,100%{ transform:translateY(0) scale(1); } 50%{ transform:translateY(-12px) scale(1.04); } }
     #fxload .fxload-name{ font-weight:800; font-size:18px; color:var(--main-dark); letter-spacing:.02em; }
@@ -89,9 +89,11 @@ var FX_TRANS_MS    = 800;
     document.body.appendChild(el); fxLoadEl = el; shownAt = Date.now();
   }
 
+  var revealed = false;
   function revealPage() {
-    if (!loaderOn) return;
-    var wait = Math.max(0, 450 - (Date.now() - shownAt));
+    if (!loaderOn || revealed) return;
+    revealed = true;
+    var wait = Math.max(0, 140 - (Date.now() - shownAt));
     setTimeout(function () {
       var w = document.querySelector('.wrap, .container, main');
       if (w) {
@@ -108,7 +110,12 @@ var FX_TRANS_MS    = 800;
 
   if (loaderOn) {
     if (document.body) buildLoader(); else document.addEventListener('DOMContentLoaded', buildLoader);
-    if (document.readyState === 'complete') revealPage(); else window.addEventListener('load', revealPage);
+    /* Reveal as soon as the markup is parsed. Waiting for window.load kept the cover up
+       until every photo finished downloading. A hard cap guards slow assets. */
+    if (document.readyState !== 'loading') revealPage();
+    else document.addEventListener('DOMContentLoaded', revealPage);
+    window.addEventListener('load', revealPage);
+    setTimeout(revealPage, 900);
     document.addEventListener('click', function (e) {
       var a = e.target.closest('a[href]'); if (!a) return;
       if (a.target === '_blank' || a.hasAttribute('download')) return;
@@ -120,8 +127,8 @@ var FX_TRANS_MS    = 800;
       if (url.pathname === location.pathname && (url.hash || url.href === location.href)) return;
       e.preventDefault();
       if (!fxLoadEl) buildLoader();
-      if (fxLoadEl) { fxLoadEl.classList.remove('fx-hide'); shownAt = Date.now(); }
-      setTimeout(function () { location.href = a.href; }, 360);
+      if (fxLoadEl) { fxLoadEl.classList.remove('fx-hide'); shownAt = Date.now(); revealed = false; }
+      setTimeout(function () { location.href = a.href; }, 190);
     }, true);
   }
 

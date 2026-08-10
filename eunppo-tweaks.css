@@ -1,0 +1,108 @@
+/* Adjustments layered on top of the approved sheet. Loaded last on every page so the
+   original files stay untouched. */
+
+/* ── nav logo: SOOP photo instead of the drawn mark, larger name, nudged left ── */
+.profile-sheet .site-nav .nav-logo::before,
+.profile-sheet .site-nav .nav-logo::after{ content:none !important; }
+
+.profile-sheet .site-nav .nav-logo{
+  left:30px !important;
+  display:flex !important;
+  flex-direction:row !important;
+  align-items:center !important;
+  justify-content:flex-start !important;
+  gap:12px !important;
+  min-height:44px !important;
+  padding:0 !important;
+  font-size:27px !important;
+}
+.profile-sheet .site-nav .nav-ava{
+  width:42px !important; height:42px !important;
+  min-width:42px !important; max-width:42px !important; flex:0 0 42px !important;
+  border-radius:50% !important; object-fit:cover !important;
+  border:1.5px solid var(--ep-line) !important;
+  background:var(--ep-paper-soft) !important;
+}
+.profile-sheet .site-nav .nav-name{
+  display:flex !important; flex-direction:column !important;
+  align-items:flex-start !important; justify-content:center !important;
+  gap:0 !important; line-height:1 !important;
+}
+.profile-sheet .site-nav .lg-en{
+  display:block !important; margin:5px 0 0 !important;
+  font-size:11px !important; letter-spacing:.2em !important;
+}
+.profile-sheet .site-nav .nav-inner{ padding-left:212px !important; }
+
+/* ── footer links: labelled pills instead of blank initials ── */
+.profile-sheet .moments-links .lbtn{
+  display:inline-flex !important; align-items:center !important; gap:9px !important;
+  width:auto !important; min-width:0 !important; height:36px !important;
+  padding:0 16px 0 9px !important;
+  border:1px solid var(--ep-line) !important; border-radius:999px !important;
+  background:var(--ep-paper-soft) !important; color:var(--ep-ink) !important;
+  font:700 12.5px/1 var(--font-body,Pretendard,sans-serif) !important;
+  letter-spacing:-.01em !important; box-shadow:none !important;
+  transition:background .18s ease,border-color .18s ease,transform .18s ease !important;
+}
+.profile-sheet .moments-links .lbtn:hover{
+  background:var(--ep-paper) !important; border-color:var(--ep-yellow) !important;
+  transform:translateY(-2px) !important;
+}
+.profile-sheet .moments-links .l-ic{
+  display:grid !important; place-items:center !important;
+  width:20px !important; height:20px !important; margin:0 !important;
+  border:0 !important; border-radius:50% !important; color:#fff !important;
+  font:800 9px/1 Arial,sans-serif !important;
+}
+.profile-sheet .moments-links .l-ic.soop{ background:#315EF0 !important; }
+.profile-sheet .moments-links .l-ic.yt{ background:#E53935 !important; font-size:7.5px !important; }
+.profile-sheet .moments-links .l-ic.xx{ background:#15181C !important; }
+.profile-sheet .moments-links .l-ic.cafe{ background:#03C75A !important; }
+
+/* ── category pages: legacy variable names aliased to the approved palette ── */
+:root{
+  --main:var(--ep-week); --sub:var(--ep-week);
+  --main-light:var(--ep-paper-soft); --main-dark:var(--ep-leaf);
+  --main-deep:var(--ep-ink); --logo:var(--ep-ink);
+  --sub-mid:var(--ep-leaf); --sub-deep:var(--ep-forest);
+  --accent:var(--ep-yellow);
+  --bg:var(--ep-paper); --sheet:var(--ep-paper);
+  --card:var(--ep-paper-soft); --card2:var(--ep-week);
+  --text:var(--ep-ink); --text-mid:var(--ep-body); --text-soft:var(--ep-muted);
+  --ink-on-dark:var(--ep-paper);
+  --line:var(--ep-line);
+  --line-soft:color-mix(in srgb, var(--ep-line) 55%, transparent);
+}
+
+@media(max-width:960px){
+  .profile-sheet .site-nav .nav-logo{
+    position:static !important; top:auto !important; left:auto !important;
+    transform:none !important; flex:0 0 auto !important;
+    margin-right:14px !important; font-size:23px !important;
+  }
+  .profile-sheet .site-nav .nav-ava{
+    width:36px !important; height:36px !important;
+    min-width:36px !important; max-width:36px !important; flex:0 0 36px !important;
+  }
+  .profile-sheet .site-nav .nav-inner{ padding-left:16px !important; }
+}
+
+/* narrow screens: the footer stacks so pills never sit on the copyright */
+@media(max-width:640px){
+  .profile-sheet>footer{
+    display:flex !important; flex-direction:column !important; align-items:center !important;
+    gap:14px !important; height:auto !important; min-height:0 !important;
+    padding:26px 18px 24px !important;
+  }
+  .profile-sheet>footer>.moments-links,
+  .profile-sheet>footer>.moments-links .l-grid{
+    position:static !important; transform:none !important;
+    width:100% !important; height:auto !important; min-height:0 !important;
+  }
+  .profile-sheet>footer>.moments-links .l-grid{
+    flex-wrap:wrap !important; justify-content:center !important; gap:8px !important;
+  }
+  .profile-sheet>footer>.footer-copy{ position:static !important; transform:none !important; text-align:center !important; }
+  .profile-sheet>footer::before{ display:none !important; }
+}
