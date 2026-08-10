@@ -6,6 +6,8 @@
 index.html      style.css   site.js   supabase.js   fx.js   pcview.js
 assets/         char.png  hero.jpg  photo-1~3.jpg
 schedule/  song/  work/  dress/  game/            (각 index.html)
+eunppo-shell.css        (전 페이지 공통 껍데기)
+eunppo-profile-final.css (프로필 전용 레이아웃)
 admin/          overlay/
 supabase_setup.sql
 .github/workflows/keepalive.yml
@@ -98,17 +100,19 @@ Supabase → Authentication → Users 에서 처리합니다.
 
 | 탭 | 내용 |
 |---|---|
-| 🖼 이미지 | 히어로 배경 · 프사 · 로딩 얼굴 · 갤러리 4 · 대표곡 아트 · VOD |
-| 🏠 메인 상단 | 이름 · 라벨 · 배지 · 한마디 · NEXT LIVE · 스탯 6칸 |
-| 🎀 프로필 카드 | PROFILE 카드 · SUNROOM 카드 |
-| ♪ 대표곡·일정 | 대표곡 블록 · 방송 일정 · 링크 버튼 |
+| 🖼 이미지 | 히어로 배경 · 프사 · 로딩 얼굴 · SUNROOM 사진 · 갤러리 4 · 대표곡 · VOD |
+| 🏠 메인 상단 | 이름 · 영문 라벨 · 소개 2줄 · 배지 · 한마디 · NEXT LIVE · 스탯 6칸 값 |
+| 🏷 라벨 | 스탯 라벨 6 · 프로필 라벨 4 · 갤러리 캡션 3 · LIVE 배지 · 푸터 워드마크 |
+| 🎀 프로필 카드 | 프로필 표 · 태그 · SUNROOM 라벨과 소개문 · LIKE / DISLIKE |
+| 📆 이번 주 | 섹션 제목 · 안내문 · 방송 요일 · 요일 7칸(이름·내용·시간) · 일정 3줄 |
+| ♪ 대표곡·링크 | 대표곡 제목·설명·링크 · 푸터 링크 버튼 4 |
 | 📅 일정 | 달력에 들어갈 일정 (기간 일정은 종료일 입력) |
 | 🎵 노래 | 노래책 목록 · ARCHIVE 영상 |
 | ⚡ 업보 | 시청자 · 업보 종류 · 부여 |
 | 👗 옷장 | 옷 등록 (새 옷 / 기존 옷) |
 | ✉️ 문의 | 받은 쪽지 |
 | ✏️ 문구 | 각 페이지 머리글 |
-| 🎨 테마 | 색 7종 · 글자 크기 4단 |
+| 🎨 테마 | 색 10종 · 글자 크기 4단 |
 
 - 상단 **이 탭 화면 보기 ↗** 로 그 탭이 반영되는 페이지를 바로 열 수 있습니다
 - **백업 내려받기** 로 입력값 전체를 `.json` 으로 보관, **복원** 으로 되돌립니다

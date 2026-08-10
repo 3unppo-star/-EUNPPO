@@ -122,17 +122,20 @@ async function applyTheme(){
     const { data } = await db.from('profile').select('data').eq('id',1).single();
     const p = (data && data.data) || {};
     const map = {
-      'theme-main':      '--main',
-      'theme-main-dark': '--main-dark',
-      'theme-main-deep': '--main-deep',
-      'theme-main-light':'--main-light',
-      'theme-sub':      '--sub',
-      'theme-bg':        '--bg',
-      'theme-logo':      '--logo',
-      'type-display':    '--fs-display',
-      'type-title':      '--fs-title',
-      'type-body':       '--fs-body',
-      'type-label':      '--fs-label'
+      'theme-ep-paper':      '--ep-paper',
+      'theme-ep-paper-soft': '--ep-paper-soft',
+      'theme-ep-week':       '--ep-week',
+      'theme-ep-forest':     '--ep-forest',
+      'theme-ep-ink':        '--ep-ink',
+      'theme-ep-body':       '--ep-body',
+      'theme-ep-muted':      '--ep-muted',
+      'theme-ep-line':       '--ep-line',
+      'theme-ep-yellow':     '--ep-yellow',
+      'theme-ep-leaf':       '--ep-leaf',
+      'type-display':        '--fs-display',
+      'type-title':          '--fs-title',
+      'type-body':           '--fs-body',
+      'type-label':          '--fs-label'
     };
     Object.keys(map).forEach(function(k){
       if(p[k]) document.documentElement.style.setProperty(map[k], p[k]);

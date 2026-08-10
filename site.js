@@ -113,6 +113,27 @@ if (typeof window.showToast !== 'function') {
   };
 }
 
+/* Text baked into CSS content: is swapped through --txt-* variables. */
+var TXT_VARS = ["avatar-tag", "gcap-1", "gcap-2", "gcap-3", "live-badge", "footer-mark", "cc-kicker", "cc-caption", "cc-intro", "week-kicker", "week-title", "week-note"];
+
+window.profileData.then(function (d) {
+  d = d || {};
+  var root = document.querySelector('.profile-sheet') || document.documentElement;
+  TXT_VARS.forEach(function (k) {
+    var v = txt(d[k]);
+    if (v) root.style.setProperty('--txt-' + k, '"' + v.replace(/"/g, '\\"') + '"');
+  });
+}).catch(function () {});
+
+/* The nav photo uses the same source as the hero avatar on every page. */
+window.profileData.then(function (d) {
+  d = d || {};
+  var el = document.getElementById('navAvatar');
+  if (!el) return;
+  var url = txt(d.avatar) || soopAvatar(txt(d['soop-id'])) || soopAvatar('eunpp0');
+  if (url) el.src = url;
+}).catch(function () {});
+
 /* An admin-set loading face overrides the bundled crop before fx.js builds the cover. */
 window.profileData.then(function (d) {
   var v = txt((d || {})['loader-img']);

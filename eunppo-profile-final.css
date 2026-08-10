@@ -1,0 +1,1369 @@
+.profile-sheet .profile-hero{
+  position:relative !important;
+  order:1 !important;
+  width:100% !important;
+  height:570px !important;
+  min-height:570px !important;
+  margin:0 !important;
+  padding:0 !important;
+  overflow:hidden !important;
+  border:0 !important;
+  border-radius:0 !important;
+  background:#eaf5fb !important;
+}
+
+.profile-sheet .profile-hero::before{
+  content:"";
+  position:absolute;
+  z-index:2;
+  inset:0;
+  opacity:1 !important;
+  -webkit-mask-image:none !important;
+  mask-image:none !important;
+  background:linear-gradient(90deg,rgba(255,253,246,.995) 0%,rgba(255,253,246,.985) 29%,rgba(255,253,246,.82) 42%,rgba(255,253,246,.28) 60%,transparent 78%);
+  pointer-events:none;
+}
+
+.profile-sheet .profile-hero::after{
+  content:"";
+  position:absolute;
+  z-index:2;
+  inset:auto 0 0 0 !important;
+  height:128px;
+  background:linear-gradient(0deg,rgba(59,79,54,.22),transparent);
+  pointer-events:none;
+}
+
+.profile-sheet #heroBg{
+  position:absolute !important;
+  z-index:1 !important;
+  inset:0 !important;
+  width:100% !important;
+  height:100% !important;
+  object-fit:cover !important;
+  object-position:51% 50% !important;
+  transform:none !important;
+  filter:none !important;
+  opacity:1 !important;
+}
+
+.profile-sheet .profile-hero .hero-in{
+  position:absolute !important;
+  z-index:4 !important;
+  inset:0 !important;
+  width:100% !important;
+  height:100% !important;
+  margin:0 !important;
+  padding:68px 50px 120px !important;
+  display:block !important;
+}
+
+.profile-sheet .profile-hero .hero-mid{
+  position:relative !important;
+  top:0 !important;
+  left:0 !important;
+  width:430px !important;
+  max-width:43% !important;
+  margin:0 !important;
+  padding:0 !important;
+  text-align:left !important;
+  transform:none !important;
+}
+
+.profile-sheet .profile-hero .hero-mid::before,
+.profile-sheet .profile-hero .hero-mid::after{display:none !important}
+
+.profile-sheet .profile-hero .h-title::before,
+.profile-sheet .profile-hero .h-title::after{
+  content:none !important;
+  display:none !important;
+}
+
+.profile-sheet .hero-kicker{
+  position:relative;
+  padding-left:49px;
+  color:#6e8c64;
+  font:800 10px/1.2 var(--font-label,Arial,sans-serif);
+  letter-spacing:.23em;
+}
+
+.profile-sheet .hero-kicker::before{
+  content:"";
+  position:absolute;
+  top:50%;
+  left:0;
+  width:36px;
+  height:2px;
+  background:var(--ep-yellow);
+}
+
+.profile-sheet .h-title{
+  margin:18px 0 0 !important;
+  color:var(--ep-ink) !important;
+  font-family:var(--font-display,"Nanum Myeongjo",serif) !important;
+  font-size:64px !important;
+  font-weight:400 !important;
+  line-height:.98 !important;
+  letter-spacing:-.075em !important;
+  text-shadow:none !important;
+}
+
+.profile-sheet .hero-en{
+  margin-top:15px;
+  color:#df8f27;
+  font:500 22px/1 var(--font-title,Georgia,serif);
+  letter-spacing:.28em;
+}
+
+.profile-sheet .hero-deck{
+  margin:30px 0 0;
+  color:#6b7567;
+  font:400 15px/1.9 var(--font-body,Arial,sans-serif);
+  letter-spacing:-.01em;
+}
+
+.profile-sheet .h-badges{display:none !important}
+
+.profile-sheet .h-quote{
+  display:inline-flex !important;
+  margin:24px 0 0 !important;
+  padding:10px 18px !important;
+  border-top:1px solid rgba(239,181,61,.55) !important;
+  border-bottom:1px solid rgba(239,181,61,.55) !important;
+  border-radius:0 !important;
+  background:rgba(255,253,246,.62) !important;
+  color:var(--ep-ink) !important;
+  font:500 14px/1.4 var(--font-title,"Nanum Myeongjo",serif) !important;
+  box-shadow:none !important;
+}
+
+.profile-sheet .profile-hero .hero-ava{
+  position:absolute !important;
+  top:72px !important;
+  right:72px !important;
+  left:auto !important;
+  width:190px !important;
+  height:auto !important;
+  margin:0 !important;
+  padding:0 !important;
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  gap:12px !important;
+}
+
+.profile-sheet .profile-hero .avatar{
+  width:174px !important;
+  height:174px !important;
+  min-width:174px !important;
+  border:7px solid var(--ep-paper) !important;
+  outline:3px solid var(--ep-yellow) !important;
+  outline-offset:1px !important;
+  border-radius:50% !important;
+  background:#f3f7d9 !important;
+  overflow:hidden !important;
+  box-shadow:0 10px 28px rgba(71,83,52,.16) !important;
+}
+
+.profile-sheet .profile-hero .avatar::after{
+  content:var(--txt-avatar-tag, "EUNPPO PROFILE");
+  position:absolute;
+  left:50%;
+  top:192px;
+  transform:translateX(-50%);
+  min-width:145px;
+  padding:7px 12px;
+  border:1px solid var(--ep-yellow);
+  border-radius:999px;
+  background:var(--ep-paper);
+  color:#60785e;
+  font:800 9px/1 var(--font-label,Arial,sans-serif);
+  letter-spacing:.16em;
+  text-align:center;
+  white-space:nowrap;
+}
+
+.profile-sheet #avatarImg{
+  display:block;
+  width:100% !important;
+  height:100% !important;
+  object-fit:cover !important;
+  object-position:50% 18% !important;
+  transform:scale(1.17) !important;
+  filter:none !important;
+}
+
+.profile-sheet #avatarEmoji{display:none !important}
+
+.profile-sheet .hero-right{display:none !important}
+
+.profile-sheet .strip-wrap{
+  position:relative !important;
+  z-index:12 !important;
+  order:2 !important;
+  width:auto !important;
+  min-height:0 !important;
+  margin:-96px 50px 18px !important;
+  padding:0 !important;
+  border:0 !important;
+  border-radius:18px !important;
+  background:rgba(255,253,246,.95) !important;
+  box-shadow:0 8px 26px rgba(58,76,49,.10) !important;
+  overflow:hidden !important;
+}
+
+.profile-sheet .strip{
+  width:100% !important;
+  display:grid !important;
+  grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+  gap:0 !important;
+  padding:0 !important;
+}
+
+.profile-sheet .strip .stat{
+  min-width:0 !important;
+  height:78px !important;
+  padding:18px 28px 15px !important;
+  border:0 !important;
+  border-right:1px solid rgba(157,178,125,.35) !important;
+  border-radius:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:flex-start !important;
+  justify-content:center !important;
+  gap:7px !important;
+}
+
+.profile-sheet .strip .stat:nth-child(4),
+.profile-sheet .strip .stat:nth-child(6){display:none !important}
+
+.profile-sheet .strip .stat:nth-child(5){border-right:0 !important}
+
+.profile-sheet .s-k{
+  color:#8aa474 !important;
+  font:800 9px/1 var(--font-label,Arial,sans-serif) !important;
+  letter-spacing:.14em !important;
+  text-transform:uppercase;
+}
+
+.profile-sheet .s-v{
+  color:var(--ep-ink) !important;
+  font:700 15px/1.2 var(--font-title,"Nanum Myeongjo",serif) !important;
+  text-align:left !important;
+}
+
+.profile-sheet .profile-about{
+  position:relative !important;
+  z-index:1 !important;
+  order:3 !important;
+  width:100% !important;
+  min-height:694px !important;
+  margin:0 !important;
+  padding:46px 54px 58px !important;
+  border:0 !important;
+  border-top:1px solid rgba(157,178,125,.3) !important;
+  border-radius:0 !important;
+  background:var(--ep-paper) !important;
+  display:grid !important;
+  grid-template-columns:370px minmax(0,1fr) !important;
+  grid-template-rows:1fr !important;
+  gap:68px !important;
+  box-shadow:none !important;
+}
+
+.profile-sheet .profile-about>.ornate{
+  min-width:0 !important;
+  min-height:0 !important;
+  margin:0 !important;
+  padding:0 !important;
+  border:0 !important;
+  border-radius:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+}
+
+.profile-sheet .profile-about .corner{display:none !important}
+
+.profile-sheet .profile-copy{
+  grid-column:2 !important;
+  grid-row:1 !important;
+  padding:3px 0 180px !important;
+}
+
+.profile-sheet .profile-visual{
+  position:static !important;
+  grid-column:1 !important;
+  grid-row:1 !important;
+}
+
+.profile-sheet .profile-copy>.ohd{
+  justify-content:flex-start !important;
+  margin:0 0 16px !important;
+  color:#d88c28 !important;
+  font:800 9px/1.2 var(--font-label,Arial,sans-serif) !important;
+  letter-spacing:.2em !important;
+}
+
+.profile-sheet .profile-copy>.ohd i,
+.profile-sheet .profile-copy>.ohd .dm{display:none !important}
+
+.profile-sheet .profile-copy .headline{
+  max-width:570px !important;
+  margin:0 0 22px !important;
+  color:var(--ep-ink) !important;
+  font-family:var(--font-display,"Nanum Myeongjo",serif) !important;
+  font-size:43px !important;
+  font-weight:400 !important;
+  line-height:1.32 !important;
+  letter-spacing:-.065em !important;
+}
+
+.profile-sheet .profile-copy .plist{
+  display:grid !important;
+  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  margin:20px 0 0 !important;
+  padding:0 !important;
+  border-top:1px solid rgba(157,178,125,.33) !important;
+}
+
+.profile-sheet .profile-copy .prow{
+  min-height:70px !important;
+  margin:0 !important;
+  padding:15px 12px 13px 0 !important;
+  border:0 !important;
+  border-bottom:1px solid rgba(157,178,125,.33) !important;
+  display:block !important;
+}
+
+.profile-sheet .profile-copy .prow:nth-child(even){padding-left:24px !important;border-left:1px solid rgba(157,178,125,.33) !important}
+
+.profile-sheet .profile-copy .pkey{
+  display:block !important;
+  width:auto !important;
+  margin-bottom:8px !important;
+  color:#91a47e !important;
+  font:800 9px/1 var(--font-label,Arial,sans-serif) !important;
+  letter-spacing:.12em !important;
+  text-transform:uppercase !important;
+}
+
+.profile-sheet .profile-copy .pval,
+.profile-sheet .profile-copy .tags{
+  color:#36493a !important;
+  font:700 14px/1.45 var(--font-body,Arial,sans-serif) !important;
+}
+
+.profile-sheet .profile-copy .tag{
+  padding:0 !important;
+  border:0 !important;
+  border-radius:0 !important;
+  background:transparent !important;
+  color:inherit !important;
+  box-shadow:none !important;
+}
+
+.profile-sheet .profile-copy .tag+ .tag::before{content:" · ";color:#a3af9c}
+
+.profile-sheet .profile-visual>.ohd{display:none !important}
+
+.profile-sheet .profile-visual .cc-body{display:block !important;margin:0 !important;padding:0 !important}
+
+.profile-sheet .profile-visual .cc-img{
+  position:relative !important;
+  width:100% !important;
+  height:526px !important;
+  margin:0 !important;
+  border:0 !important;
+  border-radius:18px 54px 18px 18px !important;
+  background:url("./assets/photo-1.jpg") 50% 50%/cover no-repeat !important;
+  box-shadow:none !important;
+  overflow:visible !important;
+}
+
+.profile-sheet .profile-visual .cc-img::before{
+  content:var(--txt-cc-kicker, "BLUE PETAL");
+  position:absolute;
+  z-index:2;
+  left:22px;
+  bottom:48px;
+  color:#fff;
+  font:800 9px/1 var(--font-label,Arial,sans-serif);
+  letter-spacing:.18em;
+  text-shadow:0 1px 7px rgba(36,52,48,.28);
+}
+
+.profile-sheet .profile-visual .cc-img::after{
+  content:var(--txt-cc-caption, "은뽀의 한 장");
+  position:absolute;
+  z-index:2;
+  left:22px;
+  bottom:20px;
+  color:#fff;
+  font:400 20px/1 var(--font-title,"Nanum Myeongjo",serif);
+  text-shadow:0 1px 7px rgba(36,52,48,.32);
+}
+
+.profile-sheet .profile-visual #cc-media{
+  position:absolute !important;
+  width:1px !important;
+  height:1px !important;
+  opacity:0 !important;
+  pointer-events:none !important;
+}
+
+.profile-sheet .profile-visual .cc-body::after{
+  content:var(--txt-cc-intro, "레몬처럼 상큼하고\A 리트리버처럼 사람을 좋아하는\A 차분한 또라이, 최은뽀.");
+  white-space:pre;
+  position:absolute;
+  z-index:4;
+  left:278px;
+  bottom:18px;
+  width:188px;
+  padding:17px 18px 18px;
+  border:1px solid #e8ac38;
+  border-radius:0 0 28px 0;
+  background:#fff1c7;
+  color:#5d604d;
+  font:500 12px/1.65 var(--font-body,Arial,sans-serif);
+  transform:rotate(-1.5deg);
+  box-shadow:0 8px 17px rgba(85,87,50,.09);
+}
+
+.profile-sheet .profile-visual .cc-rows{
+  position:absolute !important;
+  z-index:2 !important;
+  left:492px !important;
+  right:54px !important;
+  bottom:58px !important;
+  margin:0 !important;
+  padding:0 !important;
+  display:grid !important;
+  grid-template-columns:1fr !important;
+  gap:0 !important;
+}
+
+.profile-sheet .profile-visual .d-row{
+  min-height:42px !important;
+  padding:9px 0 !important;
+  border:0 !important;
+  border-bottom:1px solid rgba(157,178,125,.28) !important;
+  display:grid !important;
+  grid-template-columns:82px minmax(0,1fr) !important;
+  align-items:center !important;
+  gap:10px !important;
+  background:transparent !important;
+}
+
+.profile-sheet .profile-visual .d-row b{
+  color:#79946d !important;
+  font:800 9px/1 var(--font-label,Arial,sans-serif) !important;
+  letter-spacing:.13em !important;
+}
+
+.profile-sheet .profile-visual .d-row>span{
+  color:#4e5b4d !important;
+  font:500 13px/1.5 var(--font-body,Arial,sans-serif) !important;
+}
+
+.profile-sheet .profile-visual .d-row .tags{gap:7px !important}
+
+.profile-sheet .profile-visual .d-row .tag{
+  padding:6px 10px !important;
+  border:0 !important;
+  border-radius:999px !important;
+  background:#eaf5df !important;
+  color:#57704f !important;
+  font:700 11px/1 var(--font-body,Arial,sans-serif) !important;
+}
+
+.profile-sheet .profile-visual .d-row:last-child .tag{background:#ffe9b9 !important;color:#85651f !important}
+
+.profile-sheet .profile-portrait{
+  position:relative;
+  grid-column:1;
+  min-width:0;
+  align-self:start;
+}
+
+.profile-sheet .profile-photo{
+  position:relative;
+  width:100%;
+  height:526px;
+  overflow:hidden;
+  border-radius:18px 54px 18px 18px;
+  background:url("./assets/photo-1.jpg") 50% 50%/cover no-repeat;
+}
+
+.profile-sheet .profile-photo #cc-media{
+  position:absolute;
+  width:1px;
+  height:1px;
+  opacity:0;
+  pointer-events:none;
+}
+
+.profile-sheet .photo-kicker,
+.profile-sheet .photo-caption{
+  position:absolute;
+  z-index:2;
+  left:22px;
+  color:#fff;
+  text-shadow:0 1px 7px rgba(36,52,48,.32);
+}
+
+.profile-sheet .photo-kicker{
+  bottom:48px;
+  font:800 9px/1 var(--font-label,Arial,sans-serif);
+  letter-spacing:.18em;
+}
+
+.profile-sheet .photo-caption{
+  bottom:20px;
+  font:400 20px/1 var(--font-title,"Nanum Myeongjo",serif);
+}
+
+.profile-sheet .portrait-note{
+  position:absolute;
+  z-index:4;
+  right:-22px;
+  bottom:-64px;
+  width:196px;
+  margin:0;
+  padding:18px 18px 19px;
+  border:1px solid #e8ac38;
+  border-radius:0 0 28px 0;
+  background:#fff1c7;
+  color:#5d604d;
+  font:500 12px/1.65 var(--font-body,Arial,sans-serif);
+  transform:rotate(-1.5deg);
+  box-shadow:0 8px 17px rgba(85,87,50,.09);
+}
+
+.profile-sheet .profile-story{
+  grid-column:2;
+  min-width:0;
+  padding-top:4px;
+}
+
+.profile-sheet .story-kicker{
+  margin-bottom:18px;
+  color:#d88c28;
+  font:800 9px/1.2 var(--font-label,Arial,sans-serif);
+  letter-spacing:.2em;
+}
+
+.profile-sheet .profile-story .headline{
+  max-width:520px;
+  margin:0 0 18px;
+  color:var(--ep-ink);
+  font:400 43px/1.28 var(--font-display,"Nanum Myeongjo",serif);
+  letter-spacing:-.065em;
+  word-break:keep-all;
+}
+
+.profile-sheet .story-copy{
+  max-width:620px;
+  margin:0 0 24px;
+  color:#70796c;
+  font:400 14px/1.8 var(--font-body,Arial,sans-serif);
+  word-break:keep-all;
+}
+
+.profile-sheet .profile-facts{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  border-top:1px solid rgba(157,178,125,.33);
+}
+
+.profile-sheet .profile-fact{
+  min-height:73px;
+  padding:15px 12px 13px 0;
+  border-bottom:1px solid rgba(157,178,125,.33);
+}
+
+.profile-sheet .profile-fact:nth-child(even){
+  padding-left:24px;
+  border-left:1px solid rgba(157,178,125,.33);
+}
+
+.profile-sheet .profile-fact>span,
+.profile-sheet .profile-meta small{
+  display:block;
+  margin-bottom:8px;
+  color:#91a47e;
+  font:800 9px/1 var(--font-label,Arial,sans-serif);
+  letter-spacing:.12em;
+}
+
+.profile-sheet .profile-fact>strong,
+.profile-sheet .profile-fact>.tags{
+  color:#36493a;
+  font:700 14px/1.45 var(--font-body,Arial,sans-serif);
+}
+
+.profile-sheet .profile-fact .tag{
+  padding:0;
+  border:0;
+  background:transparent;
+  color:inherit;
+  box-shadow:none;
+}
+
+.profile-sheet .profile-fact .tag+.tag::before{content:" · ";color:#a3af9c}
+
+.profile-sheet .profile-meta{
+  display:grid;
+  grid-template-columns:1.7fr .55fr .75fr;
+  gap:20px;
+  padding:15px 0 13px;
+  border-bottom:1px solid rgba(157,178,125,.33);
+}
+
+.profile-sheet .profile-meta>span{min-width:0}
+
+.profile-sheet .profile-meta small{margin-bottom:6px}
+
+.profile-sheet .profile-meta b{
+  display:block;
+  overflow:hidden;
+  color:#4b5a49;
+  font:700 12px/1.35 var(--font-body,Arial,sans-serif);
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.profile-sheet .taste-row{
+  display:grid;
+  grid-template-columns:70px minmax(0,1fr);
+  align-items:center;
+  min-height:42px;
+  border-bottom:1px solid rgba(157,178,125,.24);
+}
+
+.profile-sheet .taste-row>span{
+  color:#79946d;
+  font:800 9px/1 var(--font-label,Arial,sans-serif);
+  letter-spacing:.13em;
+}
+
+.profile-sheet .taste-row .tags{display:flex;flex-wrap:wrap;gap:7px}
+
+.profile-sheet .taste-row .tag{
+  padding:6px 11px;
+  border:0;
+  border-radius:999px;
+  background:#eaf5df;
+  color:#57704f;
+  font:700 11px/1 var(--font-body,Arial,sans-serif);
+  box-shadow:none;
+}
+
+.profile-sheet .taste-row.dislike .tag{background:#ffe9b9;color:#85651f}
+
+.profile-sheet .broadcast-line{
+  min-height:70px;
+  margin-top:16px;
+  padding:13px 18px;
+  border-left:4px solid var(--ep-yellow);
+  background:linear-gradient(90deg,#fff8e9,rgba(255,248,233,.38));
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+}
+
+.profile-sheet .broadcast-line span{display:flex;flex-direction:column;gap:6px}
+
+.profile-sheet .broadcast-line small{
+  color:#93a17f;
+  font:800 8px/1 var(--font-label,Arial,sans-serif);
+  letter-spacing:.13em;
+}
+
+.profile-sheet .broadcast-line b,
+.profile-sheet .broadcast-line>strong{
+  color:#415341;
+  font:700 14px/1.35 var(--font-body,Arial,sans-serif);
+}
+
+.profile-sheet .broadcast-line>strong{white-space:nowrap}
+
+.profile-sheet .profile-flow{
+  order:4 !important;
+  width:100% !important;
+  margin:0 !important;
+  padding:0 !important;
+  display:flex !important;
+  flex-direction:column !important;
+  gap:0 !important;
+}
+
+.profile-sheet .weekly-panel{
+  position:relative !important;
+  order:0 !important;
+  width:100% !important;
+  min-height:258px !important;
+  margin:0 !important;
+  padding:45px 54px 38px !important;
+  border:0 !important;
+  border-radius:0 !important;
+  background:var(--ep-week) !important;
+  box-shadow:none !important;
+  display:grid !important;
+  grid-template-columns:260px minmax(0,1fr) !important;
+  grid-template-rows:auto repeat(3,auto) !important;
+  column-gap:30px !important;
+  align-content:center !important;
+}
+
+.profile-sheet .weekly-panel .sec-hd{
+  grid-column:1 !important;
+  grid-row:1 !important;
+  margin:0 0 20px !important;
+  padding-top:25px !important;
+  color:transparent !important;
+  font-size:0 !important;
+  display:block !important;
+}
+
+.profile-sheet .weekly-panel .sec-hd svg{display:none !important}
+
+.profile-sheet .weekly-panel .sec-hd::before{
+  content:var(--txt-week-kicker, "WEEKLY GARDEN");
+  position:absolute;
+  top:0;
+  left:0;
+  color:#799568;
+  font:800 9px/1 var(--font-label,Arial,sans-serif);
+  letter-spacing:.18em;
+}
+
+.profile-sheet .weekly-panel .sec-hd::after{
+  content:var(--txt-week-title, "이번 주,\A 온실이 열리는 날");
+  white-space:pre;
+  color:var(--ep-ink);
+  font:400 34px/1.25 var(--font-display,"Nanum Myeongjo",serif);
+  letter-spacing:-.06em;
+}
+
+.profile-sheet .weekly-panel .days{
+  grid-column:2 !important;
+  grid-row:1 / span 4 !important;
+  width:100% !important;
+  min-width:0 !important;
+  margin:0 !important;
+  padding:0 !important;
+  border:0 !important;
+  display:grid !important;
+  grid-template-columns:repeat(7,minmax(0,1fr)) !important;
+  gap:0 !important;
+  align-self:stretch !important;
+}
+
+.profile-sheet .weekly-panel .day{
+  min-width:0 !important;
+  min-height:135px !important;
+  margin:0 !important;
+  padding:18px 15px !important;
+  border:0 !important;
+  border-left:1px solid rgba(157,178,125,.34) !important;
+  border-radius:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:flex-start !important;
+  justify-content:center !important;
+  gap:13px !important;
+  color:#5c6857 !important;
+}
+
+.profile-sheet .weekly-panel .day b{
+  color:#8b9b7b;
+  font:700 10px/1 var(--font-label,Arial,sans-serif);
+}
+
+.profile-sheet .weekly-panel .day strong{
+  color:#3f5140;
+  font:700 13px/1.35 var(--font-body,Arial,sans-serif);
+  white-space:nowrap;
+}
+
+.profile-sheet .weekly-panel .day small{
+  color:#9aa492;
+  font:500 9px/1 var(--font-label,Arial,sans-serif);
+}
+
+.profile-sheet .weekly-panel .day.on{
+  outline:1.5px solid var(--ep-yellow) !important;
+  outline-offset:-1px !important;
+  border-left-color:transparent !important;
+  border-radius:18px 0 18px 0 !important;
+  background:#fff8df !important;
+}
+
+.profile-sheet .weekly-panel .day.on::after{
+  content:var(--txt-live-badge, "LIVE");
+  position:absolute;
+  top:10px;
+  right:10px;
+  color:#d38f20;
+  font:800 8px/1 Arial,sans-serif;
+  letter-spacing:.08em;
+}
+
+.profile-sheet .weekly-panel .day{position:relative !important}
+
+.profile-sheet .weekly-panel .s-row{
+  grid-column:1 !important;
+  width:100% !important;
+  min-height:0 !important;
+  margin:0 !important;
+  padding:4px 0 !important;
+  border:0 !important;
+  background:transparent !important;
+  color:#7c8774 !important;
+  font:500 10px/1.5 var(--font-body,Arial,sans-serif) !important;
+}
+
+.profile-sheet .weekly-panel .s-row b{color:#52674f !important}
+
+.profile-sheet .signature-panel{
+  position:relative !important;
+  order:1 !important;
+  width:100% !important;
+  min-height:297px !important;
+  height:297px !important;
+  margin:0 !important;
+  padding:0 !important;
+  border:0 !important;
+  border-radius:0 !important;
+  background:var(--ep-forest) !important;
+  box-shadow:none !important;
+  overflow:hidden !important;
+  display:grid !important;
+  grid-template-columns:39% minmax(0,1fr) !important;
+  gap:0 !important;
+}
+
+.profile-sheet .signature-panel .p-art{
+  position:relative !important;
+  width:100% !important;
+  height:297px !important;
+  margin:0 !important;
+  padding:0 !important;
+  border:0 !important;
+  border-radius:0 !important;
+  overflow:hidden !important;
+  background:#385039 !important;
+}
+
+.profile-sheet .signature-panel .p-art::after{
+  content:"";
+  position:absolute;
+  z-index:2;
+  inset:0;
+  background:linear-gradient(90deg,transparent 48%,var(--ep-forest) 100%);
+}
+
+.profile-sheet .signature-panel .p-art>span{display:none !important}
+
+.profile-sheet .signature-panel .p-art img{
+  display:block !important;
+  width:100% !important;
+  height:100% !important;
+  object-fit:cover !important;
+  object-position:50% 42% !important;
+  filter:none !important;
+}
+
+.profile-sheet .signature-panel .p-info{
+  position:relative !important;
+  z-index:3 !important;
+  min-width:0 !important;
+  margin:0 !important;
+  padding:54px 54px 42px 30px !important;
+  color:#fff !important;
+}
+
+.profile-sheet .signature-panel .p-eyebrow{
+  margin:0 0 22px !important;
+  color:#f2c65f !important;
+  font:800 9px/1 var(--font-label,Arial,sans-serif) !important;
+  letter-spacing:.2em !important;
+}
+
+.profile-sheet .signature-panel .p-title{
+  margin:0 0 14px !important;
+  color:#fff !important;
+  font:400 48px/1 var(--font-display,"Nanum Myeongjo",serif) !important;
+  letter-spacing:-.05em !important;
+}
+
+.profile-sheet .signature-panel .p-sub{
+  max-width:560px !important;
+  margin:0 0 37px !important;
+  color:rgba(255,255,255,.78) !important;
+  font:400 14px/1.65 var(--font-body,Arial,sans-serif) !important;
+}
+
+.profile-sheet .signature-panel .p-info::after{
+  content:"";
+  position:absolute;
+  left:30px;
+  right:54px;
+  bottom:44px;
+  height:1px;
+  background:rgba(255,255,255,.28);
+}
+
+.profile-sheet .signature-panel .p-info::before{
+  content:"";
+  position:absolute;
+  z-index:2;
+  left:30px;
+  bottom:40px;
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:#f7c84c;
+}
+
+.profile-sheet .signature-panel .p-go{
+  position:absolute !important;
+  z-index:4 !important;
+  right:54px !important;
+  bottom:29px !important;
+  margin:0 !important;
+  padding:9px 15px !important;
+  border:1px solid rgba(255,255,255,.55) !important;
+  border-radius:3px !important;
+  background:transparent !important;
+  color:#fff !important;
+  font:700 11px/1 var(--font-body,Arial,sans-serif) !important;
+  box-shadow:none !important;
+}
+
+.profile-sheet .signature-panel .vinyl,
+.profile-sheet .signature-panel .pnote{display:none !important}
+
+.profile-sheet .adv{
+  order:5 !important;
+  width:100% !important;
+  margin:0 !important;
+  padding:34px 54px 40px !important;
+  border:0 !important;
+  border-bottom:1px solid rgba(157,178,125,.28) !important;
+  border-radius:0 !important;
+  background:var(--ep-paper) !important;
+  box-shadow:none !important;
+}
+
+.profile-sheet .adv>.sec-hd{margin-bottom:22px !important;color:var(--ep-ink) !important}
+
+.profile-sheet .adv .acard{border:1px solid rgba(157,178,125,.36) !important;border-radius:12px 28px 12px 12px !important;box-shadow:none !important}
+
+.profile-sheet .moments-panel{
+  order:6 !important;
+  width:100% !important;
+  margin:0 !important;
+  padding:0 !important;
+  border:0 !important;
+  border-radius:0 !important;
+  background:var(--ep-paper) !important;
+  display:block !important;
+  box-shadow:none !important;
+}
+
+.profile-sheet .moments-panel>.card{
+  width:100% !important;
+  margin:0 !important;
+  border:0 !important;
+  border-radius:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+}
+
+.profile-sheet .moments-gallery{min-height:250px !important;padding:36px 54px 28px !important}
+
+.profile-sheet .moments-heading{
+  width:100% !important;
+  margin:0 0 25px !important;
+  display:flex !important;
+  align-items:flex-end !important;
+  justify-content:space-between !important;
+  color:var(--ep-ink) !important;
+}
+
+.profile-sheet .moments-heading>span{
+  font:400 30px/1 var(--font-title,Georgia,serif) !important;
+  letter-spacing:.01em !important;
+}
+
+.profile-sheet .moments-heading>small{
+  color:#8fa17c !important;
+  font:700 9px/1 var(--font-label,Arial,sans-serif) !important;
+  letter-spacing:.18em !important;
+}
+
+.profile-sheet .moments-gallery .g-grid{
+  width:100% !important;
+  display:grid !important;
+  grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  gap:18px !important;
+}
+
+.profile-sheet .moments-gallery .g-thumb{
+  position:relative !important;
+  width:100% !important;
+  aspect-ratio:16/7.8 !important;
+  min-height:0 !important;
+  border:0 !important;
+  border-radius:14px 32px 14px 14px !important;
+  overflow:hidden !important;
+  background:#eaf1e1 !important;
+  box-shadow:none !important;
+}
+
+.profile-sheet .moments-gallery .g-thumb:nth-child(4){display:none !important}
+
+.profile-sheet .moments-gallery .g-thumb img{
+  display:block !important;
+  width:100% !important;
+  height:100% !important;
+  object-fit:cover !important;
+  filter:none !important;
+}
+
+.profile-sheet .moments-gallery .g-thumb::after{
+  position:absolute;
+  left:10px;
+  bottom:10px;
+  padding:6px 10px;
+  border-radius:999px;
+  background:rgba(255,253,246,.9);
+  color:#496248;
+  font:800 8px/1 var(--font-label,Arial,sans-serif);
+  letter-spacing:.05em;
+}
+
+.profile-sheet .moments-gallery .g-thumb:nth-child(1)::after{content:var(--txt-gcap-1, "PLAYFUL DAY")}
+
+.profile-sheet .moments-gallery .g-thumb:nth-child(2)::after{content:var(--txt-gcap-2, "PAW PAW")}
+
+.profile-sheet .moments-gallery .g-thumb:nth-child(3)::after{content:var(--txt-gcap-3, "BLUE PETALS")}
+
+.profile-sheet .moments-links{
+  min-height:62px !important;
+  padding:0 54px 24px !important;
+}
+
+.profile-sheet .moments-links>.sec-hd{display:none !important}
+
+.profile-sheet .moments-links .l-grid{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:10px !important;
+  margin:0 !important;
+  padding:0 !important;
+}
+
+.profile-sheet .moments-links .lbtn{
+  width:38px !important;
+  height:38px !important;
+  min-width:38px !important;
+  padding:0 !important;
+  border:1px solid rgba(157,178,125,.7) !important;
+  border-radius:50% !important;
+  background:transparent !important;
+  color:transparent !important;
+  font-size:0 !important;
+  box-shadow:none !important;
+  display:grid !important;
+  place-items:center !important;
+}
+
+.profile-sheet .moments-links .l-ic{
+  width:auto !important;
+  height:auto !important;
+  margin:0 !important;
+  border:0 !important;
+  background:transparent !important;
+  color:#637a5a !important;
+  font:800 10px/1 Arial,sans-serif !important;
+}
+
+.profile-sheet>footer{
+  order:7 !important;
+  position:relative !important;
+  min-height:65px !important;
+  margin:0 !important;
+  padding:20px 54px !important;
+  border:0 !important;
+  border-top:1px solid rgba(157,178,125,.3) !important;
+  background:var(--ep-paper-soft) !important;
+  color:#8a9683 !important;
+  text-align:right !important;
+  font:500 8px/1.45 var(--font-label,Arial,sans-serif) !important;
+  letter-spacing:.04em !important;
+}
+
+.profile-sheet>footer::before{
+  content:var(--txt-footer-mark, "EUNPPO");
+  position:absolute;
+  left:54px;
+  top:22px;
+  color:var(--ep-ink);
+  font:500 18px/1 var(--font-title,Georgia,serif);
+  letter-spacing:.08em;
+}
+
+.profile-sheet>footer .biz{color:#9da796 !important}
+
+.iq-ov{z-index:200 !important}
+
+.iq-modal{border:1px solid var(--ep-leaf) !important;background:var(--ep-paper) !important;box-shadow:0 20px 60px rgba(53,81,58,.2) !important}
+
+
+
+body.dark .profile-sheet .site-nav{background:rgba(27,33,27,.97) !important}
+
+body.dark .profile-sheet .profile-hero::before{background:linear-gradient(90deg,rgba(27,33,27,.95),rgba(27,33,27,.77) 35%,rgba(27,33,27,.15) 68%,transparent) !important}
+
+body.dark .profile-sheet .strip-wrap{background:rgba(28,35,28,.94) !important}
+
+body.dark .profile-sheet .h-quote{background:rgba(27,33,27,.62) !important}
+
+body.dark .profile-sheet .profile-visual .d-row .tag{color:#263a28 !important}
+
+@media(max-width:960px){
+.profile-sheet .profile-hero{height:620px !important;min-height:620px !important}
+.profile-sheet .profile-hero .hero-in{padding:58px 36px 150px !important}
+.profile-sheet .profile-hero .hero-mid{width:480px !important;max-width:61% !important}
+.profile-sheet .profile-hero .hero-ava{top:auto !important;right:48px !important;bottom:134px !important}
+.profile-sheet .strip-wrap{margin:-126px 34px 26px !important}
+.profile-sheet .strip{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+.profile-sheet .strip .stat{height:68px !important}
+.profile-sheet .profile-about{min-height:0 !important;padding:42px 36px 54px !important;grid-template-columns:1fr !important;gap:38px !important}
+.profile-sheet .profile-portrait{grid-column:1 !important;grid-row:1 !important}
+.profile-sheet .profile-story{grid-column:1 !important;grid-row:2 !important;padding-top:40px !important}
+.profile-sheet .profile-photo{height:560px !important}
+.profile-sheet .portrait-note{right:22px !important;bottom:-58px !important}
+.profile-sheet .profile-story .headline{font-size:40px !important}
+.profile-sheet .profile-visual{grid-column:1 !important;grid-row:1 !important}
+.profile-sheet .profile-copy{grid-column:1 !important;grid-row:2 !important;padding-bottom:180px !important}
+.profile-sheet .profile-visual .cc-img{height:560px !important}
+.profile-sheet .profile-visual .cc-body::after{left:auto !important;right:22px !important}
+.profile-sheet .profile-visual .cc-rows{left:36px !important;right:36px !important;bottom:52px !important}
+.profile-sheet .profile-copy .headline{font-size:40px !important}
+.profile-sheet .weekly-panel{min-height:360px !important;padding:38px 36px !important;grid-template-columns:1fr !important;grid-template-rows:auto auto auto auto auto !important}
+.profile-sheet .weekly-panel .days{grid-column:1 !important;grid-row:5 !important;margin-top:22px !important;overflow-x:auto !important;scroll-snap-type:x mandatory !important}
+.profile-sheet .weekly-panel .day{min-width:128px !important;scroll-snap-align:start !important}
+.profile-sheet .weekly-panel .s-row{grid-column:1 !important}
+.profile-sheet .signature-panel{height:auto !important;min-height:0 !important;grid-template-columns:1fr !important}
+.profile-sheet .signature-panel .p-art{height:250px !important}
+.profile-sheet .signature-panel .p-art::after{background:linear-gradient(0deg,var(--ep-forest),transparent 52%) !important}
+.profile-sheet .signature-panel .p-info{min-height:250px !important;padding:36px !important}
+.profile-sheet .signature-panel .p-info::after{left:36px !important;right:36px !important}
+.profile-sheet .moments-gallery{padding:34px 36px 24px !important}
+.profile-sheet .moments-gallery .g-grid{overflow-x:auto !important;grid-template-columns:repeat(3,78%) !important;scroll-snap-type:x mandatory !important}
+.profile-sheet .moments-gallery .g-thumb{scroll-snap-align:start !important}
+}
+
+@media(max-width:560px){
+.profile-sheet .profile-hero{height:660px !important;min-height:660px !important}
+.profile-sheet #heroBg{object-position:56% 50% !important}
+.profile-sheet .profile-hero::before{background:linear-gradient(180deg,rgba(255,253,246,.96),rgba(255,253,246,.75) 46%,rgba(255,253,246,.08) 78%) !important}
+.profile-sheet .profile-hero .hero-in{padding:42px 22px 155px !important}
+.profile-sheet .profile-hero .hero-mid{width:100% !important;max-width:100% !important}
+.profile-sheet .h-title{font-size:52px !important}
+.profile-sheet .hero-deck{font-size:13px !important}
+.profile-sheet .profile-hero .hero-ava{right:30px !important;bottom:142px !important;transform:scale(.8) !important;transform-origin:right bottom !important}
+.profile-sheet .strip-wrap{margin:-120px 18px 24px !important}
+.profile-sheet .strip .stat{padding:14px 16px !important}
+.profile-sheet .profile-about{padding:32px 22px 46px !important}
+.profile-sheet .profile-photo{height:440px !important}
+.profile-sheet .portrait-note{right:8px !important;bottom:-72px !important;width:176px !important}
+.profile-sheet .profile-story{padding-top:54px !important}
+.profile-sheet .profile-story .headline{font-size:34px !important}
+.profile-sheet .profile-facts{grid-template-columns:1fr !important}
+.profile-sheet .profile-fact:nth-child(even){padding-left:0 !important;border-left:0 !important}
+.profile-sheet .profile-meta{grid-template-columns:1fr 1fr !important}
+.profile-sheet .profile-meta>span:first-child{grid-column:1 / -1}
+.profile-sheet .broadcast-line{align-items:flex-start !important;flex-direction:column !important;gap:10px !important}
+.profile-sheet .profile-visual .cc-img{height:440px !important}
+.profile-sheet .profile-visual .cc-body::after{right:8px !important;bottom:-25px !important;width:172px !important}
+.profile-sheet .profile-copy{padding-bottom:210px !important}
+.profile-sheet .profile-copy .headline{font-size:34px !important}
+.profile-sheet .profile-copy .plist{grid-template-columns:1fr !important}
+.profile-sheet .profile-copy .prow:nth-child(even){padding-left:0 !important;border-left:0 !important}
+.profile-sheet .profile-visual .cc-rows{left:22px !important;right:22px !important;bottom:45px !important}
+.profile-sheet .weekly-panel{padding:34px 22px !important}
+.profile-sheet .weekly-panel .sec-hd::after{font-size:30px !important}
+.profile-sheet .signature-panel .p-info{padding:34px 22px 38px !important}
+.profile-sheet .signature-panel .p-go{right:22px !important}
+.profile-sheet .moments-gallery{padding:30px 22px 22px !important}
+.profile-sheet .moments-heading>small{display:none !important}
+.profile-sheet .moments-links{padding:0 22px 22px !important}
+.profile-sheet>footer{padding:20px 22px !important}
+.profile-sheet>footer::before{left:22px !important}
+}
+
+.profile-sheet .profile-hero::before{
+  background:linear-gradient(90deg,rgba(255,253,246,.96) 0 27%,rgba(255,253,246,.90) 34%,rgba(255,253,246,.62) 48%,rgba(255,253,246,.18) 65%,transparent 78%) !important;
+  opacity:1 !important;
+  -webkit-mask:none !important;
+  mask:none !important;
+  clip-path:none !important;
+}
+
+.profile-sheet .profile-hero .hero-ava::before{
+  content:"";
+  position:absolute;
+  top:-10px;
+  right:-58px;
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  background:repeating-conic-gradient(from 0deg,#efa91f 0 5deg,transparent 5deg 11deg);
+  -webkit-mask:radial-gradient(circle,transparent 0 10px,#000 10.5px);
+  mask:radial-gradient(circle,transparent 0 10px,#000 10.5px);
+  opacity:.95;
+}
+
+.profile-sheet .profile-story .headline{
+  max-width:445px !important;
+  white-space:pre-line !important;
+}
+
+.profile-sheet .profile-meta{display:none !important}
+
+.profile-sheet .weekly-panel .s-row{display:none !important}
+
+.profile-sheet .weekly-panel .sec-hd::after{
+  content:var(--txt-week-title, "이번 주,\A 온실이 열리는\A 날") !important;
+  white-space:pre !important;
+}
+
+.profile-sheet .weekly-panel .sec-hd{
+  position:relative !important;
+}
+
+.profile-sheet .weekly-panel::after{
+  content:var(--txt-week-note, "변동 일정은 공지에서 확인해 주세요.");
+  position:absolute;
+  left:54px;
+  bottom:28px;
+  color:#7f8d79;
+  font:500 11px/1.5 var(--font-body,Arial,sans-serif);
+}
+
+.profile-sheet>footer>.moments-links{
+  position:absolute !important;
+  z-index:70 !important;
+  left:50% !important;
+  top:35px !important;
+  width:max-content !important;
+  height:38px !important;
+  min-height:0 !important;
+  margin:0 !important;
+  padding:0 !important;
+  transform:translateX(-50%) !important;
+  overflow:visible !important;
+}
+
+.profile-sheet>footer>.moments-links .l-grid{
+  position:static !important;
+  z-index:auto !important;
+  width:max-content !important;
+  transform:none !important;
+}
+
+.profile-sheet>footer{
+  position:relative !important;
+  height:106px !important;
+  min-height:106px !important;
+  padding:45px 54px 20px !important;
+}
+
+.profile-sheet>footer>.footer-copy{
+  display:block !important;
+  margin-left:auto !important;
+  width:max-content !important;
+  text-align:right !important;
+}
+
+.profile-sheet>footer::before{top:45px !important}
+
+@media(min-width:961px){
+.profile-sheet .profile-hero .hero-ava{
+    top:76px !important;
+    right:68px !important;
+    width:234px !important;
+  }
+.profile-sheet .profile-hero .avatar{
+    width:218px !important;
+    height:218px !important;
+    min-width:218px !important;
+  }
+.profile-sheet .profile-hero .avatar::after{
+    top:236px !important;
+    min-width:120px !important;
+  }
+.profile-sheet .weekly-panel .day{
+    width:100% !important;
+    max-width:none !important;
+  }
+.profile-sheet .profile-about{
+    height:690px !important;
+    min-height:690px !important;
+  }
+.profile-sheet .weekly-panel{
+    height:250px !important;
+    min-height:250px !important;
+    grid-template-rows:auto !important;
+  }
+.profile-sheet .signature-panel,
+  .profile-sheet .signature-panel .p-art{
+    height:310px !important;
+    min-height:310px !important;
+  }
+.profile-sheet .signature-panel{grid-template-columns:34% minmax(0,1fr) !important}
+.profile-sheet .signature-panel .p-info{padding-left:30px !important}
+.profile-sheet .moments-gallery{
+    height:299px !important;
+    min-height:299px !important;
+    padding-bottom:35px !important;
+  }
+}
+
+@media(max-width:960px){
+.profile-sheet .profile-meta,
+  .profile-sheet .weekly-panel .s-row{display:none !important}
+.profile-sheet .weekly-panel::after{left:36px !important;bottom:28px !important}
+.profile-sheet>footer>.moments-links{height:38px !important;min-height:0 !important;padding:0 !important}
+.profile-sheet>footer{height:106px !important;min-height:106px !important;padding:45px 36px 20px !important}
+.profile-sheet>footer::before{left:36px !important;top:45px !important}
+}
+
+@media(max-width:560px){
+.profile-sheet .weekly-panel::after{left:22px !important;bottom:24px !important}
+.profile-sheet>footer>.moments-links{padding:0 !important;top:34px !important}
+.profile-sheet>footer{padding:45px 22px 20px !important}
+.profile-sheet>footer::before{left:22px !important}
+}
+
+/* Below 960 the logo returns to the flow so the tab row cannot start underneath it. */
+@media(max-width:960px){
+.profile-sheet .site-nav .nav-logo{
+  position:static !important;
+  top:auto !important; left:auto !important;
+  transform:none !important;
+  flex:0 0 auto !important;
+  margin-right:14px !important;
+}
+.profile-sheet .site-nav .nav-inner{padding-left:16px !important}
+}

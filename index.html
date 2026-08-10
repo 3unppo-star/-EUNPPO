@@ -218,6 +218,8 @@
     .pkey{ width:auto; }
   }
 </style>
+<link rel="stylesheet" href="./eunppo-shell.css">
+<link rel="stylesheet" href="./eunppo-profile-final.css">
 </head>
 <body>
 <script>
@@ -226,15 +228,15 @@
   if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
 </script>
 
-<div class="sheet stagger">
+<div class="sheet stagger profile-sheet">
 
-  <div class="chrome">
+  <div class="chrome mast-chrome">
     <span class="dots"><i></i><i></i><i></i></span>
-    <div class="addr"><span class="lock">NEXT LIVE</span><span id="next-live">개인 · 18:00</span></div>
+    <div class="addr"><span class="lock">NEXT LIVE</span><span id="next-live">오늘 · 18:00</span></div>
     <button class="theme-switch" id="themeSwitch" type="button" aria-label="다크모드 전환"><span id="themeKnob">🍋</span></button>
   </div>
 
-  <section class="hero" id="heroScene">
+  <section class="hero profile-hero" id="heroScene">
     <img id="heroBg" src="./assets/profile-hero.jpg" alt="" referrerpolicy="no-referrer">
     <div class="hero-in">
       <div class="hero-ava">
@@ -244,14 +246,16 @@
         </div>
       </div>
       <div class="hero-mid">
-        <h1 class="h-title" id="hero-name">최은뽀<span class="h-leaf">🍋</span></h1>
-        <div class="h-sub"><i></i><span class="dm">✦</span>EUNPPO<span class="dm">✦</span><i></i></div>
+        <div class="hero-kicker" id="hero-kicker">LEMON GREENHOUSE</div>
+        <h1 class="h-title" id="hero-name">최은뽀</h1>
+        <div class="hero-en" id="hero-en">EUNPPO</div>
+        <p class="hero-deck" id="hero-deck">차분한 목소리 사이로 엉뚱한 웃음이 피어나는 곳.<br>오늘도 양배추들과 천천히 자라는 중입니다.</p>
         <div class="h-badges" id="heroBadges">
           <span class="hb">레몬 · 나뭇잎</span>
           <span class="hb">어인섬</span>
           <span class="hb live"><b></b>ISTP</span>
         </div>
-        <p class="h-quote">“ <span id="hero-quote">흠냐, 힝</span> ”<span> 🌿</span></p>
+        <p class="h-quote">“ <span id="hero-quote">흠냐, 오늘도 놀러왔데요 🍋</span> ”</p>
       </div>
       <div class="hero-right" aria-hidden="true"></div>
     </div>
@@ -259,17 +263,17 @@
 
   <div class="strip-wrap">
     <div class="strip">
-      <div class="stat"><span class="s-k">데뷔</span><span class="s-v" id="stat-debut">2017.07.07</span></div>
-      <div class="stat"><span class="s-k">생일</span><span class="s-v" id="stat-birth">12.20</span></div>
-      <div class="stat"><span class="s-k">소속</span><span class="s-v" id="stat-crew">어인섬</span></div>
-      <div class="stat"><span class="s-k">MBTI</span><span class="s-v" id="stat-mbti">ISTP</span></div>
-      <div class="stat"><span class="s-k">팬네임</span><span class="s-v" id="stat-fan">양배추 🥬</span></div>
-      <div class="stat"><span class="s-k">방송</span><span class="s-v" id="stat-status">개인 방송 · 18:00</span></div>
+      <div class="stat"><span class="s-k" id="statlab-1">DEBUT</span><span class="s-v" id="stat-debut">2017. 07. 07</span></div>
+      <div class="stat"><span class="s-k" id="statlab-2">BIRTHDAY</span><span class="s-v" id="stat-birth">12. 20</span></div>
+      <div class="stat"><span class="s-k" id="statlab-3">CREW</span><span class="s-v" id="stat-crew">어인섬</span></div>
+      <div class="stat"><span class="s-k" id="statlab-4">MBTI</span><span class="s-v" id="stat-mbti">ISTP</span></div>
+      <div class="stat"><span class="s-k" id="statlab-5">FAN NAME</span><span class="s-v" id="stat-fan">양배추</span></div>
+      <div class="stat"><span class="s-k" id="statlab-6">방송</span><span class="s-v" id="stat-status">개인 방송 · 18:00</span></div>
     </div>
   </div>
 
-<nav class="nav"><div class="nav-inner">
-      <a class="nav-logo" href="./">최은뽀<span class="lg-en">EUNPPO</span></a>
+<nav class="nav site-nav"><div class="nav-inner">
+      <a class="nav-logo" href="./"><img id="navAvatar" class="nav-ava" alt="" referrerpolicy="no-referrer" onerror="this.style.display='none'"><span class="lg-name">최은뽀<span class="lg-en">EUNPPO</span></span></a>
       <a href="./" class="ntab active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7.5"/><path d="M12 4.5V2.8M14.6 5.2c1.6-1.4 3.6-1.6 3.6-1.6s-.4 2-2 3.2"/></svg>프로필</a>
       <a href="./schedule/" class="ntab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M8 3.5v3M16 3.5v3M3.5 10h17"/></svg>방송 일정</a>
       <a href="./song/" class="ntab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="17.5" r="3"/><circle cx="17.5" cy="15.5" r="3"/><path d="M10.5 17.5V6.5l10-2v11"/></svg>노래책</a>
@@ -279,62 +283,68 @@
       <button class="ntab" type="button" onclick="openInquiry()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 0-3.1 6.3L20.5 19l-.8-3.4A8 8 0 0 0 20 12z"/></svg>문의</button>
     </div></nav>
 
-  <div class="duo">
-    <section class="ornate">
-      <svg class="corner tl" viewBox="0 0 70 70" fill="none"><path d="M6 52C6 22 22 6 52 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M20 13q9-8 17-5-5 10-17 5z" fill="currentColor" opacity=".8"/><path d="M9 32q-7-9-3-17 10 5 3 17z" fill="currentColor" opacity=".55"/><path d="M36 8q7-6 13-4-4 8-13 4z" fill="currentColor" opacity=".4"/></svg>
-      <svg class="corner tr" viewBox="0 0 70 70" fill="none"><path d="M6 52C6 22 22 6 52 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M20 13q9-8 17-5-5 10-17 5z" fill="currentColor" opacity=".8"/><path d="M9 32q-7-9-3-17 10 5 3 17z" fill="currentColor" opacity=".55"/><path d="M36 8q7-6 13-4-4 8-13 4z" fill="currentColor" opacity=".4"/></svg>
-      <div class="ohd" style="margin:0 0 20px"><i></i><span class="dm">✦</span>PROFILE<span class="dm">✦</span><i></i></div>
-      <div class="headline" id="info-headline">차분한 또라이 · 사람 좋아하는 리트리버 · ISTP</div>
-      <div class="plist">
-        <div class="prow"><span class="pkey">이름</span><span class="pval" id="info-name">최은뽀 (EUNPPO)</span></div>
-        <div class="prow"><span class="pkey">성격</span><div class="tags" id="info-tags"><span class="tag">차분한 또라이</span><span class="tag">리트리버</span></div></div>
-        <div class="prow"><span class="pkey">성별</span><span class="pval" id="info-gender">여</span></div>
-        <div class="prow"><span class="pkey">컨텐츠</span><span class="pval" id="info-content">게임 / 노래</span></div>
-        <div class="prow"><span class="pkey">소지품</span><span class="pval" id="info-item">레몬 모양 머리핀</span></div>
-        <div class="prow"><span class="pkey">모티브</span><span class="pval" id="info-motif">레몬 / 나뭇잎</span></div>
-        <div class="prow"><span class="pkey">팬네임</span><span class="pval" id="info-fandom">양배추</span></div>
+  <div class="duo profile-about">
+    <section class="profile-portrait" aria-label="최은뽀 사진">
+      <div class="profile-photo" id="ccImgBox">
+        <iframe id="cc-media" src="https://vod.sooplive.co.kr/player/202554605/embed?showChat=false&amp;autoPlay=false&amp;mutePlay=false" title="최은뽀 노래" frameborder="0" allowfullscreen scrolling="no"></iframe>
+        <span class="photo-kicker">BLUE PETAL</span>
+        <span class="photo-caption">은뽀의 한 장</span>
       </div>
+      <p class="portrait-note">레몬처럼 상큼하고<br>리트리버처럼 사람을 좋아하는<br>차분한 또라이, 최은뽀.</p>
     </section>
 
-    <section class="ornate">
-      <svg class="corner tl" viewBox="0 0 70 70" fill="none"><path d="M6 52C6 22 22 6 52 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M20 13q9-8 17-5-5 10-17 5z" fill="currentColor" opacity=".8"/><path d="M9 32q-7-9-3-17 10 5 3 17z" fill="currentColor" opacity=".55"/><path d="M36 8q7-6 13-4-4 8-13 4z" fill="currentColor" opacity=".4"/></svg>
-      <svg class="corner tr" viewBox="0 0 70 70" fill="none"><path d="M6 52C6 22 22 6 52 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M20 13q9-8 17-5-5 10-17 5z" fill="currentColor" opacity=".8"/><path d="M9 32q-7-9-3-17 10 5 3 17z" fill="currentColor" opacity=".55"/><path d="M36 8q7-6 13-4-4 8-13 4z" fill="currentColor" opacity=".4"/></svg>
-      <div class="ohd" style="margin:0 0 20px"><i></i><span class="dm">✦</span>SUNROOM<span class="dm">✦</span><i></i></div>
-      <div class="cc-body">
-        <div class="cc-img" id="ccImgBox">
-            <iframe id="cc-media" src="https://vod.sooplive.co.kr/player/202554605/embed?showChat=false&amp;autoPlay=false&amp;mutePlay=false" title="최은뽀 노래" frameborder="0" allowfullscreen scrolling="no"></iframe>
-          </div>
-        <div class="cc-rows">
-          <div class="d-row"><b>ABOUT</b><span id="msg">게임 / 노래 · 사람 좋아하는 리트리버</span></div>
-          <div class="d-row"><b>LIKE</b><div class="tags" id="like-list"></div></div>
-          <div class="d-row"><b>DISLIKE</b><div class="tags" id="dislike-list"></div></div>
-        </div>
+    <section class="profile-story">
+      <div class="story-kicker">ABOUT EUNPPO</div>
+      <h2 class="headline" id="info-headline">조용히 웃기고,
+오래 함께하는 사람.</h2>
+      <p class="story-copy" id="msg">게임과 노래, 그리고 사람을 좋아합니다. 편안한 방송 사이사이 예상하지 못한 엉뚱함이 튀어나오는 은뽀의 온실에 오신 걸 환영해요.</p>
+
+      <div class="profile-facts">
+        <div class="profile-fact"><span>CONTENT</span><strong id="info-content">게임 / 노래</strong></div>
+        <div class="profile-fact"><span>PERSONALITY</span><div class="tags" id="info-tags"><span class="tag">차분한 또라이</span><span class="tag">리트리버</span></div></div>
+        <div class="profile-fact"><span>SIGNATURE</span><strong id="profile-signature">여우비</strong></div>
+        <div class="profile-fact"><span>ITEM</span><strong id="info-item">레몬 모양 머리핀</strong></div>
+      </div>
+
+      <div class="profile-meta">
+        <span><small id="proflab-1">NAME</small><b id="info-name">최은뽀 (EUNPPO)</b></span>
+        <span><small id="proflab-2">GENDER</small><b id="info-gender">여</b></span>
+        <span><small id="proflab-3">FAN NAME</small><b id="info-fandom">양배추</b></span>
+        <span><small id="proflab-4">MOTIF</small><b id="info-motif">레몬 / 나뭇잎</b></span>
+      </div>
+
+      <div class="taste-row"><span>LIKE</span><div class="tags" id="like-list"></div></div>
+      <div class="taste-row dislike"><span>DISLIKE</span><div class="tags" id="dislike-list"></div></div>
+
+      <div class="broadcast-line">
+        <span><small>BROADCAST TIME</small><b>크루 12:00 · 개인 18:00</b></span>
+        <strong>주 1회 휴방</strong>
       </div>
     </section>
   </div>
 
-  <div class="mid-duo">
-    <div class="player">
-      <div class="p-art" id="pArt"><span>♪</span><img id="sing-art" alt="" referrerpolicy="no-referrer"></div>
+  <div class="mid-duo profile-flow">
+    <div class="player signature-panel">
+      <div class="p-art" id="pArt"><span>♪</span><img id="sing-art" src="./assets/photo-3.jpg" alt="" referrerpolicy="no-referrer"></div>
       <div class="p-info">
-        <div class="p-eyebrow">♪ SIGNATURE SONG</div>
+        <div class="p-eyebrow">SIGNATURE SONG · 01</div>
         <div class="p-title" id="sing-title">여우비</div>
-        <div class="p-sub" id="sing-sub">인디 · 잔잔한 여자 발라드를 즐겨 부릅니다</div>
-        <a class="p-go" id="sing-link" href="https://vod.sooplive.com/player/202554605?change_second=15688" target="_blank" rel="noreferrer">SOOP VOD에서 듣기 ↗</a>
+        <div class="p-sub" id="sing-sub">잔잔한 여자 발라드와 인디를 좋아하는 은뽀의 대표곡.</div>
+        <a class="p-go" id="sing-link" href="https://vod.sooplive.com/player/202554605?change_second=15688" target="_blank" rel="noreferrer">노래 들으러 가기 ↗</a>
       </div>
       <div class="vinyl"><i></i></div>
       <span class="pnote n1">♪</span><span class="pnote n2">♫</span>
     </div>
-    <section class="card">
+    <section class="card weekly-panel">
       <div class="sec-hd kr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M8 3.5v3M16 3.5v3M3.5 10h17"/></svg>방송 일정</div>
       <div class="days">
-        <span class="day" id="day-0">월</span>
-        <span class="day" id="day-1">화</span>
-        <span class="day" id="day-2">수</span>
-        <span class="day" id="day-3">목</span>
-        <span class="day" id="day-4">금</span>
-        <span class="day" id="day-5">토</span>
-        <span class="day" id="day-6">일</span>
+        <span class="day" id="day-0"><b><span id="dayname-0">MON</span></b><strong><span id="daytext-0">개인 방송</span></strong><small><span id="daytime-0">18:00</span></small></span>
+        <span class="day" id="day-1"><b><span id="dayname-1">TUE</span></b><strong><span id="daytext-1">게임</span></strong><small><span id="daytime-1">18:00</span></small></span>
+        <span class="day" id="day-2"><b><span id="dayname-2">WED</span></b><strong><span id="daytext-2">노래</span></strong><small><span id="daytime-2">18:00</span></small></span>
+        <span class="day" id="day-3"><b><span id="dayname-3">THU</span></b><strong><span id="daytext-3">크루</span></strong><small><span id="daytime-3">12:00</span></small></span>
+        <span class="day" id="day-4"><b><span id="dayname-4">FRI</span></b><strong><span id="daytext-4">저챗</span></strong><small><span id="daytime-4">18:00</span></small></span>
+        <span class="day" id="day-5"><b><span id="dayname-5">SAT</span></b><strong><span id="daytext-5">종합게임</span></strong><small><span id="daytime-5">18:00</span></small></span>
+        <span class="day" id="day-6"><b><span id="dayname-6">SUN</span></b><strong><span id="daytext-6">휴방</span></strong><small><span id="daytime-6">REST</span></small></span>
       </div>
       <div class="s-row" id="sched-line1"><b>크루 컨텐츠</b> · 오후 12시</div>
       <div class="s-row" id="sched-line2"><b>개인 방송</b> · 오후 6시</div>
@@ -351,28 +361,30 @@
     </div>
   </section>
 
-  <div class="bot-duo">
-    <section class="card">
-      <div class="sec-hd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="3"/><circle cx="9" cy="10" r="1.7"/><path d="M4.5 17.5l4.5-4 3.5 3 3-2.5 4 3.5"/></svg>GALLERY</div>
+  <div class="bot-duo moments-panel">
+    <section class="card moments-gallery">
+      <div class="sec-hd moments-heading"><span>Little Moments</span><small>GALLERY · EUNPPO ARCHIVE</small></div>
       <div class="g-grid">
-        <div class="g-thumb"><img id="gallery-1" src="./assets/photo-1.jpg" alt="" referrerpolicy="no-referrer" loading="lazy"></div>
-        <div class="g-thumb"><img id="gallery-2" src="./assets/photo-2.jpg" alt="" referrerpolicy="no-referrer" loading="lazy"></div>
-        <div class="g-thumb"><img id="gallery-3" src="./assets/photo-3.jpg" alt="" referrerpolicy="no-referrer" loading="lazy"></div>
+        <div class="g-thumb"><img id="gallery-1" src="./assets/photo-2.jpg" alt="" referrerpolicy="no-referrer" loading="lazy"></div>
+        <div class="g-thumb"><img id="gallery-2" src="./assets/profile-hero.jpg" alt="" referrerpolicy="no-referrer" loading="lazy"></div>
+        <div class="g-thumb"><img id="gallery-3" src="./assets/photo-1.jpg" alt="" referrerpolicy="no-referrer" loading="lazy"></div>
         <div class="g-thumb"><span>🌿</span><img id="gallery-4" alt="" referrerpolicy="no-referrer" loading="lazy" style="display:none"></div>
-      </div>
-    </section>
-    <section class="card">
-      <div class="sec-hd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 14.5l5-5"/><path d="M11 6.5L12.5 5a4 4 0 0 1 5.5 5.5L16.5 12M13 17.5L11.5 19a4 4 0 0 1-5.5-5.5L7.5 12"/></svg>LINKS</div>
-      <div class="l-grid">
-        <a class="lbtn" id="link-soop" href="https://www.sooplive.com/station/eunpp0" target="_blank" rel="noreferrer"><span class="l-ic soop">S</span>SOOP 방송국</a>
-        <a class="lbtn" id="link-youtube" href="https://www.youtube.com/@eunppo1220" target="_blank" rel="noreferrer"><span class="l-ic yt">▶</span>YouTube</a>
-        <a class="lbtn" id="link-x" href="https://x.com/eunppo04" target="_blank" rel="noreferrer"><span class="l-ic xx">X</span>X (트위터)</a>
-        <a class="lbtn" id="link-cafe" href="https://cafe.naver.com/fishmanisland" target="_blank" rel="noreferrer"><span class="l-ic cafe">N</span>어인섬 카페</a>
       </div>
     </section>
   </div>
 
-  <footer>© 2026 EUNPPO Official. All rights reserved.<br><span class="biz">비즈니스 문의 · 문의 버튼을 이용해 주세요</span></footer>
+  <footer>
+    <section class="card moments-links">
+      <div class="sec-hd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 14.5l5-5"/><path d="M11 6.5L12.5 5a4 4 0 0 1 5.5 5.5L16.5 12M13 17.5L11.5 19a4 4 0 0 1-5.5-5.5L7.5 12"/></svg>LINKS</div>
+      <div class="l-grid">
+        <a class="lbtn" id="link-soop" href="https://www.sooplive.com/station/eunpp0" target="_blank" rel="noreferrer"><span class="l-ic soop">S</span>SOOP 방송국</a>
+        <a class="lbtn" id="link-youtube" href="https://www.youtube.com/@eunppo1220" target="_blank" rel="noreferrer"><span class="l-ic yt">YT</span>YouTube</a>
+        <a class="lbtn" id="link-x" href="https://x.com/eunppo04" target="_blank" rel="noreferrer"><span class="l-ic xx">X</span>X (트위터)</a>
+        <a class="lbtn" id="link-cafe" href="https://cafe.naver.com/fishmanisland" target="_blank" rel="noreferrer"><span class="l-ic cafe">N</span>어인섬 카페</a>
+      </div>
+    </section>
+    <span class="footer-copy">© 2026 EUNPPO OFFICIAL<br><span class="biz">WITH CABBAGE, ALWAYS.</span></span>
+  </footer>
 </div>
 
 <div class="iq-ov" id="iq-ov" onclick="if(event.target===this)closeInquiry()">
@@ -395,34 +407,65 @@
 <script src="./site.js"></script>
 <script>
 const defaults = {
-  'soop-id':'eunpp0', avatar:'./assets/char.png', 'hero-bg':'./assets/profile-hero.jpg',
-  'hero-quote':'흠냐, 힝',
+  'soop-id':'eunpp0', avatar:'', 'hero-bg':'./assets/profile-hero.jpg',
+  'hero-quote':'흠냐, 오늘도 놀러왔데요 🍋',
   'hero-badges':'레몬 · 나뭇잎,어인섬,ISTP',
-  'hero-name':'최은뽀', 'hero-kicker':'LEMON · LEAF', 'hero-en':'EUNPPO',
-  'next-live':'개인 · 18:00', 'loader-img':'', 'avatar':'',
-  'info-headline':'차분한 또라이 · 사람 좋아하는 리트리버 · ISTP',
-  'stat-debut':'2017.07.07', 'stat-birth':'12.20', 'stat-crew':'어인섬',
-  'stat-mbti':'ISTP', 'stat-fan':'양배추 🥬', 'stat-status':'개인 방송 · 18:00',
+  'hero-name':'최은뽀', 'hero-kicker':'LEMON GREENHOUSE', 'hero-en':'EUNPPO',
+  'next-live':'오늘 · 18:00', 'loader-img':'',
+  'info-headline':'조용히 웃기고,\n오래 함께하는 사람.',
+  'stat-debut':'2017. 07. 07', 'stat-birth':'12. 20', 'stat-crew':'어인섬',
+  'stat-mbti':'ISTP', 'stat-fan':'양배추', 'stat-status':'개인 방송 · 18:00',
   'info-name':'최은뽀 (EUNPPO)',
   'info-tags':'차분한 또라이, 리트리버',
   'info-gender':'여', 'info-content':'게임 / 노래',
   'info-item':'레몬 모양 머리핀', 'info-motif':'레몬 / 나뭇잎', 'info-fandom':'양배추',
-  msg:'게임 / 노래 · 사람 좋아하는 리트리버',
+  msg:'게임과 노래, 그리고 사람을 좋아합니다. 편안한 방송 사이사이 예상하지 못한 엉뚱함이 튀어나오는 은뽀의 온실에 오신 걸 환영해요.',
   'like-list':'팬들, 노래, 게임',
   'dislike-list':'운동, 공포게임, 힙합 곡',
   'sing-title':'여우비',
-  'sing-sub':'인디 · 잔잔한 여자 발라드를 즐겨 부릅니다 · 노래방송 정기',
+  'sing-sub':'잔잔한 여자 발라드와 인디를 좋아하는 은뽀의 대표곡.',
   'sing-link':'https://vod.sooplive.com/player/202554605?change_second=15688',
   'sing-art':'./assets/photo-3.jpg', 'cc-media':'202554605',
   'sched-line1':'크루 컨텐츠 · 오후 12시',
   'sched-line2':'개인 방송 · 오후 6시',
   'sched-line3':'휴방 · 주 1회',
-  days:'0,1,2,3,4,5',
+  days:'0',
   'gallery-1':'', 'gallery-2':'', 'gallery-3':'', 'gallery-4':'',
   'link-soop':'https://www.sooplive.com/station/eunpp0',
   'link-youtube':'https://www.youtube.com/@eunppo1220',
   'link-x':'https://x.com/eunppo04',
-  'link-cafe':'https://cafe.naver.com/fishmanisland'
+  'link-cafe':'https://cafe.naver.com/fishmanisland',
+  'statlab-1':'DEBUT',
+  'statlab-2':'BIRTHDAY',
+  'statlab-3':'CREW',
+  'statlab-4':'MBTI',
+  'statlab-5':'FAN NAME',
+  'statlab-6':'방송',
+  'proflab-1':'NAME',
+  'proflab-2':'GENDER',
+  'proflab-3':'FAN NAME',
+  'proflab-4':'MOTIF',
+  'dayname-0':'MON',
+  'daytext-0':'개인 방송',
+  'daytime-0':'18:00',
+  'dayname-1':'TUE',
+  'daytext-1':'게임',
+  'daytime-1':'18:00',
+  'dayname-2':'WED',
+  'daytext-2':'노래',
+  'daytime-2':'18:00',
+  'dayname-3':'THU',
+  'daytext-3':'크루',
+  'daytime-3':'12:00',
+  'dayname-4':'FRI',
+  'daytext-4':'저챗',
+  'daytime-4':'18:00',
+  'dayname-5':'SAT',
+  'daytext-5':'종합게임',
+  'daytime-5':'18:00',
+  'dayname-6':'SUN',
+  'daytext-6':'휴방',
+  'daytime-6':'REST',
 };
 
 function advScroll(dir){
@@ -458,9 +501,11 @@ async function load(){
     }
     setImg('heroBg', d['hero-bg']);
 
-    setText(['hero-name','hero-kicker','hero-en','next-live','info-headline','hero-quote','stat-debut','stat-birth','stat-crew','stat-mbti','stat-fan','stat-status',
-             'info-name','info-gender','info-content','info-item','info-motif','info-fandom',
-             'sing-title','sing-sub'], d);
+    setText(["dayname-0", "dayname-1", "dayname-2", "dayname-3", "dayname-4", "dayname-5", "dayname-6", "daytext-0", "daytext-1", "daytext-2", "daytext-3", "daytext-4", "daytext-5", "daytext-6", "daytime-0", "daytime-1", "daytime-2", "daytime-3", "daytime-4", "daytime-5", "daytime-6", "dislike-list", "hero-badges", "hero-en", "hero-kicker", "hero-name", "hero-quote", "info-content", "info-fandom", "info-gender", "info-headline", "info-item", "info-motif", "info-name", "info-tags", "like-list", "next-live", "proflab-1", "proflab-2", "proflab-3", "proflab-4", "sing-sub", "sing-title", "stat-birth", "stat-crew", "stat-debut", "stat-fan", "stat-mbti", "stat-status", "statlab-1", "statlab-2", "statlab-3", "statlab-4", "statlab-5", "statlab-6"], d);
+    var deck = document.getElementById('hero-deck');
+    if (deck && txt(d['hero-deck'])) deck.innerHTML = softHtml(d['hero-deck']);
+    var profileSignature = document.getElementById('profile-signature');
+    if (profileSignature) profileSignature.textContent = txt(d['sing-title']) || '여우비';
     var about = document.getElementById('msg');
     if (about && txt(d.msg)) about.textContent = txt(d.msg);
 
@@ -491,13 +536,6 @@ async function load(){
     });
     setLinks(d, ['link-soop','link-youtube','link-x','link-cafe']);
 
-    /* birthday D-Day badge appended to the stat cell */
-    var mmdd = parseMMDD(d['stat-birth']);
-    if (mmdd && typeof fxDday === 'function') {
-      var n = fxDday(mmdd);
-      var cell = document.getElementById('stat-birth');
-      if (n !== null && cell) cell.textContent = txt(d['stat-birth']) + (n === 0 ? ' 🎉' : ' (D-' + n + ')');
-    }
   } catch (e) { console.log('render', e); }
 
   document.body.classList.add('ready');

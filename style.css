@@ -13,24 +13,28 @@
 /* ===== approved sheet: palette, frame, chrome and nav shared by every page ===== */
 :root{
   --page-width:1200px;
-  --main:#ffe6bf;
-  --sub:#e8ffd9;
-  --main-light:#fff6e6;
-  --main-dark:#bb791a;
-  --main-deep:#36533a;
-  --logo:#35513a;
-  --sub-mid:#8aaf70;
-  --sub-deep:#4d704d;
-  --accent:#efb53d;
-  --bg:#f7f4eb;
-  --sheet:#fffdf7;
-  --card:#fffaf0;
-  --card2:#f4f9eb;
-  --text:#3e4b3d;
-  --text-mid:#687363;
-  --text-soft:#89917f;
-  --line:rgba(111,145,82,.34);
-  --line-soft:rgba(111,145,82,.18);
+
+  /* Legacy names the category pages use, aliased to the approved --ep-* palette so the
+     admin theme tab drives every page. */
+  --main:var(--ep-week);
+  --sub:var(--ep-week);
+  --main-light:var(--ep-paper-soft);
+  --main-dark:var(--ep-leaf);
+  --main-deep:var(--ep-ink);
+  --logo:var(--ep-ink);
+  --sub-mid:var(--ep-leaf);
+  --sub-deep:var(--ep-forest);
+  --accent:var(--ep-yellow);
+  --bg:var(--ep-paper);
+  --sheet:var(--ep-paper);
+  --card:var(--ep-paper-soft);
+  --card2:var(--ep-week);
+  --text:var(--ep-ink);
+  --text-mid:var(--ep-body);
+  --text-soft:var(--ep-muted);
+  --ink-on-dark:var(--ep-paper);
+  --line:var(--ep-line);
+  --line-soft:color-mix(in srgb, var(--ep-line) 55%, transparent);
   --shadow:0 24px 70px rgba(68,87,49,.16);
   --shadow-hover:0 14px 32px rgba(68,87,49,.18);
 }
@@ -193,19 +197,6 @@ a.nav-logo{
   color:var(--logo);
 }
 
-a.nav-logo::before{
-  content:'';
-  width:30px;
-  height:30px;
-  margin-right:4px;
-  border:1px solid var(--line);
-  border-radius:50%;
-  background:
-    radial-gradient(circle at 60% 42%,var(--sheet) 0 24%,transparent 25%),
-    conic-gradient(from 8deg,var(--accent) 0 76%,var(--sub-mid) 76%);
-  box-shadow:inset 0 0 0 6px var(--sheet);
-}
-
 a.nav-logo .lg-en{
   font-size:10px;
   letter-spacing:.32em;
@@ -274,7 +265,6 @@ body{padding:16px 10px 50px;}
     gap:2px;
     overflow-x:auto;
   }
-a.nav-logo::before{width:26px;height:26px;}
 a.nav-logo .lg-en{display:none;}
 .ntab{flex:0 0 auto;padding:10px 12px;font-size:13px;}
 footer{margin:6px 28px 24px;}
@@ -284,7 +274,6 @@ footer{margin:6px 28px 24px;}
 .sheet::before{inset:6px;border-radius:16px;}
 .sheet::after{display:none;}
 .nav-inner{padding-left:14px;}
-a.nav-logo::before{display:none;}
 .ntab{padding:10px 9px;font-size:12px;}
 footer{margin-left:20px;margin-right:20px;}
 }
