@@ -151,3 +151,15 @@
   display:grid; place-items:center; width:20px; height:20px;
   border-radius:50%; background:var(--ep-forest); color:#fff; font:800 10px/1 Arial,sans-serif;
 }
+
+
+/* ── 은뽀 커서 (윈도우 .ani → PNG 변환, 핫스팟 유지) ── */
+/* Windows .ani cannot be used by browsers, so frame 1 of each is exported as a 32px PNG. */
+html, body{ cursor:url('/assets/cursor/default.png') 3 3, auto; }
+a, button, .ntab, .lbtn, .theme-switch, .tab-btn, .gt, .ct, .pg, .cal-nav, .adv-btn, .game-tab, .lg-btn, .jb-stick, .viewer-card, .poster, .album, .cal-cell.has, .up-item, input[type=checkbox], input[type=radio], input[type=color], label, select, summary{ cursor:url('/assets/cursor/pointer.png') 3 3, pointer; }
+input[type=text], input[type=url], input[type=email], input[type=password], input[type=number], input[type=search], input[type=date], textarea, .input, .search-box, .iq-input{ cursor:url('/assets/cursor/text.png') 5 5, text; }
+.spinner, [aria-busy='true']{ cursor:url('/assets/cursor/progress.png') 3 3, progress; }
+button:disabled, .disabled, [aria-disabled='true']{ cursor:url('/assets/cursor/not-allowed.png') 3 3, not-allowed; }
+.avatar, #avatarWrap, .nav-ava, .profile-sheet .avatar, .profile-sheet #avatarWrap{ cursor:url('/assets/cursor/alias.png') 3 3, pointer !important; }
+.delete-btn{ cursor:url('/assets/cursor/context-menu.png') 11 5, pointer; }
+input[type=range]{ cursor:url('/assets/cursor/ew-resize.png') 5 2, ew-resize; }

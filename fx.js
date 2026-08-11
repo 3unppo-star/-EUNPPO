@@ -43,7 +43,12 @@ var FX_TRANS_MS    = 460;
     @media (prefers-reduced-motion: reduce){ #fx{ display:none; } .card{ transition:none; } .fx-heart{ display:none; } }
 
     
-    #fxload{ position:fixed; inset:0; z-index:9999; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; background:var(--bg); transition:opacity .2s ease; }
+    #fxload{ position:fixed; inset:0; z-index:9999; display:grid; place-items:center; background:var(--bg); transition:opacity .2s ease; }
+    #fxload .fxload-box{ position:relative; display:flex; flex-direction:column; align-items:center; gap:18px; }
+    /* the caption stack hangs below so the avatar stays on the exact centre line */
+    #fxload .fxload-name, #fxload .fxload-dots{ position:absolute; left:50%; transform:translateX(-50%); }
+    #fxload .fxload-name{ top:calc(100% + 20px); white-space:nowrap; }
+    #fxload .fxload-dots{ top:calc(100% + 56px); }
     #fxload.fx-hide{ opacity:0; pointer-events:none; }
     #fxload.fx-hide .fxload-av, #fxload.fx-hide .fxload-dots i{ animation-play-state:paused; }
     #fxload .fxload-av{ width:136px; height:136px; border-radius:50%; border:5px solid var(--sheet, #fffdf7); background:var(--main-light); background-size:cover; background-position:center; display:flex; align-items:center; justify-content:center; font-size:46px; font-weight:800; color:var(--main-dark); box-shadow:0 10px 28px rgba(0,0,0,.14); animation:fxBob .85s ease-in-out infinite; }
@@ -76,7 +81,8 @@ var FX_TRANS_MS    = 460;
       var ico = document.querySelector('link[rel~="icon"]');
       if (ico && ico.href && /\.(jpe?g|png|gif|webp)(\?|$)/i.test(ico.href)) img = ico.href;
     }
-    var logoTxt = ((document.querySelector('.nav-logo') || {}).textContent || document.title || '').trim();
+    var logoEl = document.querySelector('.nav-name') || document.querySelector('.nav-logo');
+    var logoTxt = ((logoEl && logoEl.firstChild ? logoEl.firstChild.textContent : '') || document.title || '').trim();
     var LIMG = window.FX_LOADER_IMG || FX_LOADER_IMG;
     if (LIMG)                     av.style.backgroundImage = 'url("' + (/^(data:|https?:|\/)/.test(LIMG) ? LIMG : FX_BASE + LIMG) + '")';
     else if (ch && ch !== 'none') { av.style.backgroundImage = ch; av.classList.add('mascot'); }
@@ -85,7 +91,9 @@ var FX_TRANS_MS    = 460;
     var nm = document.createElement('div'); nm.className = 'fxload-name';
     nm.textContent = (FX_LOADER_TEXT || logoTxt || '');
     var dt = document.createElement('div'); dt.className = 'fxload-dots'; dt.innerHTML = '<i></i><i></i><i></i>';
-    el.appendChild(av); if (nm.textContent) el.appendChild(nm); el.appendChild(dt);
+    var box = document.createElement('div'); box.className = 'fxload-box';
+    box.appendChild(av); if (nm.textContent) box.appendChild(nm); box.appendChild(dt);
+    el.appendChild(box);
     document.body.appendChild(el); fxLoadEl = el; shownAt = Date.now();
   }
 
