@@ -163,3 +163,7 @@ button:disabled, .disabled, [aria-disabled='true']{ cursor:url('/assets/cursor/n
 .avatar, #avatarWrap, .nav-ava, .profile-sheet .avatar, .profile-sheet #avatarWrap{ cursor:url('/assets/cursor/alias.png') 3 3, pointer !important; }
 .delete-btn{ cursor:url('/assets/cursor/context-menu.png') 11 5, pointer; }
 input[type=range]{ cursor:url('/assets/cursor/ew-resize.png') 5 2, ew-resize; }
+
+/* No black flash before the palette resolves: the canvas is painted immediately. */
+html{ background:#fffdf6; }
+body.dark html, html:has(body.dark){ background:#121712; }

@@ -43,25 +43,25 @@ var FX_TRANS_MS    = 460;
     @media (prefers-reduced-motion: reduce){ #fx{ display:none; } .card{ transition:none; } .fx-heart{ display:none; } }
 
     
-    #fxload{ position:fixed; inset:0; z-index:9999; display:grid; place-items:center; background:var(--bg); transition:opacity .2s ease; }
+    #fxload{ position:fixed; inset:0; z-index:9999; display:grid; place-items:center; background:var(--ep-paper, var(--bg, #fffdf6)); transition:opacity .28s ease; }
     #fxload .fxload-box{ position:relative; display:flex; flex-direction:column; align-items:center; gap:18px; }
     /* the caption stack hangs below so the avatar stays on the exact centre line */
     #fxload .fxload-name, #fxload .fxload-dots{ position:absolute; left:50%; transform:translateX(-50%); }
-    #fxload .fxload-name{ top:calc(100% + 20px); white-space:nowrap; }
-    #fxload .fxload-dots{ top:calc(100% + 56px); }
+    #fxload .fxload-name{ top:calc(100% + 24px); white-space:nowrap; }
+    #fxload .fxload-dots{ top:calc(100% + 64px); }
     #fxload.fx-hide{ opacity:0; pointer-events:none; }
     #fxload.fx-hide .fxload-av, #fxload.fx-hide .fxload-dots i{ animation-play-state:paused; }
-    #fxload .fxload-av{ width:136px; height:136px; border-radius:50%; border:5px solid var(--sheet, #fffdf7); background:var(--main-light); background-size:cover; background-position:center; display:flex; align-items:center; justify-content:center; font-size:46px; font-weight:800; color:var(--main-dark); box-shadow:0 10px 28px rgba(0,0,0,.14); animation:fxBob .85s ease-in-out infinite; }
-    #fxload .fxload-av.mascot{ width:150px; height:150px; border-radius:0; background-color:transparent; background-size:contain; background-repeat:no-repeat; box-shadow:none; filter:drop-shadow(0 12px 22px rgba(0,0,0,.16)); }
-    @keyframes fxBob{ 0%,100%{ transform:translateY(0) scale(1); } 50%{ transform:translateY(-12px) scale(1.04); } }
-    #fxload .fxload-name{ font-weight:800; font-size:18px; color:var(--main-dark); letter-spacing:.02em; }
+    #fxload .fxload-av{ width:190px; height:190px; border-radius:50%; border:6px solid var(--ep-paper, #fffdf6); background:var(--ep-week, #f1f7e9); background-size:cover; background-position:center; display:flex; align-items:center; justify-content:center; font-size:46px; font-weight:800; color:var(--main-dark); box-shadow:0 14px 34px rgba(83,98,83,.16); animation:fxBob 1.5s ease-in-out infinite; }
+    #fxload .fxload-av.mascot{ width:200px; height:200px; border-radius:0; background-color:transparent; background-size:contain; background-repeat:no-repeat; box-shadow:none; filter:drop-shadow(0 12px 22px rgba(0,0,0,.16)); }
+    @keyframes fxBob{ 0%,100%{ transform:translateY(0) scale(1); } 50%{ transform:translateY(-7px) scale(1.015); } }
+    #fxload .fxload-name{ font-weight:800; font-size:21px; color:var(--ep-ink, #35513a); letter-spacing:.02em; }
     #fxload .fxload-dots{ display:flex; gap:7px; }
-    #fxload .fxload-dots i{ width:9px; height:9px; border-radius:50%; background:var(--main); display:block; animation:fxDot 1s ease-in-out infinite; }
+    #fxload .fxload-dots i{ width:9px; height:9px; border-radius:50%; background:var(--ep-leaf, #9db27d); display:block; animation:fxDot 1.1s ease-in-out infinite; }
     #fxload .fxload-dots i:nth-child(2){ animation-delay:.15s; }
     #fxload .fxload-dots i:nth-child(3){ animation-delay:.3s; }
     @keyframes fxDot{ 0%,100%{ opacity:.3; transform:translateY(0); } 40%{ opacity:1; transform:translateY(-7px); } }
-    .fx-enter{ animation:fxPop var(--fx-trans,.8s) cubic-bezier(.2,.72,.3,1) both; transform-origin:50% 0; }
-    @keyframes fxPop{ from{ opacity:0; transform:scale(.93); } to{ opacity:1; transform:scale(1); } }
+    .fx-enter{ animation:fxPop var(--fx-trans,.46s) cubic-bezier(.22,.68,.28,1) both; transform-origin:50% 0; }
+    @keyframes fxPop{ from{ opacity:0; transform:scale(.985) translateY(8px); } to{ opacity:1; transform:none; } }
     @media (prefers-reduced-motion: reduce){ #fxload .fxload-av, #fxload .fxload-dots i{ animation:none !important; } .fx-enter{ animation:none !important; } }
   `;
   var st = document.createElement('style'); st.id = 'fx-style'; st.textContent = css; document.head.appendChild(st);
