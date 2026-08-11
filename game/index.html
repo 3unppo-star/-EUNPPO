@@ -174,9 +174,11 @@
   .wh-wheel{ border:6px solid var(--sheet); box-shadow:0 0 0 1.5px var(--line), var(--shadow-hover); }
   .wh-labels{ pointer-events:none; }
   .wh-bar{ position:absolute; left:50%; top:50%; width:50%; height:0; transform-origin:0 0; }
-  .wh-bar span{ position:absolute; right:8%; top:-9px; display:block; max-width:76%;
+  .wh-bar span{ position:absolute; left:62%; top:0; display:block;
+    transform-origin:center; translate:-50% -50%;
+    max-width:150px; text-align:center;
     font-size:calc(13px * var(--fs-body)); font-weight:800; color:var(--main-deep);
-    white-space:nowrap; overflow:hidden; text-overflow:ellipsis; transform-origin:center; }
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
   .wh-pin{ position:absolute; left:50%; top:-6px; transform:translateX(-50%); z-index:4;
     width:0; height:0; border-left:11px solid transparent; border-right:11px solid transparent;
     border-top:20px solid var(--accent); filter:drop-shadow(0 2px 3px rgba(60,80,60,.3)); }
@@ -333,10 +335,10 @@
           <div class="mr-row">
             <span class="mr-lab">속도</span>
             <div class="mr-btns">
-              <button class="game-tab on" type="button" data-speed="0.35">아주 느리게</button>
-              <button class="game-tab" type="button" data-speed="0.6">느리게</button>
+              <button class="game-tab" type="button" data-speed="0.3">아주 느리게</button>
+              <button class="game-tab on" type="button" data-speed="0.5">느리게</button>
               <button class="game-tab" type="button" data-speed="1">보통</button>
-              <button class="game-tab" type="button" data-speed="2">2배</button>
+              <button class="game-tab" type="button" data-speed="2">빠르게</button>
             </div>
           </div>
           <div class="mr-row">

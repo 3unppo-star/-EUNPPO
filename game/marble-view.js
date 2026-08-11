@@ -8,9 +8,9 @@
   var GOAL_SLOW_RANGE = 5;       /* original zoomThreshold */
 
   var cv, ctx, mini, mctx;
-  var world = null, raf = 0, speed = 0.35, running = false;
+  var world = null, raf = 0, speed = 0.5, running = false;
   var stageIndex = 0, winnerMode = 'first', winnerCount = 1, useSkill = false;
-  var camY = 0, camZoom = ZOOM, lastT = 0;
+  var camY = 0, camZoom = ZOOM, lastT = 0, carry = 0;
 
   function $(id) { return document.getElementById(id); }
   function stage() { return window.STAGES[stageIndex]; }
@@ -42,7 +42,7 @@
 
   function start() {
     if (!world && !build()) return;
-    world.start(); running = true; lastT = performance.now();
+    world.start(); running = true; lastT = performance.now(); carry = 0;
     $('mr-start').textContent = '다시 시작';
     loop();
   }
@@ -61,9 +61,12 @@
     lastT = now;
     if (running && world) {
       var slow = nearGoal() ? 0.2 : 1;
-      var target = dt * speed * slow;
-      var acc = 0;
-      while (acc < target) { world.step(1 / 60); acc += 1 / 60; }
+      /* leftover time carries to the next frame; a plain while-loop always ran one
+         step per frame and made the speed setting do nothing */
+      carry += dt * speed * slow;
+      var guard = 0;
+      while (carry >= 1 / 60 && guard < 20) { world.step(1 / 60); carry -= 1 / 60; guard++; }
+      if (guard >= 20) carry = 0;
       if (world.allDone()) { running = false; showWinner(); }
       renderRank();
     }

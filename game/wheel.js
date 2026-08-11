@@ -27,14 +27,15 @@
     var stops = items.map(function (_, i) {
       return 'hsl(' + hue(i) + ' 62% ' + (i % 2 ? 82 : 90) + '%) ' + (step * i) + 'deg ' + (step * (i + 1)) + 'deg';
     }).join(',');
-    wheel.style.background = 'conic-gradient(from -90deg,' + stops + ')';
+    wheel.style.background = 'conic-gradient(from 0deg,' + stops + ')';
 
     var labels = $('wh-labels');
     labels.innerHTML = items.map(function (t, i) {
-      var mid = step * i + step / 2 - 90;
-      var flip = (mid > 0 && mid < 180) ? 180 : 0;   /* keep text upright */
+      var mid = step * i + step / 2 - 90;          /* 0deg points right */
+      /* the bar carries the label out to the slice centre, then the text is turned
+         back so every label reads horizontally */
       return '<div class="wh-bar" style="transform:rotate(' + mid + 'deg)">' +
-             '<span style="transform:rotate(' + flip + 'deg)">' + esc(t) + '</span></div>';
+             '<span style="transform:rotate(' + (-mid) + 'deg)">' + esc(t) + '</span></div>';
     }).join('');
 
     var list = $('wh-list');
