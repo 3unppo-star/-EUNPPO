@@ -130,6 +130,73 @@
     .jb-sticks{ gap:20px; padding:0 26px; } .jb-stage{ padding-top:160px; }
     .jb-stick .cap{ width:40px; height:40px; top:-23px; }
   }
+
+  /* ── marble roulette ── */
+  .mr-maps{ display:flex; gap:6px; flex-wrap:wrap; }
+  .mr-grid{ display:grid; grid-template-columns:260px minmax(0,1fr); gap:18px; margin-top:14px; align-items:start; }
+  .mr-side{ display:flex; flex-direction:column; gap:10px; }
+  .mr-row{ display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+  .mr-lab{ font-size:calc(12px * var(--fs-label)); font-weight:800; color:var(--ep-muted,#84907e);
+    letter-spacing:.06em; width:74px; flex-shrink:0; }
+  .mr-minimap{ border:1.5px solid var(--line); border-radius:12px; overflow:hidden;
+    background:var(--card2); align-self:center; }
+  .mr-minimap canvas{ display:block; }
+  .mr-main{ position:relative; min-width:0; }
+  .mr-stage{ border:1.5px solid var(--line); border-radius:14px; overflow:hidden; background:var(--sheet); }
+  .mr-stage canvas{ display:block; width:100%; }
+  .mr-winner{ position:absolute; left:50%; top:44%; transform:translate(-50%,-50%);
+    display:flex; align-items:center; gap:12px; flex-wrap:wrap; justify-content:center;
+    background:var(--sheet); border:1.5px solid var(--accent);
+    border-radius:var(--radius-pill); padding:14px 26px; box-shadow:var(--shadow-hover); z-index:3; }
+  .mr-winner .wl{ font-family:var(--serif); font-size:calc(11px * var(--fs-label));
+    letter-spacing:.24em; color:var(--sub-deep); }
+  .mr-winner b{ font-family:var(--disp); font-size:calc(22px * var(--fs-title)); color:var(--main-deep); }
+  .mr-rank{ list-style:none; margin:12px 0 0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+  .mr-rank li{ display:inline-flex; align-items:center; gap:6px;
+    border:1px solid var(--line-soft); border-radius:var(--radius-pill);
+    padding:5px 12px; font-size:calc(12.5px * var(--fs-body)); color:var(--text-mid); }
+  .mr-rank li.done{ background:var(--card2); color:var(--main-deep); font-weight:800; }
+  .mr-rank li b{ color:var(--sub-deep); }
+
+  /* ── wheel ── */
+  .wh-grid{ display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:22px; align-items:start; }
+  .wh-main{ position:relative; display:flex; flex-direction:column; align-items:center; gap:16px; }
+  /* the wheel's result sits below it, not over the hub */
+  .wh-main .mr-winner{ position:static; transform:none; }
+  .wh-stage{ position:relative; width:min(420px,100%); aspect-ratio:1/1; }
+  .wh-wheel, .wh-labels{ position:absolute; inset:0; border-radius:50%; }
+  .wh-wheel{ border:6px solid var(--sheet); box-shadow:0 0 0 1.5px var(--line), var(--shadow-hover); }
+  .wh-labels{ pointer-events:none; }
+  .wh-bar{ position:absolute; left:50%; top:50%; width:50%; height:0; transform-origin:0 0; }
+  .wh-bar span{ position:absolute; right:8%; top:-9px; display:block; max-width:76%;
+    font-size:calc(13px * var(--fs-body)); font-weight:800; color:var(--main-deep);
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis; transform-origin:center; }
+  .wh-pin{ position:absolute; left:50%; top:-6px; transform:translateX(-50%); z-index:4;
+    width:0; height:0; border-left:11px solid transparent; border-right:11px solid transparent;
+    border-top:20px solid var(--accent); filter:drop-shadow(0 2px 3px rgba(60,80,60,.3)); }
+  .wh-hub{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:5;
+    width:96px; height:96px; border-radius:50%; border:5px solid var(--sheet);
+    background:var(--sub-deep); color:var(--sheet); cursor:pointer;
+    font-family:var(--disp); font-size:calc(16px * var(--fs-title)); font-weight:800;
+    box-shadow:var(--shadow-hover); }
+  .wh-hub:hover{ background:var(--sub-mid); }
+  .wh-side{ display:flex; flex-direction:column; gap:10px; }
+  .wh-head{ display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap; }
+  .wh-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:7px; }
+  .wh-list li{ display:flex; align-items:center; gap:8px; }
+  .wh-list i{ width:14px; height:14px; border-radius:50%; flex-shrink:0; }
+  .wh-in{ flex:1; min-width:0; box-sizing:border-box; padding:9px 12px; border-radius:11px;
+    border:1.5px solid var(--line); background:var(--sheet); color:var(--text);
+    font-size:calc(13.5px * var(--fs-body)); font-family:inherit; outline:none; }
+  .wh-in:focus{ border-color:var(--accent); }
+  .wh-del{ border:1.5px solid var(--line); background:var(--sheet); color:var(--text-soft);
+    border-radius:9px; width:30px; height:30px; cursor:pointer; font-size:13px; flex-shrink:0; }
+  .wh-del:hover{ color:#C4574F; border-color:#C4574F; }
+
+  @media (max-width:900px){
+    .mr-grid, .wh-grid{ grid-template-columns:minmax(0,1fr); }
+    .mr-minimap{ display:none; }
+  }
 </style>
 <link rel="stylesheet" href="../eunppo-profile-final.css">
 <link rel="stylesheet" href="../eunppo-tweaks.css">
@@ -165,6 +232,8 @@
     <div class="game-tabs">
       <button class="game-tab on" type="button" id="tabbtn-ladder" onclick="switchGame('ladder')">🍋 사다리타기</button>
       <button class="game-tab" type="button" id="tabbtn-lots" onclick="switchGame('lots')">🌿 제비뽑기</button>
+      <button class="game-tab" type="button" id="tabbtn-marble" onclick="switchGame('marble')">🎱 구슬 레이스</button>
+      <button class="game-tab" type="button" id="tabbtn-wheel" onclick="switchGame('wheel')">🎡 원판 룰렛</button>
     </div>
 
     <div class="card" id="game-ladder">
@@ -213,6 +282,85 @@
       </div>
       <div class="lg-log" id="jb-log"></div>
     </div>
+
+    <div class="card" id="game-marble" style="display:none">
+      <div class="lg-top">
+        <div class="mr-maps">
+          <button class="game-tab on" type="button" data-map="0">운명의 수레바퀴</button>
+          <button class="game-tab" type="button" data-map="1">거품 터뜨리기</button>
+          <button class="game-tab" type="button" data-map="2">욕망의 항아리</button>
+          <button class="game-tab" type="button" data-map="3">밤을 달리다</button>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="lg-btn ghost" type="button" id="mr-reset">↺ 다시하기</button>
+          <button class="lg-btn" type="button" id="mr-start">시작하기</button>
+        </div>
+      </div>
+      <div class="mr-grid">
+        <div class="mr-side">
+          <label class="input-label" for="mr-names">참가자</label>
+          <textarea class="input" id="mr-names" rows="8">최은뽀
+양배추1
+양배추2
+양배추3
+양배추4
+양배추5</textarea>
+          <div class="hint">한 줄에 한 명 · <b>이름*3</b> 이면 구슬 3개(확률 3배) · <b>이름/2</b> 는 스킬을 자주 씀 · 최대 60개</div>
+          <div class="mr-row">
+            <span class="mr-lab">뽑기</span>
+            <button class="game-tab on" type="button" data-wmode="first">1등</button>
+            <button class="game-tab" type="button" data-wmode="last">꼴등</button>
+            <button class="game-tab" type="button" data-wmode="nth">N등</button>
+          </div>
+          <div class="mr-row" id="mr-count-wrap">
+            <span class="mr-lab">인원 / 등수</span>
+            <input class="input" id="mr-count" type="number" min="1" max="20" value="1" style="width:84px">
+          </div>
+          <div class="mr-row">
+            <span class="mr-lab">속도</span>
+            <button class="game-tab on" type="button" data-speed="1">1배</button>
+            <button class="game-tab" type="button" data-speed="2">2배</button>
+            <button class="game-tab" type="button" data-speed="4">4배</button>
+          </div>
+          <div class="mr-row">
+            <label style="font-size:13px;font-weight:800"><input type="checkbox" id="mr-skill"> 스킬 사용</label>
+          </div>
+          <div class="mr-minimap"><canvas id="mr-mini" width="120" height="240"></canvas></div>
+        </div>
+        <div class="mr-main">
+          <div class="mr-stage"><canvas id="mr-canvas"></canvas></div>
+          <div class="mr-winner" id="mr-winner" style="display:none"></div>
+          <ol class="mr-rank" id="mr-rank"></ol>
+        </div>
+      </div>
+      <div class="hint" style="margin-top:12px">코스 데이터는 lazygyu/roulette (MIT, © 2023 LazyGyu) 원본을 그대로 씁니다</div>
+    </div>
+
+    <div class="card" id="game-wheel" style="display:none">
+      <div class="wh-grid">
+        <div class="wh-main">
+          <div class="wh-stage">
+            <div class="wh-pin"></div>
+            <div class="wh-wheel" id="wh-wheel"></div>
+            <div class="wh-labels" id="wh-labels"></div>
+            <button class="wh-hub" type="button" id="wh-spin">돌리기</button>
+          </div>
+          <div class="mr-winner" id="wh-result" style="display:none"></div>
+        </div>
+        <div class="wh-side">
+          <div class="wh-head">
+            <span class="input-label" style="margin:0">항목 <b id="wh-count"></b></span>
+            <span style="display:flex;gap:6px">
+              <button class="lg-btn ghost" type="button" id="wh-add">+ 칸 추가</button>
+              <button class="lg-btn ghost" type="button" id="wh-reset">기본값으로</button>
+            </span>
+          </div>
+          <ul class="wh-list" id="wh-list"></ul>
+          <div class="hint">칸에 바로 적으면 원판에 즉시 반영됩니다 · 2~12칸 · 이 브라우저에 저장돼 새로고침해도 남아요</div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <div class="sub-ask"><button class="lbtn lbtn-ask" type="button" onclick="openInquiry()"><span class="l-ic ask">✉</span>문의하기</button></div>
@@ -237,6 +385,10 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="../supabase.js"></script>
+<script src="./maps.js"></script>
+<script src="./marble.js"></script>
+<script src="./marble-view.js"></script>
+<script src="./wheel.js"></script>
 <script src="../site.js"></script>
 <script>
 const TOK = ['🍋','🌿','🍃','🍀','🌱','🍐','🌵','🪴','🌾','🍈','🥬','🌻'];
@@ -244,12 +396,15 @@ const PC = ['#5E8A3F','#C98A2A','#7BA84F','#E0A63C','#4E7B93','#9A7BC0','#C7615B
 const gob = i => TOK[i % TOK.length];
 const $ = id => document.getElementById(id);
 function cssVar(n){ return getComputedStyle(document.body).getPropertyValue(n).trim() || '#2F5E24'; }
+var GAMES = ['ladder','lots','marble','wheel'];
 function switchGame(g){
-  $('game-ladder').style.display = g === 'ladder' ? '' : 'none';
-  $('game-lots').style.display   = g === 'lots'   ? '' : 'none';
-  $('tabbtn-ladder').classList.toggle('on', g === 'ladder');
-  $('tabbtn-lots').classList.toggle('on', g === 'lots');
+  GAMES.forEach(function(k){
+    var p = $('game-' + k), t = $('tabbtn-' + k);
+    if (p) p.style.display = (k === g) ? '' : 'none';
+    if (t) t.classList.toggle('on', k === g);
+  });
   if (g === 'ladder' && !busy) repaint();
+  if (g === 'marble' && window.initMarble) window.initMarble();
 }
 
 /* Ladder. Rung chance 0.45, no adjacent duplicates, every column gets at least one. */
@@ -517,6 +672,7 @@ function jbReset(){
 
 window.addEventListener('resize', function(){ if (!busy) repaint(); });
 renderSetup();
+if (window.initWheel) window.initWheel();
 
 (async function(){
   try { applyHeading('game', await window.profileData || {}); } catch (e) {}
