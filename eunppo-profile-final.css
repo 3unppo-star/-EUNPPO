@@ -608,7 +608,7 @@ body.is-profile .profile-sheet .profile-visual .cc-img{
   margin:0 !important;
   border:0 !important;
   border-radius:18px 54px 18px 18px !important;
-  background:url("./assets/photo-1.jpg") 50% 50%/cover no-repeat !important;
+  background:var(--img-cc, url("./assets/photo-1.jpg")) 50% 50%/cover no-repeat !important;
   box-shadow:none !important;
   overflow:visible !important;
 }
@@ -724,7 +724,7 @@ body.is-profile .profile-sheet .profile-photo{
   height:526px;
   overflow:hidden;
   border-radius:18px 54px 18px 18px;
-  background:url("./assets/photo-1.jpg") 50% 50%/cover no-repeat;
+  background:var(--img-cc, url("./assets/photo-1.jpg")) 50% 50%/cover no-repeat;
 }
 
 body.is-profile .profile-sheet .profile-photo #cc-media{

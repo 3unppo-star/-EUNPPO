@@ -123,6 +123,10 @@ window.profileData.then(function (d) {
     var v = txt(d[k]);
     if (v) root.style.setProperty('--txt-' + k, '"' + v.replace(/"/g, '\\"') + '"');
   });
+
+  /* images baked into CSS backgrounds are swapped the same way */
+  var ccImg = txt(d['cc-img']);
+  if (ccImg) root.style.setProperty('--img-cc', 'url("' + ccImg.replace(/"/g, '%22') + '")');
 }).catch(function () {});
 
 /* The nav photo uses the same source as the hero avatar on every page. */
