@@ -4,11 +4,11 @@
    before the goal zooms in and slows down, stuck marbles are shaken. */
 
 (function () {
-  var ZOOM = 30;                 /* original initialZoom */
+  var ZOOM = 20;                 /* original 30; widened so more of the course is visible */
   var GOAL_SLOW_RANGE = 5;       /* original zoomThreshold */
 
   var cv, ctx, mini, mctx;
-  var world = null, raf = 0, speed = 1, running = false;
+  var world = null, raf = 0, speed = 0.35, running = false;
   var stageIndex = 0, winnerMode = 'first', winnerCount = 1, useSkill = false;
   var camY = 0, camZoom = ZOOM, lastT = 0;
 
@@ -95,13 +95,13 @@
     if (!world) { hint(W, H); return; }
 
     var d = decider();
-    var wantZoom = nearGoal() ? ZOOM * 1.7 : ZOOM;
+    var wantZoom = nearGoal() ? ZOOM * 1.9 : ZOOM;
     camZoom += (wantZoom - camZoom) * 0.06;
     var wantY = d ? d.y : camY;
     camY += (wantY - camY) * 0.12;
 
     ctx.save();
-    ctx.translate(W / 2, H * 0.42);
+    ctx.translate(W / 2, H * 0.38);
     ctx.scale(camZoom * (W / 900), camZoom * (W / 900));
     ctx.translate(-12, -camY);
 

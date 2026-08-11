@@ -133,11 +133,14 @@
 
   /* ── marble roulette ── */
   .mr-maps{ display:flex; gap:6px; flex-wrap:wrap; }
-  .mr-grid{ display:grid; grid-template-columns:260px minmax(0,1fr); gap:18px; margin-top:14px; align-items:start; }
-  .mr-side{ display:flex; flex-direction:column; gap:10px; }
-  .mr-row{ display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
-  .mr-lab{ font-size:calc(12px * var(--fs-label)); font-weight:800; color:var(--ep-muted,#84907e);
-    letter-spacing:.06em; width:74px; flex-shrink:0; }
+  .mr-grid{ display:grid; grid-template-columns:296px minmax(0,1fr); gap:20px; margin-top:14px; align-items:start; }
+  .mr-side{ display:flex; flex-direction:column; gap:12px; }
+  /* label above, buttons on one line below - keeps every row the same height */
+  .mr-row{ display:flex; flex-direction:column; align-items:flex-start; gap:7px; }
+  .mr-btns{ display:flex; gap:6px; flex-wrap:wrap; }
+  .mr-btns .game-tab{ padding:8px 15px; font-size:calc(13px * var(--fs-body)); }
+  .mr-lab{ font-size:calc(11.5px * var(--fs-label)); font-weight:800; color:var(--ep-muted,#84907e);
+    letter-spacing:.1em; }
   .mr-minimap{ border:1.5px solid var(--line); border-radius:12px; overflow:hidden;
     background:var(--card2); align-self:center; }
   .mr-minimap canvas{ display:block; }
@@ -159,11 +162,14 @@
   .mr-rank li b{ color:var(--sub-deep); }
 
   /* ── wheel ── */
-  .wh-grid{ display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:22px; align-items:start; }
-  .wh-main{ position:relative; display:flex; flex-direction:column; align-items:center; gap:16px; }
+  /* wheel + list hug their content and the pair is centred in the card */
+  .wh-grid{ display:flex; justify-content:center; align-items:center; gap:34px; flex-wrap:wrap; }
+  .wh-side{ width:340px; flex:0 0 340px; }
+  .wh-main{ position:relative; display:flex; flex-direction:column; align-items:center; gap:16px;
+    flex:0 1 460px; min-width:0; }
   /* the wheel's result sits below it, not over the hub */
   .wh-main .mr-winner{ position:static; transform:none; }
-  .wh-stage{ position:relative; width:min(420px,100%); aspect-ratio:1/1; }
+  .wh-stage{ position:relative; width:460px; max-width:100%; aspect-ratio:1/1; margin:0 auto; }
   .wh-wheel, .wh-labels{ position:absolute; inset:0; border-radius:50%; }
   .wh-wheel{ border:6px solid var(--sheet); box-shadow:0 0 0 1.5px var(--line), var(--shadow-hover); }
   .wh-labels{ pointer-events:none; }
@@ -180,7 +186,7 @@
     font-family:var(--disp); font-size:calc(16px * var(--fs-title)); font-weight:800;
     box-shadow:var(--shadow-hover); }
   .wh-hub:hover{ background:var(--sub-mid); }
-  .wh-side{ display:flex; flex-direction:column; gap:10px; }
+  .wh-side{ display:flex; flex-direction:column; gap:10px; width:100%; }
   .wh-head{ display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap; }
   .wh-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:7px; }
   .wh-list li{ display:flex; align-items:center; gap:8px; }
@@ -193,8 +199,14 @@
     border-radius:9px; width:30px; height:30px; cursor:pointer; font-size:13px; flex-shrink:0; }
   .wh-del:hover{ color:#C4574F; border-color:#C4574F; }
 
+  @media (max-width:400px){
+    .wh-side{ width:100%; flex:1 1 100%; }
+  }
   @media (max-width:900px){
-    .mr-grid, .wh-grid{ grid-template-columns:minmax(0,1fr); }
+    .mr-grid{ grid-template-columns:minmax(0,1fr); }
+    /* stacked: wheel and list share one width so the column stays centred */
+    .wh-main{ flex:0 1 100%; width:min(460px,100%); }
+    .wh-side{ width:min(460px,100%); flex:0 1 auto; margin:0 auto; }
     .mr-minimap{ display:none; }
   }
 </style>
@@ -232,7 +244,7 @@
     <div class="game-tabs">
       <button class="game-tab on" type="button" id="tabbtn-ladder" onclick="switchGame('ladder')">🍋 사다리타기</button>
       <button class="game-tab" type="button" id="tabbtn-lots" onclick="switchGame('lots')">🌿 제비뽑기</button>
-      <button class="game-tab" type="button" id="tabbtn-marble" onclick="switchGame('marble')">🎱 구슬 레이스</button>
+      <button class="game-tab" type="button" id="tabbtn-marble" onclick="switchGame('marble')">🎱 핀볼</button>
       <button class="game-tab" type="button" id="tabbtn-wheel" onclick="switchGame('wheel')">🎡 원판 룰렛</button>
     </div>
 
@@ -308,9 +320,11 @@
           <div class="hint">한 줄에 한 명 · <b>이름*3</b> 이면 구슬 3개(확률 3배) · <b>이름/2</b> 는 스킬을 자주 씀 · 최대 60개</div>
           <div class="mr-row">
             <span class="mr-lab">뽑기</span>
-            <button class="game-tab on" type="button" data-wmode="first">1등</button>
-            <button class="game-tab" type="button" data-wmode="last">꼴등</button>
-            <button class="game-tab" type="button" data-wmode="nth">N등</button>
+            <div class="mr-btns">
+              <button class="game-tab on" type="button" data-wmode="first">1등</button>
+              <button class="game-tab" type="button" data-wmode="last">꼴등</button>
+              <button class="game-tab" type="button" data-wmode="nth">N등</button>
+            </div>
           </div>
           <div class="mr-row" id="mr-count-wrap">
             <span class="mr-lab">인원 / 등수</span>
@@ -318,9 +332,12 @@
           </div>
           <div class="mr-row">
             <span class="mr-lab">속도</span>
-            <button class="game-tab on" type="button" data-speed="1">1배</button>
-            <button class="game-tab" type="button" data-speed="2">2배</button>
-            <button class="game-tab" type="button" data-speed="4">4배</button>
+            <div class="mr-btns">
+              <button class="game-tab on" type="button" data-speed="0.35">아주 느리게</button>
+              <button class="game-tab" type="button" data-speed="0.6">느리게</button>
+              <button class="game-tab" type="button" data-speed="1">보통</button>
+              <button class="game-tab" type="button" data-speed="2">2배</button>
+            </div>
           </div>
           <div class="mr-row">
             <label style="font-size:13px;font-weight:800"><input type="checkbox" id="mr-skill"> 스킬 사용</label>
