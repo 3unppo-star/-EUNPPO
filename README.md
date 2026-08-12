@@ -5,7 +5,7 @@
 ```
 index.html      style.css   site.js   supabase.js   fx.js   pcview.js
 assets/         char.png  hero.jpg  photo-1~3.jpg
-schedule/  song/  work/  dress/  game/            (각 index.html)
+schedule/  song/  work/  dress/  emoticon/  game/   (각 index.html)
 eunppo-shell.css        (전 페이지 공통 껍데기)
 eunppo-profile-final.css (프로필 전용 레이아웃)
 admin/          overlay/
@@ -80,6 +80,7 @@ GitHub 웹에서 **Add file → Create new file** 을 누르고 파일 이름 �
 | 노래책 | 1300 | 1400 | 1900 | 2600 |
 | 업보 | 1200 | 1300 | 1600 | 2300 |
 | 옷장 | 1600 | 1750 | 2100 | 3000 |
+| 이모티콘 | 1500 | 1600 | 2100 | 3400 |
 | 미니게임 | 1350 | 1400 | 1600 | 2000 |
 
 ### 하지 말 것
@@ -110,6 +111,7 @@ Supabase → Authentication → Users 에서 처리합니다.
 | 🎵 노래 | 노래책 목록 · ARCHIVE 영상 |
 | ⚡ 업보 | 시청자 · 업보 종류 · 부여 |
 | 👗 옷장 | 옷 등록 (새 옷 / 기존 옷) |
+| 🖼 이모티콘 | 카드 4개 — 이름 · 이미지 · SOOP 주소 · 네이버 주소 |
 | ✉️ 문의 | 받은 쪽지 |
 | ✏️ 문구 | 각 페이지 머리글 |
 | 🎨 테마 | 색 10종 · 글자 크기 4단 |
@@ -135,6 +137,7 @@ SOOP 비공개 게시판에 사진을 올린 뒤 사진 위에서 우클릭 → 
 | 로딩 화면 얼굴 | 1:1 | 320×320 |
 | 갤러리 1~4 | 3:4 | 900×1200 |
 | 옷장 | 3:4 | 900×1200 |
+| 이모티콘 카드 | 4:3 | 370×320 (gif 가능) |
 
 프로필 사진은 SOOP 아이디만 넣으면 자동으로 가져옵니다.
 
