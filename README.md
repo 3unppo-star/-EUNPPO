@@ -5,7 +5,7 @@
 ```
 index.html      style.css   site.js   supabase.js   fx.js   pcview.js
 assets/         char.png  hero.jpg  photo-1~3.jpg
-schedule/  song/  work/  dress/  emoticon/  game/   (각 index.html)
+notice/  schedule/  song/  work/  dress/  emoticon/  game/   (각 index.html)
 eunppo-shell.css        (전 페이지 공통 껍데기)
 eunppo-profile-final.css (프로필 전용 레이아웃)
 admin/          overlay/
@@ -76,6 +76,7 @@ GitHub 웹에서 **Add file → Create new file** 을 누르고 파일 이름 �
 | 페이지 | 1240px | 1000px | 780px | 420px |
 |---|---|---|---|---|
 | 프로필 (`/`) | 2500 | 2700 | 3200 | 4400 |
+| 공지 | 1200 | 1300 | 1600 | 2400 |
 | 방송 일정 | 1500 | 1600 | 1850 | 2400 |
 | 노래책 | 1300 | 1400 | 1900 | 2600 |
 | 업보 | 1200 | 1300 | 1600 | 2300 |
@@ -107,6 +108,7 @@ Supabase → Authentication → Users 에서 처리합니다.
 | 🎀 프로필 카드 | 프로필 표 · 태그 · SUNROOM 라벨과 소개문 · LIKE / DISLIKE |
 | 📆 이번 주 | 섹션 제목 · 안내문 · 방송 요일 · 요일 7칸(이름·내용·시간) · 일정 3줄 |
 | ♪ 대표곡·링크 | 대표곡 제목·설명·링크 · 푸터 링크 버튼 4 |
+| 📢 공지 | 공지 작성 · 고정 · 이미지 여러 장 |
 | 📅 일정 | 달력에 들어갈 일정 (기간 일정은 종료일 입력) |
 | 🎵 노래 | 노래책 목록 · ARCHIVE 영상 |
 | ⚡ 업보 | 시청자 · 업보 종류 · 부여 |

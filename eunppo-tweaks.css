@@ -76,6 +76,12 @@
   --line-soft:color-mix(in srgb, var(--ep-line, #cbd7ad) 55%, transparent);
 }
 
+@media(max-width:1180px){
+  /* eight tabs need the whole bar; NEXT LIVE also shows in the stat strip below */
+  .profile-sheet .mast-chrome .addr{ display:none !important; }
+  .profile-sheet .site-nav .nav-inner{ padding-right:16px !important; }
+}
+
 @media(max-width:960px){
   .profile-sheet .site-nav .nav-logo{
     position:static !important; top:auto !important; left:auto !important;

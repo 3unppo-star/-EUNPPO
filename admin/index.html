@@ -167,6 +167,7 @@
     <button class="tab-btn" data-tab="prof">🎀 프로필 카드</button>
     <button class="tab-btn" data-tab="week">📆 이번 주</button>
     <button class="tab-btn" data-tab="song2">♪ 대표곡·링크</button>
+    <button class="tab-btn" data-tab="notice">📢 공지</button>
     <button class="tab-btn" data-tab="schedule">📅 일정</button>
     <button class="tab-btn" data-tab="song">🎵 노래</button>
     <button class="tab-btn" data-tab="work">⚡ 업보</button>
@@ -260,6 +261,35 @@
       <div class="card-note">나오는 곳 — 페이지 맨 아래 알약 버튼</div>
       <div class="grid2"><div class="form-field"><label class="input-label" for="f-link-soop">SOOP 방송국</label><input class="input" id="f-link-soop" type="url" placeholder="https://www.sooplive.com/station/eunpp0"><div class="hint">푸터 링크 버튼 · 방송국 주소</div></div><div class="form-field"><label class="input-label" for="f-link-youtube">유튜브</label><input class="input" id="f-link-youtube" type="url" placeholder="https://www.youtube.com/@..."><div class="hint">푸터 링크 버튼 · 채널 주소</div></div><div class="form-field"><label class="input-label" for="f-link-x">X (트위터)</label><input class="input" id="f-link-x" type="url" placeholder="https://x.com/..."><div class="hint">푸터 링크 버튼 · 프로필 주소</div></div><div class="form-field"><label class="input-label" for="f-link-cafe">카페</label><input class="input" id="f-link-cafe" type="url" placeholder="https://cafe.naver.com/..."><div class="hint">푸터 링크 버튼 · 어인섬 카페 주소</div></div></div>
       <div class="row-act"><button class="btn btn-primary" data-save="1">저장</button></div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-notice">
+    <div class="card">
+      <div class="card-title">📢 공지 작성</div>
+      <div class="card-note">나오는 곳 — 공지 페이지. 고정한 공지가 항상 맨 위에 옵니다</div>
+      <div class="grid2">
+        <div class="form-field full"><label class="input-label" for="nt-title">제목</label>
+          <input class="input" id="nt-title" placeholder="8월 방송 일정 안내">
+          <div class="hint">목록에 크게 나오는 줄 · 필수</div></div>
+        <div class="form-field full"><label class="input-label" for="nt-content">내용</label>
+          <textarea class="input" id="nt-content" rows="5"></textarea>
+          <div class="hint">줄바꿈 그대로 반영 · 제목을 누르면 펼쳐집니다</div></div>
+        <div class="form-field full"><label class="input-label" for="nt-images">이미지 주소</label>
+          <textarea class="input" id="nt-images" rows="3" placeholder="https://stimg.sooplive.com/..."></textarea>
+          <div class="hint">한 줄에 하나씩 · 여러 장 가능 · 누르면 크게 열립니다 · SOOP 비공개 게시판에 올린 뒤 사진 우클릭 → 이미지 주소 복사</div></div>
+        <div class="form-field full">
+          <label style="font-size:13px;font-weight:800"><input type="checkbox" id="nt-pin"> 📌 맨 위에 고정</label>
+          <div class="hint">고정한 공지는 날짜와 상관없이 목록 맨 위에 표시됩니다</div></div>
+      </div>
+      <div class="row-act"><button class="btn btn-primary" id="addNt">등록</button></div>
+    </div>
+    <div class="card">
+      <div class="card-title">등록된 공지</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>제목</th><th>고정</th><th>이미지</th><th>등록일</th><th>삭제</th></tr></thead>
+        <tbody id="nt-list"><tr><td colspan="5"><div class="spinner"></div></td></tr></tbody>
+      </table></div>
     </div>
   </div>
 
@@ -474,7 +504,7 @@
     <div class="card">
       <div class="card-title">페이지 머리글</div>
       <div class="card-note">각 페이지 맨 위 영문·한글 제목. 비우면 기본 문구가 나옵니다</div>
-      <div class="grid2"><div class="form-field"><label class="input-label" for="f-schedule-kicker">방송 일정 · 영문</label><input class="input" id="f-schedule-kicker" type="text" placeholder="SCHEDULE"><div class="hint">방송 일정 페이지 맨 위 영문 · 대문자</div></div><div class="form-field"><label class="input-label" for="f-schedule-sub">방송 일정 · 한글</label><input class="input" id="f-schedule-sub" type="text" placeholder="방송 일정"><div class="hint">영문 아래 한글 제목</div></div><div class="form-field"><label class="input-label" for="f-song-kicker">노래책 · 영문</label><input class="input" id="f-song-kicker" type="text" placeholder="SONG"><div class="hint">노래책 페이지 맨 위 영문 · 대문자</div></div><div class="form-field"><label class="input-label" for="f-song-sub">노래책 · 한글</label><input class="input" id="f-song-sub" type="text" placeholder="노래책"><div class="hint">영문 아래 한글 제목</div></div><div class="form-field"><label class="input-label" for="f-work-kicker">업보 · 영문</label><input class="input" id="f-work-kicker" type="text" placeholder="WORK"><div class="hint">업보 페이지 맨 위 영문 · 대문자</div></div><div class="form-field"><label class="input-label" for="f-work-sub">업보 · 한글</label><input class="input" id="f-work-sub" type="text" placeholder="업보"><div class="hint">영문 아래 한글 제목</div></div><div class="form-field"><label class="input-label" for="f-dress-kicker">옷장 · 영문</label><input class="input" id="f-dress-kicker" type="text" placeholder="DRESS"><div class="hint">옷장 페이지 맨 위 영문 · 대문자</div></div><div class="form-field"><label class="input-label" for="f-dress-sub">옷장 · 한글</label><input class="input" id="f-dress-sub" type="text" placeholder="옷장"><div class="hint">영문 아래 한글 제목</div></div><div class="form-field"><label class="input-label" for="f-game-kicker">미니게임 · 영문</label><input class="input" id="f-game-kicker" type="text" placeholder="GAME"><div class="hint">미니게임 페이지 맨 위 영문 · 대문자</div></div><div class="form-field"><label class="input-label" for="f-game-sub">미니게임 · 한글</label><input class="input" id="f-game-sub" type="text" placeholder="미니게임"><div class="hint">영문 아래 한글 제목</div></div><div class="form-field"><label class="input-label" for="f-emoticon-kicker">이모티콘 · 영문</label><input class="input" id="f-emoticon-kicker" type="text" placeholder="EMOTICON"><div class="hint">이모티콘 페이지 맨 위 영문 · 대문자</div></div><div class="form-field"><label class="input-label" for="f-emoticon-sub">이모티콘 · 한글</label><input class="input" id="f-emoticon-sub" type="text" placeholder="이모티콘"><div class="hint">영문 아래 한글 제목</div></div></div>
+      <div class="grid2"><div class="form-field"><label class="input-label" for="f-schedule-kicker">방송 일정 · 영문</label><input class="input" id="f-schedule-kicker" type="text" placeholder="SCHEDULE"><div class="hint">방송 일정 페이지 맨 위 영문 · 대문자</div></div><div class="form-field"><label class="input-label" for="f-schedule-sub">방송 일정 · 한글</label><input class="input" id="f-schedule-sub" type="text" placeholder="방송 일정"><div class="hint">영문 아래 한글 제목</div></div><div class="form-field"><label class="input-label" for="f-song-kicker">노래책 · 영문</label><input class="input" id="f-song-kicker" type="text" placeholder="SONG"><div class="hint">노래책 페이지 맨 위 영문 · 대문자</div></div><div class="form-field"><label class="input-label" for="f-song-sub">노래책 · 한글</label><input class="input" id="f-song-sub" type="text" placeholder="노래책"><div class="hint">영문 아래 한글 제목</div></div><div class="form-field"><label class="input-label" for="f-work-kicker">업보 · 영문</label><input class="input" id="f-work-kicker" type="text" placeholder="WORK"><div class="hint">업보 페이지 맨 위 영문 · 대문자</div></div><div class="form-field"><label class="input-label" for="f-work-sub">업보 · 한글</label><input class="input" id="f-work-sub" type="text" placeholder="업보"><div class="hint">영문 아래 한글 제목</div></div><div class="form-field"><label class="input-label" for="f-dress-kicker">옷장 · 영문</label><input class="input" id="f-dress-kicker" type="text" placeholder="DRESS"><div class="hint">옷장 페이지 맨 위 영문 · 대문자</div></div><div class="form-field"><label class="input-label" for="f-dress-sub">옷장 · 한글</label><input class="input" id="f-dress-sub" type="text" placeholder="옷장"><div class="hint">영문 아래 한글 제목</div></div><div class="form-field"><label class="input-label" for="f-game-kicker">미니게임 · 영문</label><input class="input" id="f-game-kicker" type="text" placeholder="GAME"><div class="hint">미니게임 페이지 맨 위 영문 · 대문자</div></div><div class="form-field"><label class="input-label" for="f-game-sub">미니게임 · 한글</label><input class="input" id="f-game-sub" type="text" placeholder="미니게임"><div class="hint">영문 아래 한글 제목</div></div><div class="form-field"><label class="input-label" for="f-emoticon-kicker">이모티콘 · 영문</label><input class="input" id="f-emoticon-kicker" type="text" placeholder="EMOTICON"><div class="hint">이모티콘 페이지 맨 위 영문 · 대문자</div></div><div class="form-field"><label class="input-label" for="f-emoticon-sub">이모티콘 · 한글</label><input class="input" id="f-emoticon-sub" type="text" placeholder="이모티콘"><div class="hint">영문 아래 한글 제목</div></div><div class="form-field"><label class="input-label" for="f-notice-kicker">공지 · 영문</label><input class="input" id="f-notice-kicker" type="text" placeholder="NOTICE"><div class="hint">공지 페이지 맨 위 영문 · 대문자</div></div><div class="form-field"><label class="input-label" for="f-notice-sub">공지 · 한글</label><input class="input" id="f-notice-sub" type="text" placeholder="공지"><div class="hint">영문 아래 한글 제목</div></div></div>
       <div class="row-act"><button class="btn btn-primary" data-save="1">저장</button></div>
     </div>
   </div>
@@ -522,7 +552,7 @@
 <script>
 /* profileKeys is the source of truth: every key needs an #f-{key} input and a page hook.
    Adding a key here means adding the input and the hook on the page too. */
-const profileKeys = ["hero-bg", "soop-id", "avatar", "loader-img", "cc-img", "gallery-1", "gallery-2", "gallery-3", "sing-art", "cc-media", "hero-kicker", "hero-name", "hero-en", "hero-deck", "hero-badges", "hero-quote", "next-live", "avatar-tag", "stat-debut", "stat-birth", "stat-crew", "stat-fan", "statlab-1", "statlab-2", "statlab-3", "statlab-5", "gcap-1", "gcap-2", "gcap-3", "live-badge", "footer-mark", "info-headline", "info-content", "info-item", "info-tags", "cc-kicker", "cc-caption", "cc-intro", "msg", "like-list", "dislike-list", "week-kicker", "week-title", "week-note", "days", "dayname-0", "daytext-0", "daytime-0", "dayname-1", "daytext-1", "daytime-1", "dayname-2", "daytext-2", "daytime-2", "dayname-3", "daytext-3", "daytime-3", "dayname-4", "daytext-4", "daytime-4", "dayname-5", "daytext-5", "daytime-5", "dayname-6", "daytext-6", "daytime-6", "sing-title", "sing-sub", "sing-link", "link-soop", "link-youtube", "link-x", "link-cafe", "schedule-kicker", "schedule-sub", "song-kicker", "song-sub", "work-kicker", "work-sub", "dress-kicker", "dress-sub", "emoticon-kicker", "emoticon-sub", "game-kicker", "game-sub", "emo-name-1", "emo-img-1", "emo-soop-1", "emo-naver-1", "emo-name-2", "emo-img-2", "emo-soop-2", "emo-naver-2", "emo-name-3", "emo-img-3", "emo-soop-3", "emo-naver-3", "emo-name-4", "emo-img-4", "emo-soop-4", "emo-naver-4", "theme-ep-paper", "theme-ep-paper-soft", "theme-ep-week", "theme-ep-forest", "theme-ep-ink", "theme-ep-body", "theme-ep-muted", "theme-ep-line", "theme-ep-yellow", "theme-ep-leaf", "type-display", "type-title", "type-body", "type-label"];
+const profileKeys = ["hero-bg", "soop-id", "avatar", "loader-img", "cc-img", "gallery-1", "gallery-2", "gallery-3", "sing-art", "cc-media", "hero-kicker", "hero-name", "hero-en", "hero-deck", "hero-badges", "hero-quote", "next-live", "avatar-tag", "stat-debut", "stat-birth", "stat-crew", "stat-fan", "statlab-1", "statlab-2", "statlab-3", "statlab-5", "gcap-1", "gcap-2", "gcap-3", "live-badge", "footer-mark", "info-headline", "info-content", "info-item", "info-tags", "cc-kicker", "cc-caption", "cc-intro", "msg", "like-list", "dislike-list", "week-kicker", "week-title", "week-note", "days", "dayname-0", "daytext-0", "daytime-0", "dayname-1", "daytext-1", "daytime-1", "dayname-2", "daytext-2", "daytime-2", "dayname-3", "daytext-3", "daytime-3", "dayname-4", "daytext-4", "daytime-4", "dayname-5", "daytext-5", "daytime-5", "dayname-6", "daytext-6", "daytime-6", "sing-title", "sing-sub", "sing-link", "link-soop", "link-youtube", "link-x", "link-cafe", "notice-kicker", "notice-sub", "schedule-kicker", "schedule-sub", "song-kicker", "song-sub", "work-kicker", "work-sub", "dress-kicker", "dress-sub", "emoticon-kicker", "emoticon-sub", "game-kicker", "game-sub", "emo-name-1", "emo-img-1", "emo-soop-1", "emo-naver-1", "emo-name-2", "emo-img-2", "emo-soop-2", "emo-naver-2", "emo-name-3", "emo-img-3", "emo-soop-3", "emo-naver-3", "emo-name-4", "emo-img-4", "emo-soop-4", "emo-naver-4", "theme-ep-paper", "theme-ep-paper-soft", "theme-ep-week", "theme-ep-forest", "theme-ep-ink", "theme-ep-body", "theme-ep-muted", "theme-ep-line", "theme-ep-yellow", "theme-ep-leaf", "type-display", "type-title", "type-body", "type-label"];
 const IMG_FIELDS = ["hero-bg", "avatar", "loader-img", "cc-img", "gallery-1", "gallery-2", "gallery-3", "sing-art", "sing-link", "link-soop", "link-youtube", "link-x", "link-cafe", "emo-img-1", "emo-img-2", "emo-img-3", "emo-img-4"];
 const PAL_DEFAULT = {"theme-ep-paper": "#FFFDF6", "theme-ep-paper-soft": "#FDFCEE", "theme-ep-week": "#F1F7E9", "theme-ep-forest": "#4F6949", "theme-ep-ink": "#35513A", "theme-ep-body": "#566253", "theme-ep-muted": "#84907E", "theme-ep-line": "#CBD7AD", "theme-ep-yellow": "#EFB53D", "theme-ep-leaf": "#9DB27D"};
 const TS = [["type-display", "디스플레이 배율", "히어로 이름 등 초대형"], ["type-title", "제목 배율", "카드 제목"], ["type-body", "본문 배율", "설명·값"], ["type-label", "라벨 배율", "영문 라벨·캡션"]];
@@ -536,6 +566,7 @@ const PRESETS = [
 ];
 
 const TAB_PAGE = {
+  notice:'../notice/',
   emo:'../emoticon/',
   img:'../index.html', top:'../index.html', label:'../index.html', prof:'../index.html',
   week:'../index.html', song2:'../index.html', schedule:'../schedule/', song:'../song/',
@@ -595,7 +626,7 @@ function enterAdmin(){
     if (++n > 6) clearInterval(iv);
   }, 500);
   loadProfileFields();
-  loadSchedule(); loadSong(); loadOriginalSongs(); loadInquiry(); loadWork(); loadDress();
+  loadNotice(); loadSchedule(); loadSong(); loadOriginalSongs(); loadInquiry(); loadWork(); loadDress();
 }
 (async function(){
   try { if (!db) return; const r = await db.auth.getSession(); if (r && r.data && r.data.session) enterAdmin(); }
@@ -838,6 +869,45 @@ async function del(table, id, fn){
   const ok = await deleteRow(table, id);
   if (ok) { showToast('삭제했습니다'); fn(); } else showToast('삭제에 실패했습니다');
 }
+
+
+/* ---------- notice ---------- */
+
+async function loadNotice(){
+  const data = await fetchAll('notice', { order:'created_at', asc:false });
+  const t = $('nt-list');
+  if (!data.length) { t.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-soft);padding:20px">등록된 공지가 없습니다</td></tr>'; return; }
+  t.innerHTML = data.map(function(n){
+    let imgs = 0;
+    if (Array.isArray(n.images)) imgs = n.images.filter(Boolean).length;
+    else if (typeof n.images === 'string' && n.images.trim()) {
+      try { const p = JSON.parse(n.images); imgs = Array.isArray(p) ? p.filter(Boolean).length : 0; } catch (e) { imgs = 0; }
+    }
+    if (n.image_url) imgs += 1;
+    return '<tr><td>' + esc(n.title) + '</td>' +
+      '<td>' + (n.pinned ? '<span class="badge">📌</span>' : '-') + '</td>' +
+      '<td>' + (imgs ? imgs + '장' : '-') + '</td>' +
+      '<td>' + String(n.created_at || '').slice(0,10) + '</td>' +
+      '<td><button class="delete-btn" data-del-nt="' + n.id + '">🗑</button></td></tr>';
+  }).join('');
+}
+$('nt-list').addEventListener('click', function(e){
+  const b = e.target.closest('[data-del-nt]'); if (b) del('notice', +b.dataset.delNt, loadNotice);
+});
+$('addNt').onclick = async function(){
+  const title = $('nt-title').value.trim();
+  if (!title) { showToast('제목을 입력하세요'); return; }
+  const imgs = $('nt-images').value.split(/\n/).map(function(s){ return s.trim(); }).filter(Boolean);
+  const ok = await insertRow('notice', {
+    title: title, content: $('nt-content').value,
+    pinned: $('nt-pin').checked, images: imgs
+  });
+  if (ok) {
+    showToast('등록했습니다');
+    ['nt-title','nt-content','nt-images'].forEach(function(id){ $(id).value = ''; });
+    $('nt-pin').checked = false; loadNotice();
+  } else showToast('등록에 실패했습니다');
+};
 
 /* ---------- schedule ---------- */
 
