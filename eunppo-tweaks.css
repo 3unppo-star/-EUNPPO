@@ -174,3 +174,11 @@ input[type=range]{ cursor:url('/assets/cursor/ew-resize.png') 7 3, ew-resize; }
 /* No black flash before the palette resolves: the canvas is painted immediately. */
 html{ background:#fffdf6; }
 body.dark html, html:has(body.dark){ background:#121712; }
+
+/* admin: an edit button beside delete, and the row being edited is marked */
+.edit-btn{ background:none; border:0; cursor:pointer; color:var(--text-soft);
+  font-size:15px; padding:4px 6px; border-radius:6px; }
+.edit-btn:hover{ color:var(--ep-forest, #4f6949); background:var(--ep-week, #f1f7e9); }
+.row-act-cell{ white-space:nowrap; text-align:center; }
+tr.row-editing > td{ background:var(--ep-week, #f1f7e9) !important; }
+tr.row-editing > td:first-child{ box-shadow:inset 3px 0 0 var(--ep-yellow, #efb53d); }

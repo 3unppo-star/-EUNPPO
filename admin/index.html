@@ -266,7 +266,7 @@
 
   <div class="tab-panel" id="tab-notice">
     <div class="card">
-      <div class="card-title">📢 공지 작성</div>
+      <div class="card-title" id="nt-card-title">📢 공지 작성</div>
       <div class="card-note">나오는 곳 — 공지 페이지. 고정한 공지가 항상 맨 위에 옵니다</div>
       <div class="grid2">
         <div class="form-field full"><label class="input-label" for="nt-title">제목</label>
@@ -282,7 +282,7 @@
           <label style="font-size:13px;font-weight:800"><input type="checkbox" id="nt-pin"> 📌 맨 위에 고정</label>
           <div class="hint">고정한 공지는 날짜와 상관없이 목록 맨 위에 표시됩니다</div></div>
       </div>
-      <div class="row-act"><button class="btn btn-primary" id="addNt">등록</button></div>
+      <div class="row-act"><button class="btn" id="cancelNt" style="display:none">취소</button><button class="btn btn-primary" id="addNt">등록</button></div>
     </div>
     <div class="card">
       <div class="card-title">등록된 공지</div>
@@ -295,7 +295,7 @@
 
   <div class="tab-panel" id="tab-schedule">
     <div class="card">
-      <div class="card-title">일정 추가</div>
+      <div class="card-title" id="sch-card-title">일정 추가</div>
       <div class="card-note">나오는 곳 — 방송 일정 달력 + 다가오는 일정</div>
       <div class="grid2">
         <div class="form-field"><label class="input-label" for="sch-date">날짜</label>
@@ -333,7 +333,7 @@
           <label style="font-size:13px;font-weight:800"><input type="checkbox" id="sch-hl"> 하이라이트</label>
           <div class="hint">그날 칸에 테두리 강조가 들어갑니다</div></div>
       </div>
-      <div class="row-act"><button class="btn btn-primary" id="addSch">추가</button></div>
+      <div class="row-act"><button class="btn" id="cancelSch" style="display:none">취소</button><button class="btn btn-primary" id="addSch">추가</button></div>
     </div>
     <div class="card">
       <div class="card-title">등록된 일정</div>
@@ -346,7 +346,7 @@
 
   <div class="tab-panel" id="tab-song">
     <div class="card">
-      <div class="card-title">노래 추가</div>
+      <div class="card-title" id="song-card-title">노래 추가</div>
       <div class="card-note">나오는 곳 — 노래책 목록 + 오늘의 한 곡 뽑기 대상</div>
       <div class="grid2">
         <div class="form-field"><label class="input-label" for="song-title">제목</label>
@@ -362,7 +362,7 @@
           <input class="input" id="song-diff" type="number" min="1" max="5" value="3">
           <div class="hint">1~5. 목록에서 점 개수로 표시</div></div>
       </div>
-      <div class="row-act"><button class="btn btn-primary" id="addSong">추가</button></div>
+      <div class="row-act"><button class="btn" id="cancelSong" style="display:none">취소</button><button class="btn btn-primary" id="addSong">추가</button></div>
     </div>
     <div class="card">
       <div class="card-title">등록된 노래</div>
@@ -434,7 +434,7 @@
 
   <div class="tab-panel" id="tab-dress">
     <div class="card">
-      <div class="card-title">👗 옷 추가</div>
+      <div class="card-title" id="dr-card-title">👗 옷 추가</div>
       <div class="card-note">나오는 곳 — 옷장 페이지. "새 옷으로 올리기"를 체크하면 ✨새 옷 포스터로, 아니면 🗂기존 옷 그리드로 들어갑니다</div>
       <div class="grid2">
         <div class="form-field"><label class="input-label" for="dr-title">이름</label>
@@ -450,7 +450,7 @@
           <label style="font-size:13px;font-weight:800"><input type="checkbox" id="dr-new" checked> ✨ 새 옷으로 올리기</label>
           <div class="hint">체크하면 NEW 배지가 붙고 ✨새 옷 탭 포스터로 나옵니다</div></div>
       </div>
-      <div class="row-act"><button class="btn btn-primary" id="addDr">추가</button></div>
+      <div class="row-act"><button class="btn" id="cancelDr" style="display:none">취소</button><button class="btn btn-primary" id="addDr">추가</button></div>
     </div>
     <div class="card">
       <div class="card-title">등록된 옷</div>
@@ -873,59 +873,143 @@ async function del(table, id, fn){
 
 /* ---------- notice ---------- */
 
+let noticeData = [], noticeEdit = null;
+
 async function loadNotice(){
-  const data = await fetchAll('notice', { order:'created_at', asc:false });
+  noticeData = await fetchAll('notice', { order:'created_at', asc:false });
   const t = $('nt-list');
-  if (!data.length) { t.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-soft);padding:20px">등록된 공지가 없습니다</td></tr>'; return; }
-  t.innerHTML = data.map(function(n){
-    let imgs = 0;
-    if (Array.isArray(n.images)) imgs = n.images.filter(Boolean).length;
-    else if (typeof n.images === 'string' && n.images.trim()) {
-      try { const p = JSON.parse(n.images); imgs = Array.isArray(p) ? p.filter(Boolean).length : 0; } catch (e) { imgs = 0; }
-    }
-    if (n.image_url) imgs += 1;
-    return '<tr><td>' + esc(n.title) + '</td>' +
+  if (!noticeData.length) { t.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-soft);padding:20px">등록된 공지가 없습니다</td></tr>'; return; }
+  t.innerHTML = noticeData.map(function(n){
+    return '<tr' + (noticeEdit === n.id ? ' class="row-editing"' : '') + '>' +
+      '<td>' + esc(n.title) + '</td>' +
       '<td>' + (n.pinned ? '<span class="badge">📌</span>' : '-') + '</td>' +
-      '<td>' + (imgs ? imgs + '장' : '-') + '</td>' +
+      '<td>' + (noticeImgs(n).length ? noticeImgs(n).length + '장' : '-') + '</td>' +
       '<td>' + String(n.created_at || '').slice(0,10) + '</td>' +
-      '<td><button class="delete-btn" data-del-nt="' + n.id + '">🗑</button></td></tr>';
+      '<td class="row-act-cell">' +
+        '<button class="edit-btn" data-edit-nt="' + n.id + '" title="수정">✏️</button>' +
+        '<button class="delete-btn" data-del-nt="' + n.id + '">🗑</button></td></tr>';
   }).join('');
 }
+
+function noticeImgs(n){
+  let out = [];
+  if (Array.isArray(n.images)) out = n.images.filter(Boolean);
+  else if (typeof n.images === 'string' && n.images.trim()) {
+    try { const p = JSON.parse(n.images); if (Array.isArray(p)) out = p.filter(Boolean); }
+    catch (e) { out = n.images.split(/[\n,]/).map(function(x){ return x.trim(); }).filter(Boolean); }
+  }
+  if (n.image_url) out.unshift(n.image_url);
+  return out;
+}
+
+function editNotice(id){
+  const n = noticeData.find(function(x){ return x.id === id; });
+  if (!n) return;
+  noticeEdit = id;
+  $('nt-title').value = n.title || '';
+  $('nt-content').value = n.content || '';
+  $('nt-images').value = noticeImgs(n).join('\n');
+  $('nt-pin').checked = !!n.pinned;
+  $('addNt').textContent = '수정 저장';
+  $('cancelNt').style.display = '';
+  $('nt-card-title').textContent = '📢 공지 수정';
+  loadNotice();
+  $('nt-title').scrollIntoView({ block:'center', behavior:'smooth' });
+}
+
+function clearNotice(){
+  noticeEdit = null;
+  ['nt-title','nt-content','nt-images'].forEach(function(id){ $(id).value = ''; });
+  $('nt-pin').checked = false;
+  $('addNt').textContent = '등록';
+  $('cancelNt').style.display = 'none';
+  $('nt-card-title').textContent = '📢 공지 작성';
+  loadNotice();
+}
+
 $('nt-list').addEventListener('click', function(e){
-  const b = e.target.closest('[data-del-nt]'); if (b) del('notice', +b.dataset.delNt, loadNotice);
+  const ed = e.target.closest('[data-edit-nt]');
+  if (ed) { editNotice(+ed.dataset.editNt); return; }
+  const b = e.target.closest('[data-del-nt]');
+  if (b) del('notice', +b.dataset.delNt, function(){ if (noticeEdit === +b.dataset.delNt) clearNotice(); else loadNotice(); });
 });
+$('cancelNt').onclick = clearNotice;
+
 $('addNt').onclick = async function(){
   const title = $('nt-title').value.trim();
   if (!title) { showToast('제목을 입력하세요'); return; }
-  const imgs = $('nt-images').value.split(/\n/).map(function(s){ return s.trim(); }).filter(Boolean);
-  const ok = await insertRow('notice', {
-    title: title, content: $('nt-content').value,
-    pinned: $('nt-pin').checked, images: imgs
-  });
-  if (ok) {
-    showToast('등록했습니다');
-    ['nt-title','nt-content','nt-images'].forEach(function(id){ $(id).value = ''; });
-    $('nt-pin').checked = false; loadNotice();
-  } else showToast('등록에 실패했습니다');
+  const imgs = $('nt-images').value.split(/\n/).map(function(x){ return x.trim(); }).filter(Boolean);
+  const row = { title: title, content: $('nt-content').value, pinned: $('nt-pin').checked, images: imgs };
+  const ok = noticeEdit ? await updateRow('notice', noticeEdit, row) : await insertRow('notice', row);
+  if (ok) { showToast(noticeEdit ? '수정했습니다' : '등록했습니다'); clearNotice(); }
+  else showToast(noticeEdit ? '수정에 실패했습니다' : '등록에 실패했습니다');
 };
 
 /* ---------- schedule ---------- */
 
+let schedData = [], schedEdit = null;
+
 async function loadSchedule(){
-  const data = await fetchAll('schedule', { order:'date', asc:true });
+  schedData = await fetchAll('schedule', { order:'date', asc:true });
   const t = $('sch-list');
-  if (!data.length) { t.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text-soft);padding:20px">등록된 일정이 없습니다</td></tr>'; return; }
-  t.innerHTML = data.map(function(s){
+  if (!schedData.length) { t.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text-soft);padding:20px">등록된 일정이 없습니다</td></tr>'; return; }
+  t.innerHTML = schedData.map(function(s){
     const off = s.type === '휴방';
-    return '<tr><td>' + s.date + '</td><td>' + (s.end_date || '-') + '</td><td>' + (s.time || '-') + '</td>' +
+    return '<tr' + (schedEdit === s.id ? ' class="row-editing"' : '') + '>' +
+      '<td>' + s.date + '</td><td>' + (s.end_date || '-') + '</td><td>' + (s.time || '-') + '</td>' +
       '<td><span class="badge' + (off ? '' : ' badge-pink') + '">' + (off ? '휴방' : '방송') + '</span></td>' +
       '<td>' + esc(s.title || '-') + '</td>' +
-      '<td><button class="delete-btn" data-del-sch="' + s.id + '">🗑</button></td></tr>';
+      '<td class="row-act-cell">' +
+        '<button class="edit-btn" data-edit-sch="' + s.id + '" title="수정">✏️</button>' +
+        '<button class="delete-btn" data-del-sch="' + s.id + '">🗑</button></td></tr>';
   }).join('');
 }
+
+/* Load a row back into the form. The same form then updates instead of inserting,
+   so fixing a typo no longer means delete and retype. */
+function editSchedule(id){
+  const s = schedData.find(function(x){ return x.id === id; });
+  if (!s) return;
+  schedEdit = id;
+  $('sch-date').value = s.date || '';
+  $('sch-end').value = s.end_date || '';
+  $('sch-type').value = s.type || '방송';
+  $('sch-time').value = s.time || '';
+  $('sch-title').value = s.title || '';
+  $('sch-time2').value = s.time2 || '';
+  $('sch-title2').value = s.title2 || '';
+  $('sch-desc').value = s.description || '';
+  $('sch-hl').checked = !!s.highlight;
+  const c = document.querySelector('input[name="schcolor"][value="' + (s.color || 'green') + '"]');
+  if (c) c.checked = true;
+  $('addSch').textContent = '수정 저장';
+  $('cancelSch').style.display = '';
+  $('sch-card-title').textContent = '일정 수정';
+  loadSchedule();
+  $('sch-date').scrollIntoView({ block:'center', behavior:'smooth' });
+}
+
+function clearSchedule(){
+  schedEdit = null;
+  ['sch-title','sch-date','sch-end','sch-time','sch-time2','sch-title2','sch-desc'].forEach(function(id){ $(id).value = ''; });
+  $('sch-hl').checked = false;
+  $('sch-type').value = '방송';
+  const g = document.querySelector('input[name="schcolor"][value="green"]');
+  if (g) g.checked = true;
+  $('addSch').textContent = '추가';
+  $('cancelSch').style.display = 'none';
+  $('sch-card-title').textContent = '일정 추가';
+  loadSchedule();
+}
+
 $('sch-list').addEventListener('click', function(e){
-  const b = e.target.closest('[data-del-sch]'); if (b) del('schedule', +b.dataset.delSch, loadSchedule);
+  const ed = e.target.closest('[data-edit-sch]');
+  if (ed) { editSchedule(+ed.dataset.editSch); return; }
+  const b = e.target.closest('[data-del-sch]');
+  if (b) { const id = +b.dataset.delSch; del('schedule', id, function(){ if (schedEdit === id) clearSchedule(); else loadSchedule(); }); }
 });
+$('cancelSch').onclick = clearSchedule;
+
 $('addSch').onclick = async function(){
   const date = $('sch-date').value;
   if (!date) { showToast('날짜를 입력하세요'); return; }
@@ -935,23 +1019,23 @@ $('addSch').onclick = async function(){
   const endDate = $('sch-end').value;
   if (endDate && endDate < date) { showToast('종료일이 시작일보다 앞설 수 없습니다'); return; }
   const color = (document.querySelector('input[name="schcolor"]:checked') || {}).value || 'green';
-  const ok = await insertRow('schedule', {
+  const row = {
     title: title, date: date, type: type, color: color, end_date: endDate || null,
     time: $('sch-time').value, time2: $('sch-time2').value,
     title2: $('sch-title2').value.trim(), description: $('sch-desc').value.trim(),
     highlight: $('sch-hl').checked
-  });
-  if (ok) {
-    showToast('추가했습니다');
-    ['sch-title','sch-date','sch-end','sch-time','sch-time2','sch-title2','sch-desc'].forEach(function(id){ $(id).value = ''; });
-    $('sch-hl').checked = false; loadSchedule();
-  } else showToast('추가에 실패했습니다');
+  };
+  const ok = schedEdit ? await updateRow('schedule', schedEdit, row) : await insertRow('schedule', row);
+  if (ok) { showToast(schedEdit ? '수정했습니다' : '추가했습니다'); clearSchedule(); }
+  else showToast(schedEdit ? '수정에 실패했습니다' : '추가에 실패했습니다');
 };
 
 /* ---------- songs ---------- */
 
 let songData = [];
 async function loadSong(){ songData = await fetchAll('songs', { order:'id', asc:true }); renderSongs(); }
+let songEdit = null;
+
 function renderSongs(){
   const q = ($('song-search').value || '').trim().toLowerCase();
   const list = songData.filter(function(s){
@@ -962,27 +1046,60 @@ function renderSongs(){
   if (!list.length) { t.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-soft);padding:20px">검색 결과가 없습니다</td></tr>'; return; }
   t.innerHTML = list.map(function(s){
     const d = parseInt(s.difficulty, 10) || 0;
-    return '<tr><td>' + esc(s.title) + '</td><td>' + (esc(s.artist) || '-') + '</td>' +
+    return '<tr' + (songEdit === s.id ? ' class="row-editing"' : '') + '>' +
+      '<td>' + esc(s.title) + '</td><td>' + (esc(s.artist) || '-') + '</td>' +
       '<td><span class="badge badge-pink">' + (esc(s.genre) || '기타') + '</span></td>' +
       '<td>' + (d ? '●'.repeat(d) : '-') + '</td>' +
-      '<td><button class="delete-btn" data-del-song="' + s.id + '">🗑</button></td></tr>';
+      '<td class="row-act-cell">' +
+        '<button class="edit-btn" data-edit-song="' + s.id + '" title="수정">✏️</button>' +
+        '<button class="delete-btn" data-del-song="' + s.id + '">🗑</button></td></tr>';
   }).join('');
 }
+
+function editSong(id){
+  const s = songData.find(function(x){ return x.id === id; });
+  if (!s) return;
+  songEdit = id;
+  $('song-title').value = s.title || '';
+  $('song-artist').value = s.artist || '';
+  $('song-genre').value = s.genre || '기타';
+  $('song-diff').value = parseInt(s.difficulty, 10) || 3;
+  $('addSong').textContent = '수정 저장';
+  $('cancelSong').style.display = '';
+  $('song-card-title').textContent = '노래 수정';
+  renderSongs();
+  $('song-title').scrollIntoView({ block:'center', behavior:'smooth' });
+}
+
+function clearSong(){
+  songEdit = null;
+  $('song-title').value = ''; $('song-artist').value = ''; $('song-diff').value = 3;
+  $('addSong').textContent = '추가';
+  $('cancelSong').style.display = 'none';
+  $('song-card-title').textContent = '노래 추가';
+  renderSongs();
+}
+
 $('song-search').addEventListener('input', renderSongs);
 $('song-list').addEventListener('click', function(e){
-  const b = e.target.closest('[data-del-song]'); if (b) del('songs', +b.dataset.delSong, loadSong);
+  const ed = e.target.closest('[data-edit-song]');
+  if (ed) { editSong(+ed.dataset.editSong); return; }
+  const b = e.target.closest('[data-del-song]');
+  if (b) del('songs', +b.dataset.delSong, function(){ if (songEdit === +b.dataset.delSong) songEdit = null; loadSong(); });
 });
+$('cancelSong').onclick = clearSong;
+
 $('addSong').onclick = async function(){
   const title = $('song-title').value.trim();
   if (!title) { showToast('제목을 입력하세요'); return; }
   let diff = parseInt($('song-diff').value, 10) || 3;
   diff = Math.min(5, Math.max(1, diff));
-  const ok = await insertRow('songs', {
-    title: title, artist: $('song-artist').value.trim(), genre: $('song-genre').value, difficulty: diff
-  });
-  if (ok) { showToast('추가했습니다'); $('song-title').value = ''; $('song-artist').value = ''; loadSong(); }
-  else showToast('추가에 실패했습니다');
+  const row = { title: title, artist: $('song-artist').value.trim(), genre: $('song-genre').value, difficulty: diff };
+  const ok = songEdit ? await updateRow('songs', songEdit, row) : await insertRow('songs', row);
+  if (ok) { showToast(songEdit ? '수정했습니다' : '추가했습니다'); clearSong(); await loadSong(); }
+  else showToast(songEdit ? '수정에 실패했습니다' : '추가에 실패했습니다');
 };
+
 $('swapSong').onclick = async function(){
   if (!songData.length) { showToast('노래가 없습니다'); return; }
   if (!confirm('등록된 ' + songData.length + '곡의 제목과 아티스트를 서로 바꿉니다. 계속할까요?')) return;
@@ -1110,32 +1227,69 @@ $('cnt-panel').addEventListener('click', async function(e){
 /* Categories live in three places: this list, the select above and dress/index.html CATS. */
 const DRESS_CATS = { hair:'헤어', outfit:'의상', lens:'렌즈' };
 
+let dressData = [], dressEdit = null;
+
 async function loadDress(){
-  const data = await fetchAll('dress_items', { order:'id', asc:false });
+  dressData = await fetchAll('dress_items', { order:'id', asc:false });
   const t = $('dr-list');
-  if (!data.length) { t.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-soft);padding:20px">등록된 옷이 없습니다</td></tr>'; return; }
-  t.innerHTML = data.map(function(d){
+  if (!dressData.length) { t.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-soft);padding:20px">등록된 옷이 없습니다</td></tr>'; return; }
+  t.innerHTML = dressData.map(function(d){
     const isNew = String(d.badges || '').toUpperCase().indexOf('NEW') >= 0;
-    return '<tr><td>' + esc(d.title) + '</td>' +
+    return '<tr' + (dressEdit === d.id ? ' class="row-editing"' : '') + '>' +
+      '<td>' + esc(d.title) + '</td>' +
       '<td>' + esc(DRESS_CATS[d.category] || d.category || '-') + '</td>' +
       '<td><span class="badge' + (isNew ? '' : ' badge-pink') + '">' + (isNew ? '새 옷' : '기존') + '</span></td>' +
       '<td>' + String(d.created_at || '').slice(0,10) + '</td>' +
-      '<td><button class="delete-btn" data-del-dr="' + d.id + '">🗑</button></td></tr>';
+      '<td class="row-act-cell">' +
+        '<button class="edit-btn" data-edit-dr="' + d.id + '" title="수정">✏️</button>' +
+        '<button class="delete-btn" data-del-dr="' + d.id + '">🗑</button></td></tr>';
   }).join('');
 }
+
+function editDress(id){
+  const d = dressData.find(function(x){ return x.id === id; });
+  if (!d) return;
+  dressEdit = id;
+  $('dr-title').value = d.title || '';
+  $('dr-cat').value = d.category || 'outfit';
+  $('dr-img').value = d.image_url || '';
+  $('dr-new').checked = String(d.badges || '').toUpperCase().indexOf('NEW') >= 0;
+  $('addDr').textContent = '수정 저장';
+  $('cancelDr').style.display = '';
+  $('dr-card-title').textContent = '👗 옷 수정';
+  loadDress();
+  $('dr-title').scrollIntoView({ block:'center', behavior:'smooth' });
+}
+
+function clearDress(){
+  dressEdit = null;
+  $('dr-title').value = ''; $('dr-img').value = '';
+  $('dr-cat').value = 'outfit'; $('dr-new').checked = true;
+  $('addDr').textContent = '추가';
+  $('cancelDr').style.display = 'none';
+  $('dr-card-title').textContent = '👗 옷 추가';
+  loadDress();
+}
+
 $('dr-list').addEventListener('click', function(e){
-  const b = e.target.closest('[data-del-dr]'); if (b) del('dress_items', +b.dataset.delDr, loadDress);
+  const ed = e.target.closest('[data-edit-dr]');
+  if (ed) { editDress(+ed.dataset.editDr); return; }
+  const b = e.target.closest('[data-del-dr]');
+  if (b) del('dress_items', +b.dataset.delDr, function(){ if (dressEdit === +b.dataset.delDr) clearDress(); else loadDress(); });
 });
+$('cancelDr').onclick = clearDress;
+
 $('addDr').onclick = async function(){
   const title = $('dr-title').value.trim();
   if (!title) { showToast('이름을 입력하세요'); return; }
-  const ok = await insertRow('dress_items', {
+  const row = {
     title: title, category: $('dr-cat').value,
     image_url: $('dr-img').value.trim(),
     badges: $('dr-new').checked ? 'NEW' : ''
-  });
-  if (ok) { showToast('추가했습니다'); $('dr-title').value = ''; $('dr-img').value = ''; loadDress(); }
-  else showToast('추가에 실패했습니다');
+  };
+  const ok = dressEdit ? await updateRow('dress_items', dressEdit, row) : await insertRow('dress_items', row);
+  if (ok) { showToast(dressEdit ? '수정했습니다' : '추가했습니다'); clearDress(); }
+  else showToast(dressEdit ? '수정에 실패했습니다' : '추가에 실패했습니다');
 };
 
 /* ---------- inquiries ---------- */
